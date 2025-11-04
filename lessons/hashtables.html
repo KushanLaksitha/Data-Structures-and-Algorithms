@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Tables - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .code-title {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success-box h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .complexity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .complexity-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .complexity-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .complexity-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .visual-example {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+        }
+
+        .visual-example h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .hash-visual {
+            display: grid;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .hash-slot {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #764ba2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .code-block {
+                padding: 15px;
+            }
+
+            .code-block pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 Hash Tables</h1>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> > Section 10: Hash Tables
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="section">
+                <h2>Introduction to Hash Tables</h2>
+                <p>A hash table (also called hash map) is a data structure that implements an associative array, a structure that can map keys to values. It uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found.</p>
+
+                <div class="info-box">
+                    <h4>Key Concepts</h4>
+                    <ul>
+                        <li><strong>Hash Function:</strong> Converts a key into an array index</li>
+                        <li><strong>Bucket/Slot:</strong> Storage location in the hash table</li>
+                        <li><strong>Collision:</strong> When two keys hash to the same index</li>
+                        <li><strong>Load Factor:</strong> Ratio of number of elements to table size</li>
+                        <li><strong>Collision Resolution:</strong> Methods to handle collisions</li>
+                    </ul>
+                </div>
+
+                <h3>Hash Function</h3>
+                <p>A hash function takes a key and returns an integer index within the bounds of the hash table. A good hash function should:</p>
+                <ul>
+                    <li>Distribute keys uniformly across the table</li>
+                    <li>Be deterministic (same key always produces same hash)</li>
+                    <li>Be efficient to compute</li>
+                    <li>Minimize collisions</li>
+                </ul>
+
+                <div class="visual-example">
+                    <h4>Simple Hash Function Example</h4>
+                    <p><strong>Formula:</strong> hash(key) = key % table_size</p>
+                    <div class="hash-visual">
+                        <div class="hash-slot">
+                            <span>Key: 25, Table Size: 10</span>
+                            <span><strong>Index: 5</strong></span>
+                        </div>
+                        <div class="hash-slot">
+                            <span>Key: 43, Table Size: 10</span>
+                            <span><strong>Index: 3</strong></span>
+                        </div>
+                        <div class="hash-slot">
+                            <span>Key: 17, Table Size: 10</span>
+                            <span><strong>Index: 7</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Collision Resolution Methods</h3>
+                <ol>
+                    <li><strong>Separate Chaining (Linked List):</strong> Each bucket contains a linked list of elements</li>
+                    <li><strong>Open Addressing:</strong> Find another open slot in the array</li>
+                    <li><strong>Linear Probing:</strong> Check next slot sequentially</li>
+                    <li><strong>Quadratic Probing:</strong> Check slots at quadratic intervals</li>
+                    <li><strong>Double Hashing:</strong> Use second hash function</li>
+                </ol>
+            </div>
+
+            <!-- Hash Table using Arrays -->
+            <div class="section" id="array-based">
+                <h2>10.1 Hash Tables using Arrays</h2>
+                <p>This implementation uses arrays with linear probing for collision resolution. When a collision occurs, we search for the next available slot.</p>
+
+                <h3>Structure Definition</h3>
+                <div class="code-title">Hash Table Structure with Arrays</div>
+                <div class="code-block">
+                    <pre>
+#define TABLE_SIZE 10
+#define EMPTY -1
+#define DELETED -2
+
+struct HashTable {
+    int keys[TABLE_SIZE];
+    int values[TABLE_SIZE];
+};
+                    </pre>
+                </div>
+
+                <h3>Hash Function</h3>
+                <div class="code-title">Simple Hash Function</div>
+                <div class="code-block">
+                    <pre>
+int hashFunction(int key) {
+    return key % TABLE_SIZE;
+}
+                    </pre>
+                </div>
+
+                <h3>Initialize Hash Table</h3>
+                <div class="code-title">Initialization Function</div>
+                <div class="code-block">
+                    <pre>
+void initHashTable(struct HashTable* ht) {
+    int i;
+    for (i = 0; i < TABLE_SIZE; i++) {
+        ht->keys[i] = EMPTY;
+        ht->values[i] = 0;
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Insert Operation (Linear Probing)</h3>
+                <div class="code-title">Insert with Linear Probing</div>
+                <div class="code-block">
+                    <pre>
+int insert(struct HashTable* ht, int key, int value) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    int i = 0;
+    
+    // Linear probing to find empty slot
+    while (ht->keys[index] != EMPTY && ht->keys[index] != DELETED) {
+        // Key already exists, update value
+        if (ht->keys[index] == key) {
+            ht->values[index] = value;
+            return 1;
+        }
+        
+        // Move to next slot
+        i++;
+        index = (originalIndex + i) % TABLE_SIZE;
+        
+        // Table is full
+        if (i >= TABLE_SIZE) {
+            printf("Hash table is full!\n");
+            return 0;
+        }
+    }
+    
+    // Insert new key-value pair
+    ht->keys[index] = key;
+    ht->values[index] = value;
+    return 1;
+}
+                    </pre>
+                </div>
+
+                <h3>Search Operation</h3>
+                <div class="code-title">Search Function</div>
+                <div class="code-block">
+                    <pre>
+int search(struct HashTable* ht, int key, int* value) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    int i = 0;
+    
+    // Linear probing to find the key
+    while (ht->keys[index] != EMPTY) {
+        if (ht->keys[index] == key) {
+            *value = ht->values[index];
+            return 1;  // Found
+        }
+        
+        i++;
+        index = (originalIndex + i) % TABLE_SIZE;
+        
+        // Checked entire table
+        if (i >= TABLE_SIZE) {
+            return 0;  // Not found
+        }
+    }
+    
+    return 0;  // Not found
+}
+                    </pre>
+                </div>
+
+                <h3>Delete Operation</h3>
+                <div class="code-title">Delete Function</div>
+                <div class="code-block">
+                    <pre>
+int deleteKey(struct HashTable* ht, int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    int i = 0;
+    
+    // Linear probing to find the key
+    while (ht->keys[index] != EMPTY) {
+        if (ht->keys[index] == key) {
+            ht->keys[index] = DELETED;
+            ht->values[index] = 0;
+            return 1;  // Deleted successfully
+        }
+        
+        i++;
+        index = (originalIndex + i) % TABLE_SIZE;
+        
+        if (i >= TABLE_SIZE) {
+            return 0;  // Not found
+        }
+    }
+    
+    return 0;  // Not found
+}
+                    </pre>
+                </div>
+
+                <h3>Display Hash Table</h3>
+                <div class="code-title">Display Function</div>
+                <div class="code-block">
+                    <pre>
+void display(struct HashTable* ht) {
+    int i;
+    printf("\nHash Table:\n");
+    printf("Index\tKey\tValue\n");
+    printf("-------------------------\n");
+    
+    for (i = 0; i < TABLE_SIZE; i++) {
+        printf("%d\t", i);
+        if (ht->keys[i] == EMPTY) {
+            printf("EMPTY\t-\n");
+        }
+        else if (ht->keys[i] == DELETED) {
+            printf("DELETED\t-\n");
+        }
+        else {
+            printf("%d\t%d\n", ht->keys[i], ht->values[i]);
+        }
+    }
+    printf("\n");
+}
+                    </pre>
+                </div>
+
+                <h3>Complete Program</h3>
+                <div class="code-title">Complete Hash Table Implementation with Arrays</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+
+#define TABLE_SIZE 10
+#define EMPTY -1
+#define DELETED -2
+
+struct HashTable {
+    int keys[TABLE_SIZE];
+    int values[TABLE_SIZE];
+};
+
+int hashFunction(int key);
+void initHashTable(struct HashTable* ht);
+int insert(struct HashTable* ht, int key, int value);
+int search(struct HashTable* ht, int key, int* value);
+int deleteKey(struct HashTable* ht, int key);
+void display(struct HashTable* ht);
+
+int main() {
+    struct HashTable ht;
+    int value;
+    
+    initHashTable(&ht);
+    
+    printf("Inserting elements into hash table...\n");
+    insert(&ht, 5, 50);
+    insert(&ht, 15, 150);
+    insert(&ht, 25, 250);
+    insert(&ht, 35, 350);
+    insert(&ht, 7, 70);
+    
+    display(&ht);
+    
+    printf("Searching for key 15...\n");
+    if (search(&ht, 15, &value)) {
+        printf("Key 15 found with value: %d\n", value);
+    }
+    else {
+        printf("Key 15 not found\n");
+    }
+    
+    printf("\nDeleting key 15...\n");
+    if (deleteKey(&ht, 15)) {
+        printf("Key 15 deleted successfully\n");
+    }
+    
+    display(&ht);
+    
+    printf("Searching for key 15 after deletion...\n");
+    if (search(&ht, 15, &value)) {
+        printf("Key 15 found with value: %d\n", value);
+    }
+    else {
+        printf("Key 15 not found\n");
+    }
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Limitations of Array-Based Hash Tables</h4>
+                    <ul>
+                        <li>Fixed size - table can fill up</li>
+                        <li>Clustering problem with linear probing</li>
+                        <li>Performance degrades as load factor increases</li>
+                        <li>Deletion requires special handling (DELETED marker)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Hash Table using Linked Lists -->
+            <div class="section" id="linked-based">
+                <h2>10.2 Hash Tables using Linked Lists (Separate Chaining)</h2>
+                <p>This implementation uses separate chaining where each bucket contains a linked list. Collisions are handled by adding elements to the linked list at that index.</p>
+
+                <h3>Structure Definition</h3>
+                <div class="code-title">Node and Hash Table Structures</div>
+                <div class="code-block">
+                    <pre>
+#define TABLE_SIZE 10
+
+struct Node {
+    int key;
+    int value;
+    struct Node* next;
+};
+
+struct HashTable {
+    struct Node* buckets[TABLE_SIZE];
+};
+                    </pre>
+                </div>
+
+                <h3>Hash Function</h3>
+                <div class="code-title">Hash Function for Chaining</div>
+                <div class="code-block">
+                    <pre>
+int hashFunction(int key) {
+    return key % TABLE_SIZE;
+}
+                    </pre>
+                </div>
+
+                <h3>Create New Node</h3>
+                <div class="code-title">Node Creation Function</div>
+                <div class="code-block">
+                    <pre>
+struct Node* createNode(int key, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->key = key;
+    newNode->value = value;
+    newNode->next = NULL;
+    return newNode;
+}
+                    </pre>
+                </div>
+
+                <h3>Initialize Hash Table</h3>
+                <div class="code-title">Initialization Function</div>
+                <div class="code-block">
+                    <pre>
+void initHashTable(struct HashTable* ht) {
+    int i;
+    for (i = 0; i < TABLE_SIZE; i++) {
+        ht->buckets[i] = NULL;
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Insert Operation</h3>
+                <div class="code-title">Insert with Separate Chaining</div>
+                <div class="code-block">
+                    <pre>
+void insert(struct HashTable* ht, int key, int value) {
+    int index = hashFunction(key);
+    struct Node* newNode = createNode(key, value);
+    
+    // If bucket is empty
+    if (ht->buckets[index] == NULL) {
+        ht->buckets[index] = newNode;
+        return;
+    }
+    
+    // Check if key already exists
+    struct Node* current = ht->buckets[index];
+    while (current != NULL) {
+        if (current->key == key) {
+            // Update existing value
+            current->value = value;
+            free(newNode);
+            return;
+        }
+        current = current->next;
+    }
+    
+    // Insert at the beginning of the linked list
+    newNode->next = ht->buckets[index];
+    ht->buckets[index] = newNode;
+}
+                    </pre>
+                </div>
+
+                <h3>Search Operation</h3>
+                <div class="code-title">Search Function</div>
+                <div class="code-block">
+                    <pre>
+int search(struct HashTable* ht, int key, int* value) {
+    int index = hashFunction(key);
+    struct Node* current = ht->buckets[index];
+    
+    // Traverse the linked list at this index
+    while (current != NULL) {
+        if (current->key == key) {
+            *value = current->value;
+            return 1;  // Found
+        }
+        current = current->next;
+    }
+    
+    return 0;  // Not found
+}
+                    </pre>
+                </div>
+
+                <h3>Delete Operation</h3>
+                <div class="code-title">Delete Function</div>
+                <div class="code-block">
+                    <pre>
+int deleteKey(struct HashTable* ht, int key) {
+    int index = hashFunction(key);
+    struct Node* current = ht->buckets[index];
+    struct Node* prev = NULL;
+    
+    // Traverse the linked list
+    while (current != NULL) {
+        if (current->key == key) {
+            // Found the key
+            if (prev == NULL) {
+                // Node is at the head
+                ht->buckets[index] = current->next;
+            }
+            else {
+                // Node is in the middle or end
+                prev->next = current->next;
+            }
+            free(current);
+            return 1;  // Deleted successfully
+        }
+        prev = current;
+        current = current->next;
+    }
+    
+    return 0;  // Not found
+}
+                    </pre>
+                </div>
+
+                <h3>Display Hash Table</h3>
+                <div class="code-title">Display Function</div>
+                <div class="code-block">
+                    <pre>
+void display(struct HashTable* ht) {
+    int i;
+    printf("\nHash Table:\n");
+    
+    for (i = 0; i < TABLE_SIZE; i++) {
+        printf("Bucket %d: ", i);
+        
+        struct Node* current = ht->buckets[i];
+        if (current == NULL) {
+            printf("Empty");
+        }
+        else {
+            while (current != NULL) {
+                printf("[%d:%d] -> ", current->key, current->value);
+                current = current->next;
+            }
+            printf("NULL");
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+                    </pre>
+                </div>
+
+                <h3>Free Hash Table</h3>
+                <div class="code-title">Memory Cleanup Function</div>
+                <div class="code-block">
+                    <pre>
+void freeHashTable(struct HashTable* ht) {
+    int i;
+    for (i = 0; i < TABLE_SIZE; i++) {
+        struct Node* current = ht->buckets[i];
+        while (current != NULL) {
+            struct Node* temp = current;
+            current = current->next;
+            free(temp);
+        }
+        ht->buckets[i] = NULL;
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Complete Program</h3>
+                <div class="code-title">Complete Hash Table with Separate Chaining</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define TABLE_SIZE 10
+
+struct Node {
+    int key;
+    int value;
+    struct Node* next;
+};
+
+struct HashTable {
+    struct Node* buckets[TABLE_SIZE];
+};
+
+int hashFunction(int key);
+struct Node* createNode(int key, int value);
+void initHashTable(struct HashTable* ht);
+void insert(struct HashTable* ht, int key, int value);
+int search(struct HashTable* ht, int key, int* value);
+int deleteKey(struct HashTable* ht, int key);
+void display(struct HashTable* ht);
+void freeHashTable(struct HashTable* ht);
+
+int main() {
+    struct HashTable ht;
+    int value;
+    
+    initHashTable(&ht);
+    
+    printf("Inserting elements into hash table...\n");
+    insert(&ht, 5, 50);
+    insert(&ht, 15, 150);
+    insert(&ht, 25, 250);
+    insert(&ht, 35, 350);
+    insert(&ht, 7, 70);
+    insert(&ht, 17, 170);
+    
+    display(&ht);
+    
+    printf("Searching for key 15...\n");
+    if (search(&ht, 15, &value)) {
+        printf("Key 15 found with value: %d\n\n", value);
+    }
+    else {
+        printf("Key 15 not found\n\n");
+    }
+    
+    printf("Deleting key 15...\n");
+    if (deleteKey(&ht, 15)) {
+        printf("Key 15 deleted successfully\n");
+    }
+    
+    display(&ht);
+    
+    printf("Searching for key 15 after deletion...\n");
+    if (search(&ht, 15, &value)) {
+        printf("Key 15 found with value: %d\n", value);
+    }
+    else {
+        printf("Key 15 not found\n");
+    }
+    
+    freeHashTable(&ht);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <div class="success-box">
+                    <h4>Advantages of Separate Chaining</h4>
+                    <ul>
+                        <li>Simple to implement</li>
+                        <li>No fixed table size limitation</li>
+                        <li>Less sensitive to hash function quality</li>
+                        <li>Easy deletion - no special markers needed</li>
+                        <li>Performance degrades gracefully with collisions</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Disadvantages of Separate Chaining</h4>
+                    <ul>
+                        <li>Extra memory for pointers</li>
+                        <li>Cache performance may be worse than array-based</li>
+                        <li>Requires dynamic memory allocation</li>
+                        <li>Linked list traversal overhead</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Complexity Analysis -->
+            <div class="section">
+                <h2>Complexity Analysis</h2>
+
+                <h3>Array-Based (Linear Probing)</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Average Case</th>
+                            <th>Worst Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Insert</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Search</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Delete</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Space</td>
+                            <td colspan="2">O(n)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Linked List-Based (Separate Chaining)</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Average Case</th>
+                            <th>Worst Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Insert</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Search</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Delete</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Space</td>
+                            <td colspan="2">O(n + m)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Note:</strong> n = number of elements, m = table size. Worst case occurs when all keys hash to the same bucket.</p>
+
+                <div class="info-box">
+                    <h4>Load Factor</h4>
+                    <p><strong>Load Factor (α) = n / m</strong></p>
+                    <p>Where n is the number of elements and m is the table size.</p>
+                    <ul>
+                        <li>α < 0.7: Good performance for most applications</li>
+                        <li>α ≈ 1.0: Acceptable for separate chaining</li>
+                        <li>α > 1.0: Consider resizing the table</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Comparison -->
+            <div class="section">
+                <h2>Array-Based vs Linked List-Based</h2>
+
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Array-Based (Linear Probing)</th>
+                            <th>Linked List-Based (Chaining)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Memory Usage</td>
+                            <td>Fixed, contiguous</td>
+                            <td>Dynamic, non-contiguous</td>
+                        </tr>
+                        <tr>
+                            <td>Cache Performance</td>
+                            <td>Better (locality)</td>
+                            <td>Worse (pointer chasing)</td>
+                        </tr>
+                        <tr>
+                            <td>Collision Handling</td>
+                            <td>Linear probing</td>
+                            <td>Linked lists</td>
+                        </tr>
+                        <tr>
+                            <td>Table Full</td>
+                            <td>Cannot insert more</td>
+                            <td>Can always insert</td>
+                        </tr>
+                        <tr>
+                            <td>Deletion</td>
+                            <td>Complex (markers)</td>
+                            <td>Simple (remove node)</td>
+                        </tr>
+                        <tr>
+                            <td>Implementation</td>
+                            <td>Simpler</td>
+                            <td>More complex</td>
+                        </tr>
+                        <tr>
+                            <td>Best Use Case</td>
+                            <td>Fixed size, few deletions</td>
+                            <td>Dynamic size, frequent operations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Applications -->
+            <div class="section">
+                <h2>Real-World Applications</h2>
+
+                <div class="success-box">
+                    <h4>Common Applications of Hash Tables</h4>
+                    <ul>
+                        <li><strong>Databases:</strong> Indexing for fast data retrieval</li>
+                        <li><strong>Caching:</strong> Browser cache, DNS cache, CDN</li>
+                        <li><strong>Symbol Tables:</strong> Compilers and interpreters</li>
+                        <li><strong>Dictionaries:</strong> Python dict, JavaScript objects</li>
+                        <li><strong>Sets:</strong> Checking membership in O(1) time</li>
+                        <li><strong>Password Verification:</strong> Storing hashed passwords</li>
+                        <li><strong>Blockchain:</strong> Merkle trees and proof of work</li>
+                        <li><strong>Routers:</strong> IP address routing tables</li>
+                        <li><strong>Spell Checkers:</strong> Fast word lookup</li>
+                        <li><strong>File Systems:</strong> File name to inode mapping</li>
+                    </ul>
+                </div>
+
+                <h3>Example: Word Frequency Counter</h3>
+                <div class="code-title">Word Frequency Using Hash Table</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+#define TABLE_SIZE 100
+
+struct Node {
+    char word[50];
+    int frequency;
+    struct Node* next;
+};
+
+struct HashTable {
+    struct Node* buckets[TABLE_SIZE];
+};
+
+int hashFunction(char* word) {
+    int hash = 0;
+    int i;
+    for (i = 0; word[i] != '\0'; i++) {
+        hash = (hash * 31 + word[i]) % TABLE_SIZE;
+    }
+    return hash;
+}
+
+struct Node* createNode(char* word) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    strcpy(newNode->word, word);
+    newNode->frequency = 1;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void initHashTable(struct HashTable* ht) {
+    int i;
+    for (i = 0; i < TABLE_SIZE; i++) {
+        ht->buckets[i] = NULL;
+    }
+}
+
+void insertWord(struct HashTable* ht, char* word) {
+    int index = hashFunction(word);
+    struct Node* current = ht->buckets[index];
+    
+    // Check if word already exists
+    while (current != NULL) {
+        if (strcmp(current->word, word) == 0) {
+            current->frequency++;
+            return;
+        }
+        current = current->next;
+    }
+    
+    // Word doesn't exist, create new node
+    struct Node* newNode = createNode(word);
+    newNode->next = ht->buckets[index];
+    ht->buckets[index] = newNode;
+}
+
+void displayFrequencies(struct HashTable* ht) {
+    int i;
+    printf("\nWord Frequencies:\n");
+    printf("%-20s %s\n", "Word", "Frequency");
+    printf("--------------------------------\n");
+    
+    for (i = 0; i < TABLE_SIZE; i++) {
+        struct Node* current = ht->buckets[i];
+        while (current != NULL) {
+            printf("%-20s %d\n", current->word, current->frequency);
+            current = current->next;
+        }
+    }
+}
+
+int main() {
+    struct HashTable ht;
+    initHashTable(&ht);
+    
+    char* text[] = {"hello", "world", "hello", "hash", 
+                    "table", "world", "hash", "hello"};
+    int n = sizeof(text) / sizeof(text[0]);
+    int i;
+    
+    printf("Processing words...\n");
+    for (i = 0; i < n; i++) {
+        insertWord(&ht, text[i]);
+    }
+    
+    displayFrequencies(&ht);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Advanced Concepts -->
+            <div class="section">
+                <h2>Advanced Concepts</h2>
+
+                <h3>Better Hash Functions</h3>
+                <div class="info-box">
+                    <h4>String Hash Functions</h4>
+                    <p>For string keys, better hash functions distribute keys more uniformly:</p>
+                </div>
+
+                <div class="code-title">Polynomial Rolling Hash</div>
+                <div class="code-block">
+                    <pre>
+int polynomialHash(char* str, int tableSize) {
+    int hash = 0;
+    int p = 31;  // Prime number
+    int i;
+    
+    for (i = 0; str[i] != '\0'; i++) {
+        hash = (hash * p + str[i]) % tableSize;
+    }
+    
+    return hash;
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">DJB2 Hash Function</div>
+                <div class="code-block">
+                    <pre>
+unsigned long djb2Hash(char* str) {
+    unsigned long hash = 5381;
+    int c;
+    
+    while ((c = *str++)) {
+        hash = ((hash << 5) + hash) + c;  // hash * 33 + c
+    }
+    
+    return hash;
+}
+                    </pre>
+                </div>
+
+                <h3>Resizing Hash Tables</h3>
+                <p>When load factor becomes too high, resize the table to maintain performance:</p>
+
+                <div class="code-title">Rehashing Function</div>
+                <div class="code-block">
+                    <pre>
+void rehash(struct HashTable* oldHT, struct HashTable* newHT, 
+            int oldSize, int newSize) {
+    int i;
+    
+    // Initialize new hash table
+    for (i = 0; i < newSize; i++) {
+        newHT->buckets[i] = NULL;
+    }
+    
+    // Rehash all elements from old table
+    for (i = 0; i < oldSize; i++) {
+        struct Node* current = oldHT->buckets[i];
+        
+        while (current != NULL) {
+            struct Node* next = current->next;
+            
+            // Calculate new hash
+            int newIndex = current->key % newSize;
+            
+            // Insert into new table
+            current->next = newHT->buckets[newIndex];
+            newHT->buckets[newIndex] = current;
+            
+            current = next;
+        }
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Double Hashing</h3>
+                <p>Another collision resolution technique using two hash functions:</p>
+
+                <div class="code-title">Double Hashing Implementation</div>
+                <div class="code-block">
+                    <pre>
+int hash1(int key, int tableSize) {
+    return key % tableSize;
+}
+
+int hash2(int key, int tableSize) {
+    // Second hash function (must not return 0)
+    return 1 + (key % (tableSize - 1));
+}
+
+int doubleHash(int key, int i, int tableSize) {
+    return (hash1(key, tableSize) + i * hash2(key, tableSize)) % tableSize;
+}
+
+int insertDoubleHash(int* table, int key, int tableSize) {
+    int i;
+    for (i = 0; i < tableSize; i++) {
+        int index = doubleHash(key, i, tableSize);
+        
+        if (table[index] == EMPTY) {
+            table[index] = key;
+            return 1;
+        }
+    }
+    
+    return 0;  // Table full
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Practice Problems -->
+            <div class="section">
+                <h2>Practice Problems</h2>
+
+                <h3>Problem 1: Check for Duplicate Elements</h3>
+                <div class="code-title">Using Hash Table to Find Duplicates</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define TABLE_SIZE 100
+
+int hasDuplicates(int arr[], int n) {
+    int hashTable[TABLE_SIZE] = {0};
+    int i;
+    
+    for (i = 0; i < n; i++) {
+        int index = arr[i] % TABLE_SIZE;
+        
+        if (hashTable[index] == 1) {
+            return 1;  // Duplicate found
+        }
+        
+        hashTable[index] = 1;
+    }
+    
+    return 0;  // No duplicates
+}
+
+int main() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {1, 2, 3, 2, 5};
+    
+    printf("Array 1 has duplicates: %s\n", 
+           hasDuplicates(arr1, 5) ? "Yes" : "No");
+    printf("Array 2 has duplicates: %s\n", 
+           hasDuplicates(arr2, 5) ? "Yes" : "No");
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Problem 2: Two Sum Problem</h3>
+                <div class="code-title">Find Two Numbers that Sum to Target</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define TABLE_SIZE 100
+
+struct Node {
+    int value;
+    int index;
+    struct Node* next;
+};
+
+void insertValue(struct Node* table[], int value, int index) {
+    int hashIndex = abs(value) % TABLE_SIZE;
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->value = value;
+    newNode->index = index;
+    newNode->next = table[hashIndex];
+    table[hashIndex] = newNode;
+}
+
+int searchValue(struct Node* table[], int value, int* foundIndex) {
+    int hashIndex = abs(value) % TABLE_SIZE;
+    struct Node* current = table[hashIndex];
+    
+    while (current != NULL) {
+        if (current->value == value) {
+            *foundIndex = current->index;
+            return 1;
+        }
+        current = current->next;
+    }
+    
+    return 0;
+}
+
+void twoSum(int arr[], int n, int target) {
+    struct Node* table[TABLE_SIZE] = {NULL};
+    int i, foundIndex;
+    
+    for (i = 0; i < n; i++) {
+        int complement = target - arr[i];
+        
+        if (searchValue(table, complement, &foundIndex)) {
+            printf("Indices: %d and %d\n", foundIndex, i);
+            printf("Values: %d + %d = %d\n", 
+                   arr[foundIndex], arr[i], target);
+            return;
+        }
+        
+        insertValue(table, arr[i], i);
+    }
+    
+    printf("No two numbers sum to %d\n", target);
+}
+
+int main() {
+    int arr[] = {2, 7, 11, 15};
+    int target = 9;
+    
+    printf("Finding two numbers that sum to %d:\n", target);
+    twoSum(arr, 4, target);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Problem 3: First Non-Repeating Character</h3>
+                <div class="code-title">Find First Non-Repeating Character</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+#define CHAR_SIZE 256
+
+char firstNonRepeating(char* str) {
+    int frequency[CHAR_SIZE] = {0};
+    int i;
+    
+    // Count frequency of each character
+    for (i = 0; str[i] != '\0'; i++) {
+        frequency[(int)str[i]]++;
+    }
+    
+    // Find first character with frequency 1
+    for (i = 0; str[i] != '\0'; i++) {
+        if (frequency[(int)str[i]] == 1) {
+            return str[i];
+        }
+    }
+    
+    return '\0';  // No non-repeating character
+}
+
+int main() {
+    char str1[] = "leetcode";
+    char str2[] = "aabbcc";
+    
+    char result1 = firstNonRepeating(str1);
+    char result2 = firstNonRepeating(str2);
+    
+    if (result1 != '\0') {
+        printf("First non-repeating in '%s': %c\n", str1, result1);
+    }
+    else {
+        printf("No non-repeating character in '%s'\n", str1);
+    }
+    
+    if (result2 != '\0') {
+        printf("First non-repeating in '%s': %c\n", str2, result2);
+    }
+    else {
+        printf("No non-repeating character in '%s'\n", str2);
+    }
+    
+    return 0;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="section">
+                <h2>Key Takeaways</h2>
+
+                <div class="info-box">
+                    <h4>Important Points to Remember</h4>
+                    <ul>
+                        <li>Hash tables provide O(1) average case for insert, search, and delete</li>
+                        <li>Choose hash function carefully to minimize collisions</li>
+                        <li>Separate chaining is easier to implement and handle deletions</li>
+                        <li>Linear probing saves memory but can cause clustering</li>
+                        <li>Load factor affects performance - keep it under 0.7 for good results</li>
+                        <li>Hash tables trade space for time efficiency</li>
+                        <li>Good for problems requiring fast lookup, duplicate detection</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Common Mistakes to Avoid</h4>
+                    <ul>
+                        <li>Poor hash function causing too many collisions</li>
+                        <li>Not handling collisions properly</li>
+                        <li>Forgetting to check for NULL when deleting nodes</li>
+                        <li>Not freeing memory in linked list implementation</li>
+                        <li>Using table size that's not prime (reduces effectiveness)</li>
+                        <li>Ignoring load factor - performance degrades when too high</li>
+                        <li>Not considering worst case O(n) time complexity</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>When to Use Hash Tables</h4>
+                    <ul>
+                        <li>Fast lookup is critical (O(1) average case)</li>
+                        <li>Checking for duplicates or membership</li>
+                        <li>Counting frequencies of elements</li>
+                        <li>Caching or memoization</li>
+                        <li>Building indexes for databases</li>
+                        <li>Implementing sets and dictionaries</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>When NOT to Use Hash Tables</h4>
+                    <ul>
+                        <li>Need to maintain order of elements</li>
+                        <li>Need to find min/max efficiently</li>
+                        <li>Memory is very limited</li>
+                        <li>Range queries are common</li>
+                        <li>Sorted data operations are required</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Summary Table -->
+            <div class="section">
+                <h2>Quick Reference Summary</h2>
+
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Purpose</td>
+                            <td>Fast key-value pair storage and retrieval</td>
+                        </tr>
+                        <tr>
+                            <td>Hash Function</td>
+                            <td>Converts key to array index</td>
+                        </tr>
+                        <tr>
+                            <td>Collision</td>
+                            <td>Two keys hash to same index</td>
+                        </tr>
+                        <tr>
+                            <td>Resolution Methods</td>
+                            <td>Chaining, Linear Probing, Double Hashing</td>
+                        </tr>
+                        <tr>
+                            <td>Average Time</td>
+                            <td>O(1) for insert, search, delete</td>
+                        </tr>
+                        <tr>
+                            <td>Worst Time</td>
+                            <td>O(n) when all keys collide</td>
+                        </tr>
+                        <tr>
+                            <td>Space</td>
+                            <td>O(n) or O(n + m)</td>
+                        </tr>
+                        <tr>
+                            <td>Load Factor</td>
+                            <td>n/m (keep under 0.7)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-buttons">
+                <a href="sorting.html" class="nav-button">← Previous: Sorting & Searching</a>
+                <a href="graphs.html" class="nav-button">Next: Graphs →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

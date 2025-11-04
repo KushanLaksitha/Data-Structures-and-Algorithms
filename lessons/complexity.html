@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Performance & Complexity Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            color: #bbb;
+            margin-top: 10px;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 3px solid #667eea;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 100px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .definition {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example-box h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+        }
+
+        .code-block .function {
+            color: #dcdcaa;
+        }
+
+        .formula {
+            background: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .key-points {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .key-points h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .notation-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .notation-card h4 {
+            color: #667eea;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+
+        .graph-visual {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .section h2 {
+                font-size: 1.5em;
+            }
+
+            nav a {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Algorithm Performance & Complexity Analysis</h1>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> > Lesson 2
+            </div>
+        </header>
+
+        <nav>
+            <a href="#basics">Basics</a>
+            <a href="#asymptotic">Asymptotic</a>
+            <a href="#big-o">Big O</a>
+            <a href="#big-omega">Big Ω</a>
+            <a href="#big-theta">Big Θ</a>
+        </nav>
+
+        <div class="content">
+            <!-- Section 2.1 -->
+            <section id="basics" class="section">
+                <h2>2.1 Complexity of Algorithms</h2>
+
+                <p>When solving a problem, there may be multiple algorithmic solutions. To choose the best algorithm for a particular task, we need to analyze and compare their efficiency. This is where complexity analysis becomes essential.</p>
+
+                <h3>Step Count Method</h3>
+
+                <div class="definition">
+                    The <strong>Step Count Method</strong> counts the exact number of operations needed for an algorithm as a function of the problem size (n).
+                </div>
+
+                <h4>Random Access Machine (RAM) Model</h4>
+                <p>The step count method is based on the RAM model with the following assumptions:</p>
+                <ul>
+                    <li><strong>Single processor machine:</strong> One operation at a time</li>
+                    <li><strong>No shared memory:</strong> Each operation is independent</li>
+                    <li><strong>Sequential execution:</strong> Instructions executed one after another</li>
+                    <li><strong>No concurrent operations:</strong> No parallel processing</li>
+                </ul>
+
+                <h4>What Counts as a Step?</h4>
+                <p>Each atomic operation is counted as one step:</p>
+                <ul>
+                    <li>Arithmetic operations (+, -, *, /)</li>
+                    <li>Comparison operations (==, <, >, !=)</li>
+                    <li>Assignment operations (=)</li>
+                    <li>Return statements</li>
+                    <li>Memory access</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Example 1: Simple Counting</h4>
+                    <div class="code-block">
+<span class="keyword">int</span> <span class="function">count</span>(<span class="keyword">int</span> n) {
+    sum = 0;                    <span class="comment">// 1 step</span>
+    <span class="keyword">for</span> (i = 1; i <= n; i++) {  <span class="comment">// n steps (initialization)</span>
+                                <span class="comment">// n+1 comparisons</span>
+                                <span class="comment">// n increments</span>
+        sum += n + 1 - i;       <span class="comment">// 3n steps (subtract, add, assign)</span>
+    }
+    <span class="keyword">return</span> sum;                <span class="comment">// 1 step</span>
+}
+                    </div>
+                    <div class="formula">
+                        Total Steps = 1 + n + (n+1) + n + 3n + 1 = 6n + 3
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 2: Optimized Version</h4>
+                    <div class="code-block">
+<span class="keyword">int</span> <span class="function">count_3</span>(<span class="keyword">int</span> n) {
+    sum = n * (n + 1) / 2;      <span class="comment">// 4 steps</span>
+    <span class="keyword">return</span> sum;                <span class="comment">// 1 step</span>
+}
+                    </div>
+                    <div class="formula">
+                        Total Steps = 5
+                    </div>
+                    <p><strong>Observation:</strong> The optimized version is significantly faster! (5 steps vs 6n+3 steps)</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 3: Nested Loops</h4>
+                    <div class="code-block">
+<span class="keyword">int</span> <span class="function">count_1</span>(<span class="keyword">int</span> n) {
+    sum = 0;                    <span class="comment">// 1 step</span>
+    <span class="keyword">for</span> (i = 1; i <= n; i++) {
+        <span class="keyword">for</span> (j = i; j <= n; j++) {
+            sum++;              <span class="comment">// executed Σ(n-i+1) times</span>
+        }
+    }
+    <span class="keyword">return</span> sum;                <span class="comment">// 1 step</span>
+}
+                    </div>
+                    <div class="formula">
+                        Total Steps = (n² + 3n + 2) / 2
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>💡 Key Insight</h4>
+                    <p>While exact step counts are useful, they are:</p>
+                    <ul>
+                        <li>Too dependent on programming languages</li>
+                        <li>Too dependent on programmer's style</li>
+                        <li>Often unnecessary for practical comparisons</li>
+                    </ul>
+                    <p><strong>What matters more:</strong> How the algorithm scales with input size!</p>
+                </div>
+            </section>
+
+            <!-- Section 2.2 -->
+            <section id="asymptotic" class="section">
+                <h2>2.2 Asymptotic Notation</h2>
+
+                <div class="definition">
+                    <strong>Asymptotics</strong> is the study of functions of a parameter n, as n becomes larger and larger without bound. It focuses on the behavior of functions for very large inputs.
+                </div>
+
+                <h3>Why Asymptotic Analysis?</h3>
+
+                <p>Instead of an exact step count, we want notation that:</p>
+                <ul>
+                    <li>Accurately reflects the increase of computation time with size</li>
+                    <li>Ignores details that have little effect on the total</li>
+                    <li>Provides a simple, meaningful comparison</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>📊 Real-World Example</h4>
+                    <p>Assume a computation takes 1 second and involves 10⁶ operations.</p>
+                    <p>If doubling the problem size requires 10¹² operations:</p>
+                    <div class="formula">
+                        10¹² operations ÷ 10⁶ operations/second = 10⁶ seconds ≈ 11.5 days!
+                    </div>
+                    <p><strong>Conclusion:</strong> The fundamental method matters more than constant factors!</p>
+                </div>
+
+                <h3>Orders of Magnitude</h3>
+
+                <p>To compare function f(n) against well-known function g(n), we take the limit:</p>
+
+                <div class="formula">
+                    lim(n→∞) f(n) / g(n)
+                </div>
+
+                <h4>Three Possible Outcomes:</h4>
+
+                <div class="notation-card">
+                    <h4>1. Strictly Smaller Order</h4>
+                    <div class="formula">
+                        If lim(n→∞) f(n)/g(n) = 0
+                    </div>
+                    <p>Then f(n) has strictly smaller order of magnitude than g(n)</p>
+                </div>
+
+                <div class="notation-card">
+                    <h4>2. Same Order</h4>
+                    <div class="formula">
+                        If lim(n→∞) f(n)/g(n) = c (finite and nonzero)
+                    </div>
+                    <p>Then f(n) has the same order of magnitude as g(n)</p>
+                </div>
+
+                <div class="notation-card">
+                    <h4>3. Strictly Greater Order</h4>
+                    <div class="formula">
+                        If lim(n→∞) f(n)/g(n) = ∞
+                    </div>
+                    <p>Then f(n) has strictly greater order of magnitude than g(n)</p>
+                </div>
+
+                <h3>Common Growth Functions</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>g(n)</th>
+                        <th>Name</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Constant</td>
+                        <td>Array access, arithmetic operations</td>
+                    </tr>
+                    <tr>
+                        <td>log n</td>
+                        <td>Logarithmic</td>
+                        <td>Binary search</td>
+                    </tr>
+                    <tr>
+                        <td>n</td>
+                        <td>Linear</td>
+                        <td>Linear search, single loop</td>
+                    </tr>
+                    <tr>
+                        <td>n log n</td>
+                        <td>Linearithmic</td>
+                        <td>Merge sort, quick sort</td>
+                    </tr>
+                    <tr>
+                        <td>n²</td>
+                        <td>Quadratic</td>
+                        <td>Bubble sort, nested loops</td>
+                    </tr>
+                    <tr>
+                        <td>n³</td>
+                        <td>Cubic</td>
+                        <td>Triple nested loops</td>
+                    </tr>
+                    <tr>
+                        <td>2ⁿ</td>
+                        <td>Exponential</td>
+                        <td>Recursive fibonacci, subset generation</td>
+                    </tr>
+                </table>
+
+                <h3>Polynomial Examples</h3>
+
+                <div class="example-box">
+                    <h4>Example 1: Comparing with n³</h4>
+                    <p>f(n) = 3n² - 100n - 25</p>
+                    <p>g(n) = n³</p>
+                    <div class="formula">
+                        lim(n→∞) (3n² - 100n - 25) / n³ = 0
+                    </div>
+                    <p><strong>Result:</strong> f(n) has strictly smaller order than n³</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 2: Comparing with n</h4>
+                    <p>f(n) = 3n² - 100n - 25</p>
+                    <p>g(n) = n</p>
+                    <div class="formula">
+                        lim(n→∞) (3n² - 100n - 25) / n = ∞
+                    </div>
+                    <p><strong>Result:</strong> f(n) has strictly greater order than n</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 3: Comparing with n²</h4>
+                    <p>f(n) = 3n² - 100n - 25</p>
+                    <p>g(n) = n²</p>
+                    <div class="formula">
+                        lim(n→∞) (3n² - 100n - 25) / n² = 3
+                    </div>
+                    <p><strong>Result:</strong> f(n) has the same order as n²</p>
+                </div>
+
+                <div class="key-points">
+                    <h4>🔑 Important Rules</h4>
+                    <ul>
+                        <li>If f(n) is a polynomial of degree r, then f(n) has the same order as nʳ</li>
+                        <li>If r < s, then nʳ has strictly smaller order than nˢ</li>
+                        <li>The order of logarithm does not depend on the base</li>
+                        <li>Constant factors don't affect the order of magnitude</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 2.3 -->
+            <section id="big-o" class="section">
+                <h2>2.3 Big O Notation (Upper Bound)</h2>
+
+                <div class="definition">
+                    f(n) = O(g(n)) if there exist positive constants c and n₀ such that:<br>
+                    <strong>f(n) ≤ c·g(n) for all n ≥ n₀</strong>
+                </div>
+
+                <p>Big O notation gives an <strong>upper bound</strong> for a function. It represents the worst-case scenario or maximum growth rate.</p>
+
+                <div class="graph-visual">
+                    <h4>Visual Representation</h4>
+                    <p>f(n) always stays below or equal to c·g(n) after n₀</p>
+                    <svg width="400" height="250" style="max-width: 100%;">
+                        <line x1="50" y1="200" x2="370" y2="200" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="200" x2="50" y2="30" stroke="#333" stroke-width="2"/>
+                        <text x="380" y="205" font-size="14">n</text>
+                        <text x="30" y="25" font-size="14">f(n)</text>
+                        
+                        <path d="M 50 180 Q 150 160 370 50" stroke="#e74c3c" stroke-width="3" fill="none"/>
+                        <text x="300" y="40" fill="#e74c3c" font-weight="bold">c·g(n)</text>
+                        
+                        <path d="M 50 190 Q 150 170 370 80" stroke="#3498db" stroke-width="3" fill="none"/>
+                        <text x="300" y="90" fill="#3498db" font-weight="bold">f(n)</text>
+                        
+                        <line x1="150" y1="30" x2="150" y2="200" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="140" y="220" fill="#2ecc71" font-weight="bold">n₀</text>
+                    </svg>
+                </div>
+
+                <h3>Examples</h3>
+
+                <div class="example-box">
+                    <h4>Example 1: Polynomial</h4>
+                    <p>f(n) = n³ + 20n² + 100n</p>
+                    <p>g(n) = n³</p>
+                    <p>Choosing c = 121 and n₀ = 0:</p>
+                    <div class="formula">
+                        n³ + 20n² + 100n ≤ 121n³ for all n ≥ 0
+                    </div>
+                    <p><strong>Therefore:</strong> f(n) = O(n³)</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 2: Linear Search</h4>
+                    <div class="code-block">
+<span class="keyword">int</span> <span class="function">linearSearch</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n, <span class="keyword">int</span> key) {
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i < n; i++) {
+        <span class="keyword">if</span> (arr[i] == key)
+            <span class="keyword">return</span> i;
+    }
+    <span class="keyword">return</span> -1;
+}
+                    </div>
+                    <p><strong>Analysis:</strong></p>
+                    <ul>
+                        <li>Best case: O(1) - element at first position</li>
+                        <li>Worst case: O(n) - element at last position or not found</li>
+                        <li>Average case: O(n)</li>
+                    </ul>
+                    <p><strong>Big O:</strong> O(n) - we use worst case</p>
+                </div>
+
+                <h3>Common Time Complexities</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>Notation</th>
+                        <th>Name</th>
+                        <th>Example Operations</th>
+                        <th>n=10</th>
+                        <th>n=100</th>
+                    </tr>
+                    <tr>
+                        <td>O(1)</td>
+                        <td>Constant</td>
+                        <td>Array access, hash table lookup</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>O(log n)</td>
+                        <td>Logarithmic</td>
+                        <td>Binary search</td>
+                        <td>3</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>O(n)</td>
+                        <td>Linear</td>
+                        <td>Linear search</td>
+                        <td>10</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>O(n log n)</td>
+                        <td>Linearithmic</td>
+                        <td>Merge sort, heap sort</td>
+                        <td>30</td>
+                        <td>700</td>
+                    </tr>
+                    <tr>
+                        <td>O(n²)</td>
+                        <td>Quadratic</td>
+                        <td>Bubble sort, selection sort</td>
+                        <td>100</td>
+                        <td>10,000</td>
+                    </tr>
+                    <tr>
+                        <td>O(2ⁿ)</td>
+                        <td>Exponential</td>
+                        <td>Recursive fibonacci</td>
+                        <td>1,024</td>
+                        <td>1.27×10³⁰</td>
+                    </tr>
+                </table>
+
+                <div class="key-points">
+                    <h4>🔑 Rules for Big O</h4>
+                    <ol>
+                        <li><strong>Drop constants:</strong> O(2n) = O(n)</li>
+                        <li><strong>Drop lower-order terms:</strong> O(n² + n) = O(n²)</li>
+                        <li><strong>Different inputs use different variables:</strong> O(a + b) not O(n)</li>
+                        <li><strong>Nested loops multiply:</strong> Two nested loops = O(n²)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Section 2.4 -->
+            <section id="big-omega" class="section">
+                <h2>2.4 Big Ω Notation (Lower Bound)</h2>
+
+                <div class="definition">
+                    f(n) = Ω(g(n)) if there exist positive constants c and n₀ such that:<br>
+                    <strong>f(n) ≥ c·g(n) for all n ≥ n₀</strong>
+                </div>
+
+                <p>Big Ω notation gives a <strong>lower bound</strong> for a function. It represents the best-case scenario or minimum growth rate.</p>
+
+                <div class="graph-visual">
+                    <h4>Visual Representation</h4>
+                    <p>f(n) always stays above or equal to c·g(n) after n₀</p>
+                    <svg width="400" height="250" style="max-width: 100%;">
+                        <line x1="50" y1="200" x2="370" y2="200" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="200" x2="50" y2="30" stroke="#333" stroke-width="2"/>
+                        <text x="380" y="205" font-size="14">n</text>
+                        <text x="30" y="25" font-size="14">f(n)</text>
+                        
+                        <path d="M 50 180 Q 150 120 370 40" stroke="#3498db" stroke-width="3" fill="none"/>
+                        <text x="300" y="50" fill="#3498db" font-weight="bold">f(n)</text>
+                        
+                        <path d="M 50 190 Q 150 140 370 70" stroke="#e74c3c" stroke-width="3" fill="none"/>
+                        <text x="300" y="80" fill="#e74c3c" font-weight="bold">c·g(n)</text>
+                        
+                        <line x1="150" y1="30" x2="150" y2="200" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="140" y="220" fill="#2ecc71" font-weight="bold">n₀</text>
+                    </svg>
+                </div>
+
+                <h3>Examples</h3>
+
+                <div class="example-box">
+                    <h4>Example: Linear Search Best Case</h4>
+                    <p>In the best case, linear search finds the element at the first position.</p>
+                    <p>This takes constant time, so:</p>
+                    <div class="formula">
+                        Linear Search = Ω(1)
+                    </div>
+                    <p>This means it will take <em>at least</em> constant time.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>💡 Understanding Lower Bounds</h4>
+                    <p>Big Ω is less commonly used than Big O because:</p>
+                    <ul>
+                        <li>We usually care more about worst-case performance</li>
+                        <li>Best-case scenarios are often not realistic</li>
+                        <li>It's more important to know the maximum time an algorithm might take</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 2.5 -->
+            <section id="big-theta" class="section">
+                <h2>2.5 Big Θ Notation (Tight Bound)</h2>
+
+                <div class="definition">
+                    f(n) = Θ(g(n)) if there exist positive constants c₁, c₂, and n₀ such that:<br>
+                    <strong>c₁·g(n) ≤ f(n) ≤ c₂·g(n) for all n ≥ n₀</strong>
+                </div>
+
+                <p>Big Θ notation gives a <strong>tight bound</strong> - both upper and lower bounds. It means the function grows at the same rate as g(n).</p>
+
+                <div class="formula">
+                    f(n) = Θ(g(n)) ⟺ f(n) = O(g(n)) AND f(n) = Ω(g(n))
+                </div>
+
+                <div class="graph-visual">
+                    <h4>Visual Representation</h4>
+                    <p>f(n) is sandwiched between c₁·g(n) and c₂·g(n) after n₀</p>
+                    <svg width="400" height="250" style="max-width: 100%;">
+                        <line x1="50" y1="200" x2="370" y2="200" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="200" x2="50" y2="30" stroke="#333" stroke-width="2"/>
+                        <text x="380" y="205" font-size="14">n</text>
+                        <text x="30" y="25" font-size="14">f(n)</text>
+                        
+                        <path d="M 50 180 Q 150 140 370 50" stroke="#e74c3c" stroke-width="3" fill="none"/>
+                        <text x="300" y="45" fill="#e74c3c" font-weight="bold">c₂·g(n)</text>
+                        
+                        <path d="M 50 185 Q 150 150 370 65" stroke="#3498db" stroke-width="3" fill="none"/>
+                        <text x="300" y="75" fill="#3498db" font-weight="bold">f(n)</text>
+                        
+                        <path d="M 50 190 Q 150 160 370 80" stroke="#e67e22" stroke-width="3" fill="none"/>
+                        <text x="300" y="95" fill="#e67e22" font-weight="bold">c₁·g(n)</text>
+                        
+                        <line x1="150" y1="30" x2="150" y2="200" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="140" y="220" fill="#2ecc71" font-weight="bold">n₀</text>
+                    </svg>
+                </div>
+
+                <h3>Examples</h3>
+
+                <div class="example-box">
+                    <h4>Example 1: Polynomial</h4>
+                    <p>f(n) = 3n² + 5n + 2</p>
+                    <p>We claim f(n) = Θ(n²)</p>
+                    <p><strong>Proof:</strong></p>
+                    <ul>
+                        <li>For upper bound: 3n² + 5n + 2 ≤ 10n² for n ≥ 1 → f(n) = O(n²)</li>
+                        <li>For lower bound: 3n² + 5n + 2 ≥ 3n² for all n → f(n) = Ω(n²)</li>
+                    </ul>
+                    <p><strong>Therefore:</strong> f(n) = Θ(n²) ✓</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 2: Selection Sort</h4>
+                    <div class="code-block">
+<span class="keyword">void</span> <span class="function">selectionSort</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i < n-1; i++) {
+        <span class="keyword">int</span> minIdx = i;
+        <span class="keyword">for</span> (<span class="keyword">int</span> j = i+1; j < n; j++) {
+            <span class="keyword">if</span> (arr[j] < arr[minIdx])
+                minIdx = j;
+        }
+        swap(arr[i], arr[minIdx]);
+    }
+}
+                    </div>
+                    <p><strong>Analysis:</strong></p>
+                    <ul>
+                        <li>Best case: Θ(n²) - already sorted</li>
+                        <li>Worst case: Θ(n²) - reverse sorted</li>
+                        <li>Average case: Θ(n²)</li>
+                    </ul>
+                    <p><strong>Conclusion:</strong> Selection sort always takes Θ(n²) time regardless of input!</p>
+                </div>
+
+                <h3>Comparison of Notations</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>Notation</th>
+                        <th>Meaning</th>
+                        <th>Analogy</th>
+                        <th>Use Case</th>
+                    </tr>
+                    <tr>
+                        <td>O (Big O)</td>
+                        <td>Upper Bound</td>
+                        <td>≤ (less than or equal)</td>
+                        <td>Worst-case analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Ω (Big Omega)</td>
+                        <td>Lower Bound</td>
+                        <td>≥ (greater than or equal)</td>
+                        <td>Best-case analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Θ (Big Theta)</td>
+                        <td>Tight Bound</td>
+                        <td>= (equal)</td>
+                        <td>Exact growth rate</td>
+                    </tr>
+                </table>
+
+                <div class="key-points">
+                    <h4>🔑 When to Use Each Notation</h4>
+                    <ul>
+                        <li><strong>Big O:</strong> Most commonly used; describes worst-case performance</li>
+                        <li><strong>Big Ω:</strong> Rarely used alone; describes best-case performance</li>
+                        <li><strong>Big Θ:</strong> Most precise; use when upper and lower bounds match</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 2.6 -->
+            <section class="section">
+                <h2>2.6 Space Complexity vs Time Complexity</h2>
+
+                <h3>Time Complexity</h3>
+                <p>Concerns determining the number of steps needed as a function of problem size.</p>
+
+                <h3>Space Complexity</h3>
+                <p>Concerns determining the amount of memory needed as a function of problem size.</p>
+
+                <div class="example-box">
+                    <h4>Example: Factorial Calculation</h4>
+                    
+                    <h5>Iterative Version:</h5>
+                    <div class="code-block">
+<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">int</span> result = 1;
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 1; i <= n; i++)
+        result *= i;
+    <span class="keyword">return</span> result;
+}
+                    </div>
+                    <p><strong>Time:</strong> O(n), <strong>Space:</strong> O(1)</p>
+
+                    <h5>Recursive Version:</h5>
+                    <div class="code-block">
+<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span> (n <= 1) <span class="keyword">return</span> 1;
+    <span class="keyword">return</span> n * factorial(n - 1);
+}
+                    </div>
+                    <p><strong>Time:</strong> O(n), <strong>Space:</strong> O(n) - due to call stack</p>
+                </div>
+            </section>
+
+            <!-- Section 2.7 -->
+            <section class="section">
+                <h2>2.7 Practical Examples</h2>
+
+                <div class="example-box">
+                    <h4>Example 1: Array Insertion</h4>
+                    <p><strong>Unordered Array:</strong> Time = O(1) constant</p>
+                    <p>Just add to the end - no searching needed.</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 2: Binary Search</h4>
+                    <p><strong>Sorted Array:</strong> Time = O(log n)</p>
+                    <p>Each comparison eliminates half the remaining elements.</p>
+                    <div class="formula">
+                        After k comparisons: n / 2^k elements remain
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 3: Comparing Algorithms</h4>
+                    
+                    <h5>Multiplication by Repeated Addition:</h5>
+                    <p>Multiply n-digit × m-digit numbers</p>
+                    <p>Requires maximum ~10^n × (n+m) additions</p>
+                    <p><strong>Time:</strong> O(n × 10^n)</p>
+
+                    <h5>Digit-by-Digit Multiplication:</h5>
+                    <p>Using multiplication table</p>
+                    <p>Requires maximum ~2m(n+m) operations</p>
+                    <p><strong>Time:</strong> O(n × m)</p>
+
+                    <p><strong>Conclusion:</strong> When n = m, digit-by-digit is exponentially faster!</p>
+                </div>
+
+                <h3>Growth Rate Comparison</h3>
+
+                <div class="graph-visual">
+                    <h4>Impact of Problem Size (n = 1000)</h4>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Complexity</th>
+                            <th>Operations</th>
+                            <th>Time @ 10⁶ ops/sec</th>
+                        </tr>
+                        <tr>
+                            <td>O(1)</td>
+                            <td>1</td>
+                            <td>0.000001 sec</td>
+                        </tr>
+                        <tr>
+                            <td>O(log n)</td>
+                            <td>~10</td>
+                            <td>0.00001 sec</td>
+                        </tr>
+                        <tr>
+                            <td>O(n)</td>
+                            <td>1,000</td>
+                            <td>0.001 sec</td>
+                        </tr>
+                        <tr>
+                            <td>O(n log n)</td>
+                            <td>~10,000</td>
+                            <td>0.01 sec</td>
+                        </tr>
+                        <tr>
+                            <td>O(n²)</td>
+                            <td>1,000,000</td>
+                            <td>1 sec</td>
+                        </tr>
+                        <tr>
+                            <td>O(n³)</td>
+                            <td>1,000,000,000</td>
+                            <td>16.7 min</td>
+                        </tr>
+                        <tr>
+                            <td>O(2^n)</td>
+                            <td>~10^300</td>
+                            <td>Universe lifetime++</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section">
+                <h2>📌 Chapter Summary</h2>
+
+                <div class="key-points">
+                    <h4>Key Concepts</h4>
+                    <ol>
+                        <li><strong>Step Count Method:</strong> Count exact operations, but often too detailed</li>
+                        
+                        <li><strong>Asymptotic Analysis:</strong> Focus on growth rate as input size increases</li>
+                        
+                        <li><strong>Big O (O):</strong> Upper bound - worst case scenario
+                            <ul>
+                                <li>Most commonly used in practice</li>
+                                <li>Guarantees algorithm won't perform worse than this</li>
+                            </ul>
+                        </li>
+                        
+                        <li><strong>Big Omega (Ω):</strong> Lower bound - best case scenario
+                            <ul>
+                                <li>Less commonly used</li>
+                                <li>Shows minimum performance</li>
+                            </ul>
+                        </li>
+                        
+                        <li><strong>Big Theta (Θ):</strong> Tight bound - exact growth rate
+                            <ul>
+                                <li>Most precise notation</li>
+                                <li>Use when algorithm performs consistently</li>
+                            </ul>
+                        </li>
+                        
+                        <li><strong>Rules for Analysis:</strong>
+                            <ul>
+                                <li>Drop constants: O(5n) = O(n)</li>
+                                <li>Drop lower terms: O(n² + n) = O(n²)</li>
+                                <li>Nested loops multiply complexities</li>
+                                <li>Sequential steps add complexities</li>
+                            </ul>
+                        </li>
+                        
+                        <li><strong>Common Complexities (from best to worst):</strong>
+                            <ul>
+                                <li>O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(n³) < O(2^n) < O(n!)</li>
+                            </ul>
+                        </li>
+                        
+                        <li><strong>Space vs Time:</strong> Often there's a trade-off between memory usage and execution speed</li>
+                    </ol>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>💡 Practical Advice</h4>
+                    <ul>
+                        <li>Always analyze worst-case complexity first</li>
+                        <li>O(n log n) is often the best achievable for comparison-based sorting</li>
+                        <li>Avoid O(2^n) algorithms for large inputs</li>
+                        <li>O(n²) is acceptable for small inputs (n < 1000)</li>
+                        <li>Cache and preprocessing can improve practical performance</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="nav-buttons">
+                <a href="introduction.html" class="nav-btn">← Previous: Introduction</a>
+                <a href="cpp-basics.html" class="nav-btn">Next: C/C++ Basics →</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>COM2307 - Data Structures & Algorithms</p>
+            <p style="margin-top: 10px; opacity: 0.8;">© 2024 Course Materials</p>
+        </footer>
+    </div>
+</body>
+</html>

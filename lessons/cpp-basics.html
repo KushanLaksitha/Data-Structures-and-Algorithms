@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Background - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-breadcrumb {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .nav-breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .nav-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .text-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .code-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: -5px;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        .key-points {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .key-points h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .key-points ul {
+            margin-left: 20px;
+        }
+
+        .key-points li {
+            margin: 8px 0;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .code-block {
+                padding: 15px;
+                font-size: 0.85em;
+            }
+        }
+
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 C Programming Background</h1>
+            <p>Section 3 - COM2307</p>
+        </header>
+
+        <div class="nav-breadcrumb">
+            <a href="../index.html">← Back to Course Index</a>
+        </div>
+
+        <div class="content">
+            <!-- Section 3.1: Input/Output Operations -->
+            <div class="section" id="io">
+                <div class="section-title">3.1 Input/Output Operations</div>
+
+                <div class="subsection">
+                    <h3>Basic Input/Output in C</h3>
+                    <div class="text-content">
+                        <p>C provides standard library functions for input and output operations through the <code>stdio.h</code> header file. The most commonly used functions are <code>printf()</code> for output and <code>scanf()</code> for input.</p>
+                    </div>
+
+                    <div class="code-title">Example: Basic I/O Operations</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Basic Input and Output */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> age;
+    <span class="keyword">float</span> height;
+    <span class="keyword">char</span> name[<span class="number">50</span>];
+    
+    <span class="comment">/* Output using printf */</span>
+    <span class="function">printf</span>(<span class="string">"Enter your name: "</span>);
+    <span class="function">scanf</span>(<span class="string">"%s"</span>, name);
+    
+    <span class="function">printf</span>(<span class="string">"Enter your age: "</span>);
+    <span class="function">scanf</span>(<span class="string">"%d"</span>, &age);
+    
+    <span class="function">printf</span>(<span class="string">"Enter your height (in meters): "</span>);
+    <span class="function">scanf</span>(<span class="string">"%f"</span>, &height);
+    
+    <span class="comment">/* Display the values */</span>
+    <span class="function">printf</span>(<span class="string">"\nName: %s\n"</span>, name);
+    <span class="function">printf</span>(<span class="string">"Age: %d years\n"</span>, age);
+    <span class="function">printf</span>(<span class="string">"Height: %.2f meters\n"</span>, height);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>Format Specifiers</h4>
+                        <ul>
+                            <li><code>%d</code> - Integer (int)</li>
+                            <li><code>%f</code> - Float</li>
+                            <li><code>%lf</code> - Double</li>
+                            <li><code>%c</code> - Character</li>
+                            <li><code>%s</code> - String</li>
+                            <li><code>%p</code> - Pointer address</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3.2: Control Structures -->
+            <div class="section" id="control">
+                <div class="section-title">3.2 Control Structures</div>
+
+                <div class="subsection">
+                    <h3>Conditional Statements</h3>
+                    
+                    <div class="code-title">If-Else Statement</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* If-Else Example */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> marks;
+    
+    <span class="function">printf</span>(<span class="string">"Enter marks: "</span>);
+    <span class="function">scanf</span>(<span class="string">"%d"</span>, &marks);
+    
+    <span class="keyword">if</span> (marks >= <span class="number">90</span>) {
+        <span class="function">printf</span>(<span class="string">"Grade: A+\n"</span>);
+    }
+    <span class="keyword">else if</span> (marks >= <span class="number">80</span>) {
+        <span class="function">printf</span>(<span class="string">"Grade: A\n"</span>);
+    }
+    <span class="keyword">else if</span> (marks >= <span class="number">70</span>) {
+        <span class="function">printf</span>(<span class="string">"Grade: B\n"</span>);
+    }
+    <span class="keyword">else if</span> (marks >= <span class="number">60</span>) {
+        <span class="function">printf</span>(<span class="string">"Grade: C\n"</span>);
+    }
+    <span class="keyword">else</span> {
+        <span class="function">printf</span>(<span class="string">"Grade: F\n"</span>);
+    }
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="code-title">Switch Statement</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Switch Case Example */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> choice;
+    
+    <span class="function">printf</span>(<span class="string">"Menu:\n"</span>);
+    <span class="function">printf</span>(<span class="string">"1. Add\n"</span>);
+    <span class="function">printf</span>(<span class="string">"2. Subtract\n"</span>);
+    <span class="function">printf</span>(<span class="string">"3. Multiply\n"</span>);
+    <span class="function">printf</span>(<span class="string">"Enter choice: "</span>);
+    <span class="function">scanf</span>(<span class="string">"%d"</span>, &choice);
+    
+    <span class="keyword">switch</span>(choice) {
+        <span class="keyword">case</span> <span class="number">1</span>:
+            <span class="function">printf</span>(<span class="string">"Addition selected\n"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">2</span>:
+            <span class="function">printf</span>(<span class="string">"Subtraction selected\n"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="number">3</span>:
+            <span class="function">printf</span>(<span class="string">"Multiplication selected\n"</span>);
+            <span class="keyword">break</span>;
+        <span class="keyword">default</span>:
+            <span class="function">printf</span>(<span class="string">"Invalid choice\n"</span>);
+    }
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Loops</h3>
+                    
+                    <div class="code-title">For Loop</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* For Loop Example */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> i;
+    <span class="keyword">int</span> sum = <span class="number">0</span>;
+    
+    <span class="comment">/* Sum of first 10 numbers */</span>
+    <span class="keyword">for</span>(i = <span class="number">1</span>; i <= <span class="number">10</span>; i++) {
+        sum = sum + i;
+        <span class="function">printf</span>(<span class="string">"i = %d, sum = %d\n"</span>, i, sum);
+    }
+    
+    <span class="function">printf</span>(<span class="string">"\nTotal sum: %d\n"</span>, sum);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="code-title">While Loop</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* While Loop Example */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> num = <span class="number">1</span>;
+    
+    <span class="comment">/* Print numbers 1 to 5 */</span>
+    <span class="keyword">while</span>(num <= <span class="number">5</span>) {
+        <span class="function">printf</span>(<span class="string">"Number: %d\n"</span>, num);
+        num++;
+    }
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="code-title">Do-While Loop</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Do-While Loop Example */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> num;
+    
+    <span class="keyword">do</span> {
+        <span class="function">printf</span>(<span class="string">"Enter a positive number (0 to exit): "</span>);
+        <span class="function">scanf</span>(<span class="string">"%d"</span>, &num);
+        
+        <span class="keyword">if</span>(num > <span class="number">0</span>) {
+            <span class="function">printf</span>(<span class="string">"You entered: %d\n"</span>, num);
+        }
+    } <span class="keyword">while</span>(num != <span class="number">0</span>);
+    
+    <span class="function">printf</span>(<span class="string">"Program exited.\n"</span>);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3.3: Functions and Parameters -->
+            <div class="section" id="functions">
+                <div class="section-title">3.3 Functions and Parameters</div>
+
+                <div class="subsection">
+                    <h3>Function Basics</h3>
+                    <div class="text-content">
+                        <p>Functions are reusable blocks of code that perform specific tasks. They help organize code and make it more modular and maintainable.</p>
+                    </div>
+
+                    <div class="code-title">Function Declaration and Definition</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Function Examples */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="comment">/* Function declaration (prototype) */</span>
+<span class="keyword">int</span> <span class="function">add</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b);
+<span class="keyword">void</span> <span class="function">greet</span>(<span class="keyword">char</span> name[]);
+<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n);
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> result;
+    
+    <span class="comment">/* Calling functions */</span>
+    result = <span class="function">add</span>(<span class="number">10</span>, <span class="number">20</span>);
+    <span class="function">printf</span>(<span class="string">"10 + 20 = %d\n"</span>, result);
+    
+    <span class="function">greet</span>(<span class="string">"Alice"</span>);
+    
+    result = <span class="function">factorial</span>(<span class="number">5</span>);
+    <span class="function">printf</span>(<span class="string">"Factorial of 5 = %d\n"</span>, result);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+
+<span class="comment">/* Function definition */</span>
+<span class="keyword">int</span> <span class="function">add</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+    <span class="keyword">return</span> a + b;
+}
+
+<span class="keyword">void</span> <span class="function">greet</span>(<span class="keyword">char</span> name[]) {
+    <span class="function">printf</span>(<span class="string">"Hello, %s!\n"</span>, name);
+}
+
+<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">int</span> i, result = <span class="number">1</span>;
+    
+    <span class="keyword">for</span>(i = <span class="number">1</span>; i <= n; i++) {
+        result = result * i;
+    }
+    
+    <span class="keyword">return</span> result;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Pass by Value vs Pass by Reference</h3>
+                    
+                    <div class="code-title">Pass by Value</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Pass by Value - Copy of value is passed */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">modifyValue</span>(<span class="keyword">int</span> x) {
+    x = x + <span class="number">10</span>;
+    <span class="function">printf</span>(<span class="string">"Inside function: %d\n"</span>, x);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> num = <span class="number">5</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Before function: %d\n"</span>, num);
+    <span class="function">modifyValue</span>(num);
+    <span class="function">printf</span>(<span class="string">"After function: %d\n"</span>, num);
+    
+    <span class="comment">/* Output shows num is unchanged */</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="code-title">Pass by Reference (using pointers)</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Pass by Reference - Address is passed */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">modifyValue</span>(<span class="keyword">int</span> *x) {
+    *x = *x + <span class="number">10</span>;
+    <span class="function">printf</span>(<span class="string">"Inside function: %d\n"</span>, *x);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> num = <span class="number">5</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Before function: %d\n"</span>, num);
+    <span class="function">modifyValue</span>(&num);
+    <span class="function">printf</span>(<span class="string">"After function: %d\n"</span>, num);
+    
+    <span class="comment">/* Output shows num is changed */</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="note">
+                        <strong>Note:</strong> When you pass by value, the function receives a copy of the variable. When you pass by reference (using pointers), the function receives the address of the variable and can modify the original value.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Recursive Functions</h3>
+                    
+                    <div class="code-title">Recursion Example</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Recursive Function */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>) {
+        <span class="keyword">return</span> <span class="number">1</span>;
+    }
+    <span class="keyword">else</span> {
+        <span class="keyword">return</span> n * <span class="function">factorial</span>(n - <span class="number">1</span>);
+    }
+}
+
+<span class="keyword">int</span> <span class="function">fibonacci</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span>(n == <span class="number">0</span>) {
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+    <span class="keyword">else if</span>(n == <span class="number">1</span>) {
+        <span class="keyword">return</span> <span class="number">1</span>;
+    }
+    <span class="keyword">else</span> {
+        <span class="keyword">return</span> <span class="function">fibonacci</span>(n - <span class="number">1</span>) + <span class="function">fibonacci</span>(n - <span class="number">2</span>);
+    }
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> i;
+    
+    <span class="function">printf</span>(<span class="string">"Factorial of 5: %d\n"</span>, <span class="function">factorial</span>(<span class="number">5</span>));
+    
+    <span class="function">printf</span>(<span class="string">"Fibonacci sequence (first 10 numbers):\n"</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < <span class="number">10</span>; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, <span class="function">fibonacci</span>(i));
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3.4: Pointers -->
+            <div class="section" id="pointers">
+                <div class="section-title">3.4 Pointers</div>
+
+                <div class="subsection">
+                    <h3>Introduction to Pointers</h3>
+                    <div class="text-content">
+                        <p>A pointer is a variable that stores the memory address of another variable. Pointers are powerful features in C that allow direct memory manipulation and efficient data structure implementation.</p>
+                    </div>
+
+                    <div class="code-title">Basic Pointer Operations</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Pointer Basics */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> num = <span class="number">42</span>;
+    <span class="keyword">int</span> *ptr;
+    
+    <span class="comment">/* Assign address of num to pointer */</span>
+    ptr = &num;
+    
+    <span class="function">printf</span>(<span class="string">"Value of num: %d\n"</span>, num);
+    <span class="function">printf</span>(<span class="string">"Address of num: %p\n"</span>, &num);
+    <span class="function">printf</span>(<span class="string">"Value of ptr: %p\n"</span>, ptr);
+    <span class="function">printf</span>(<span class="string">"Value pointed to by ptr: %d\n"</span>, *ptr);
+    
+    <span class="comment">/* Modify value using pointer */</span>
+    *ptr = <span class="number">100</span>;
+    <span class="function">printf</span>(<span class="string">"\nAfter modification:\n"</span>);
+    <span class="function">printf</span>(<span class="string">"Value of num: %d\n"</span>, num);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>Pointer Operators</h4>
+                        <ul>
+                            <li><code>&</code> - Address operator (gets memory address)</li>
+                            <li><code>*</code> - Dereference operator (gets value at address)</li>
+                            <li><code>int *ptr</code> - Declares a pointer to an integer</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Pointers and Arrays</h3>
+                    
+                    <div class="code-title">Array and Pointer Relationship</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Pointers and Arrays */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[<span class="number">5</span>] = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+    <span class="keyword">int</span> *ptr;
+    <span class="keyword">int</span> i;
+    
+    <span class="comment">/* Array name is a pointer to first element */</span>
+    ptr = arr;
+    
+    <span class="function">printf</span>(<span class="string">"Using array notation:\n"</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < <span class="number">5</span>; i++) {
+        <span class="function">printf</span>(<span class="string">"arr[%d] = %d\n"</span>, i, arr[i]);
+    }
+    
+    <span class="function">printf</span>(<span class="string">"\nUsing pointer arithmetic:\n"</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < <span class="number">5</span>; i++) {
+        <span class="function">printf</span>(<span class="string">"Value: %d, Address: %p\n"</span>, *ptr, ptr);
+        ptr++;
+    }
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Pointers and Functions</h3>
+                    
+                    <div class="code-title">Swapping Values Using Pointers</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Swap function using pointers */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">swap</span>(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b) {
+    <span class="keyword">int</span> temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> x = <span class="number">10</span>, y = <span class="number">20</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Before swap: x = %d, y = %d\n"</span>, x, y);
+    
+    <span class="function">swap</span>(&x, &y);
+    
+    <span class="function">printf</span>(<span class="string">"After swap: x = %d, y = %d\n"</span>, x, y);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Dynamic Memory Allocation</h3>
+                    
+                    <div class="code-title">Using malloc and free</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Dynamic Memory Allocation */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdlib.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> *arr;
+    <span class="keyword">int</span> n, i;
+    
+    <span class="function">printf</span>(<span class="string">"Enter number of elements: "</span>);
+    <span class="function">scanf</span>(<span class="string">"%d"</span>, &n);
+    
+    <span class="comment">/* Allocate memory dynamically */</span>
+    arr = (<span class="keyword">int</span>*)<span class="function">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+    
+    <span class="comment">/* Check if memory allocation was successful */</span>
+    <span class="keyword">if</span>(arr == NULL) {
+        <span class="function">printf</span>(<span class="string">"Memory allocation failed!\n"</span>);
+        <span class="keyword">return</span> <span class="number">1</span>;
+    }
+    
+    <span class="comment">/* Input elements */</span>
+    <span class="function">printf</span>(<span class="string">"Enter %d elements:\n"</span>, n);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">scanf</span>(<span class="string">"%d"</span>, &arr[i]);
+    }
+    
+    <span class="comment">/* Display elements */</span>
+    <span class="function">printf</span>(<span class="string">"You entered: "</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+    
+    <span class="comment">/* Free allocated memory */</span>
+    <span class="function">free</span>(arr);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>Memory Management Functions</h4>
+                        <ul>
+                            <li><code>malloc(size)</code> - Allocates memory of specified size</li>
+                            <li><code>calloc(n, size)</code> - Allocates memory and initializes to zero</li>
+                            <li><code>realloc(ptr, size)</code> - Resizes previously allocated memory</li>
+                            <li><code>free(ptr)</code> - Deallocates previously allocated memory</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Pointer to Pointer</h3>
+                    
+                    <div class="code-title">Double Pointers</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Pointer to Pointer */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> num = <span class="number">100</span>;
+    <span class="keyword">int</span> *ptr1;
+    <span class="keyword">int</span> **ptr2;
+    
+    <span class="comment">/* ptr1 points to num */</span>
+    ptr1 = &num;
+    
+    <span class="comment">/* ptr2 points to ptr1 */</span>
+    ptr2 = &ptr1;
+    
+    <span class="function">printf</span>(<span class="string">"Value of num: %d\n"</span>, num);
+    <span class="function">printf</span>(<span class="string">"Value using *ptr1: %d\n"</span>, *ptr1);
+    <span class="function">printf</span>(<span class="string">"Value using **ptr2: %d\n"</span>, **ptr2);
+    
+    <span class="function">printf</span>(<span class="string">"\nAddress of num: %p\n"</span>, &num);
+    <span class="function">printf</span>(<span class="string">"Value of ptr1: %p\n"</span>, ptr1);
+    <span class="function">printf</span>(<span class="string">"Value of *ptr2: %p\n"</span>, *ptr2);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Structures and Pointers</h3>
+                    
+                    <div class="code-title">Pointer to Structure</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Structure with Pointers */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;string.h&gt;</span>
+
+<span class="keyword">struct</span> Student {
+    <span class="keyword">int</span> id;
+    <span class="keyword">char</span> name[<span class="number">50</span>];
+    <span class="keyword">float</span> gpa;
+};
+
+<span class="keyword">void</span> <span class="function">displayStudent</span>(<span class="keyword">struct</span> Student *s) {
+    <span class="function">printf</span>(<span class="string">"ID: %d\n"</span>, s->id);
+    <span class="function">printf</span>(<span class="string">"Name: %s\n"</span>, s->name);
+    <span class="function">printf</span>(<span class="string">"GPA: %.2f\n"</span>, s->gpa);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">struct</span> Student student1;
+    <span class="keyword">struct</span> Student *ptr;
+    
+    <span class="comment">/* Initialize student */</span>
+    student1.id = <span class="number">101</span>;
+    <span class="function">strcpy</span>(student1.name, <span class="string">"John Doe"</span>);
+    student1.gpa = <span class="number">3.75</span>;
+    
+    <span class="comment">/* Pointer to structure */</span>
+    ptr = &student1;
+    
+    <span class="function">printf</span>(<span class="string">"Student Information:\n"</span>);
+    <span class="function">displayStudent</span>(ptr);
+    
+    <span class="comment">/* Accessing members using pointer */</span>
+    <span class="function">printf</span>(<span class="string">"\nModifying using pointer...\n"</span>);
+    ptr->gpa = <span class="number">3.90</span>;
+    
+    <span class="function">printf</span>(<span class="string">"\nUpdated Information:\n"</span>);
+    <span class="function">displayStudent</span>(ptr);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="note">
+                        <strong>Note:</strong> The arrow operator (<code>-></code>) is used to access structure members through a pointer. It's equivalent to <code>(*ptr).member</code>.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Function Pointers</h3>
+                    
+                    <div class="code-title">Using Function Pointers</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Function Pointers */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">add</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+    <span class="keyword">return</span> a + b;
+}
+
+<span class="keyword">int</span> <span class="function">subtract</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+    <span class="keyword">return</span> a - b;
+}
+
+<span class="keyword">int</span> <span class="function">multiply</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+    <span class="keyword">return</span> a * b;
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="comment">/* Declare function pointer */</span>
+    <span class="keyword">int</span> (*operation)(<span class="keyword">int</span>, <span class="keyword">int</span>);
+    <span class="keyword">int</span> result;
+    
+    <span class="comment">/* Point to add function */</span>
+    operation = &add;
+    result = operation(<span class="number">10</span>, <span class="number">5</span>);
+    <span class="function">printf</span>(<span class="string">"Addition: %d\n"</span>, result);
+    
+    <span class="comment">/* Point to subtract function */</span>
+    operation = &subtract;
+    result = operation(<span class="number">10</span>, <span class="number">5</span>);
+    <span class="function">printf</span>(<span class="string">"Subtraction: %d\n"</span>, result);
+    
+    <span class="comment">/* Point to multiply function */</span>
+    operation = &multiply;
+    result = operation(<span class="number">10</span>, <span class="number">5</span>);
+    <span class="function">printf</span>(<span class="string">"Multiplication: %d\n"</span>, result);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Common Pointer Mistakes</h3>
+                    
+                    <div class="text-content">
+                        <p><strong>1. Uninitialized Pointers:</strong></p>
+                    </div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* WRONG - Dangerous! */</span>
+<span class="keyword">int</span> *ptr;
+*ptr = <span class="number">10</span>;  <span class="comment">/* ptr points to random location */</span>
+
+<span class="comment">/* CORRECT */</span>
+<span class="keyword">int</span> num;
+<span class="keyword">int</span> *ptr = &num;
+*ptr = <span class="number">10</span>;</pre>
+                    </div>
+
+                    <div class="text-content">
+                        <p><strong>2. Memory Leaks:</strong></p>
+                    </div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* WRONG - Memory leak */</span>
+<span class="keyword">int</span> *ptr = (<span class="keyword">int</span>*)<span class="function">malloc</span>(<span class="number">5</span> * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+<span class="comment">/* ... use ptr ... */</span>
+<span class="comment">/* Forgot to free! */</span>
+
+<span class="comment">/* CORRECT */</span>
+<span class="keyword">int</span> *ptr = (<span class="keyword">int</span>*)<span class="function">malloc</span>(<span class="number">5</span> * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+<span class="comment">/* ... use ptr ... */</span>
+<span class="function">free</span>(ptr);</pre>
+                    </div>
+
+                    <div class="text-content">
+                        <p><strong>3. Dangling Pointers:</strong></p>
+                    </div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* WRONG - Dangling pointer */</span>
+<span class="keyword">int</span> *ptr = (<span class="keyword">int</span>*)<span class="function">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+<span class="function">free</span>(ptr);
+*ptr = <span class="number">10</span>;  <span class="comment">/* Accessing freed memory! */</span>
+
+<span class="comment">/* CORRECT */</span>
+<span class="keyword">int</span> *ptr = (<span class="keyword">int</span>*)<span class="function">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+<span class="function">free</span>(ptr);
+ptr = NULL;  <span class="comment">/* Set to NULL after freeing */</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="section">
+                <div class="section-title">Summary</div>
+                
+                <div class="key-points">
+                    <h4>Key Takeaways</h4>
+                    <ul>
+                        <li><strong>Input/Output:</strong> Use printf() and scanf() with appropriate format specifiers</li>
+                        <li><strong>Control Structures:</strong> if-else, switch, for, while, and do-while for program flow control</li>
+                        <li><strong>Functions:</strong> Modular code blocks that can be reused; support recursion</li>
+                        <li><strong>Pass by Value:</strong> Function receives a copy of the argument</li>
+                        <li><strong>Pass by Reference:</strong> Function receives the address of the argument (using pointers)</li>
+                        <li><strong>Pointers:</strong> Variables that store memory addresses; essential for dynamic memory and data structures</li>
+                        <li><strong>Dynamic Memory:</strong> malloc(), calloc(), realloc(), and free() for runtime memory allocation</li>
+                        <li><strong>Memory Management:</strong> Always free allocated memory to prevent memory leaks</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>Important:</strong> Understanding these C programming fundamentals is crucial for implementing data structures and algorithms efficiently. Pointers, in particular, are essential for linked lists, trees, and other dynamic data structures.
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p><a href="../index.html">← Back to Course Index</a> | <a href="arrays.html">Next: Arrays →</a></p>
+            <p style="margin-top: 10px; opacity: 0.8;">© 2024 COM2307 - Data Structures & Algorithms</p>
+        </footer>
+    </div>
+</body>
+</html>

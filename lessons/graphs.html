@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .code-title {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success-box h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .complexity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .complexity-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .complexity-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .complexity-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .visual-example {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+        }
+
+        .visual-example h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .graph-visual {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .step {
+            background: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 3px solid #764ba2;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .code-block {
+                padding: 15px;
+            }
+
+            .code-block pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🕸️ Graphs</h1>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> > Section 11: Graphs
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="section">
+                <h2>Introduction to Graphs</h2>
+                <p>A graph is a non-linear data structure consisting of vertices (nodes) and edges that connect these vertices. Graphs are used to represent networks, relationships, and connections between entities.</p>
+
+                <div class="info-box">
+                    <h4>Graph Terminology</h4>
+                    <ul>
+                        <li><strong>Vertex (Node):</strong> A fundamental unit that represents an entity</li>
+                        <li><strong>Edge:</strong> A connection between two vertices</li>
+                        <li><strong>Adjacent Vertices:</strong> Two vertices connected by an edge</li>
+                        <li><strong>Degree:</strong> Number of edges connected to a vertex</li>
+                        <li><strong>Path:</strong> Sequence of vertices connected by edges</li>
+                        <li><strong>Cycle:</strong> A path that starts and ends at the same vertex</li>
+                        <li><strong>Connected Graph:</strong> Every vertex has a path to every other vertex</li>
+                        <li><strong>Weighted Graph:</strong> Edges have associated weights/costs</li>
+                    </ul>
+                </div>
+
+                <h3>Types of Graphs</h3>
+                <ul>
+                    <li><strong>Directed Graph (Digraph):</strong> Edges have direction (A → B)</li>
+                    <li><strong>Undirected Graph:</strong> Edges have no direction (A ↔ B)</li>
+                    <li><strong>Weighted Graph:</strong> Edges have weights/costs</li>
+                    <li><strong>Unweighted Graph:</strong> All edges have equal weight</li>
+                    <li><strong>Cyclic Graph:</strong> Contains at least one cycle</li>
+                    <li><strong>Acyclic Graph:</strong> Contains no cycles (DAG - Directed Acyclic Graph)</li>
+                    <li><strong>Complete Graph:</strong> Every vertex is connected to every other vertex</li>
+                    <li><strong>Sparse Graph:</strong> Few edges compared to vertices</li>
+                    <li><strong>Dense Graph:</strong> Many edges compared to vertices</li>
+                </ul>
+
+                <div class="visual-example">
+                    <h4>Example Graph</h4>
+                    <div class="graph-visual">
+        0 ---- 1
+        |      |
+        |      |
+        3 ---- 2
+
+Edges: (0-1), (0-3), (1-2), (2-3)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graph Representation -->
+            <div class="section" id="representation">
+                <h2>11.1 Graph Representation</h2>
+                <p>There are two primary ways to represent graphs in memory:</p>
+
+                <h3>1. Adjacency Matrix</h3>
+                <p>A 2D array where matrix[i][j] = 1 if there's an edge from vertex i to vertex j, otherwise 0.</p>
+
+                <div class="info-box">
+                    <h4>Adjacency Matrix Properties</h4>
+                    <ul>
+                        <li><strong>Space Complexity:</strong> O(V²) where V is number of vertices</li>
+                        <li><strong>Edge Lookup:</strong> O(1) - very fast</li>
+                        <li><strong>Add/Remove Edge:</strong> O(1)</li>
+                        <li><strong>Best for:</strong> Dense graphs, frequent edge queries</li>
+                        <li><strong>Drawback:</strong> Wastes space for sparse graphs</li>
+                    </ul>
+                </div>
+
+                <div class="code-title">Adjacency Matrix Structure</div>
+                <div class="code-block">
+                    <pre>
+#define MAX_VERTICES 10
+
+struct Graph {
+    int numVertices;
+    int adjMatrix[MAX_VERTICES][MAX_VERTICES];
+};
+                    </pre>
+                </div>
+
+                <div class="code-title">Initialize Adjacency Matrix</div>
+                <div class="code-block">
+                    <pre>
+void initGraph(struct Graph* g, int vertices) {
+    int i, j;
+    g->numVertices = vertices;
+    
+    for (i = 0; i < vertices; i++) {
+        for (j = 0; j < vertices; j++) {
+            g->adjMatrix[i][j] = 0;
+        }
+    }
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">Add Edge (Undirected Graph)</div>
+                <div class="code-block">
+                    <pre>
+void addEdge(struct Graph* g, int src, int dest) {
+    if (src >= 0 && src < g->numVertices && 
+        dest >= 0 && dest < g->numVertices) {
+        g->adjMatrix[src][dest] = 1;
+        g->adjMatrix[dest][src] = 1;  // For undirected graph
+    }
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">Display Adjacency Matrix</div>
+                <div class="code-block">
+                    <pre>
+void displayMatrix(struct Graph* g) {
+    int i, j;
+    printf("\nAdjacency Matrix:\n");
+    printf("   ");
+    
+    for (i = 0; i < g->numVertices; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
+    
+    for (i = 0; i < g->numVertices; i++) {
+        printf("%d: ", i);
+        for (j = 0; j < g->numVertices; j++) {
+            printf("%d ", g->adjMatrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>2. Adjacency List</h3>
+                <p>An array of linked lists. Each vertex has a list of adjacent vertices.</p>
+
+                <div class="info-box">
+                    <h4>Adjacency List Properties</h4>
+                    <ul>
+                        <li><strong>Space Complexity:</strong> O(V + E) where E is number of edges</li>
+                        <li><strong>Edge Lookup:</strong> O(V) - need to traverse list</li>
+                        <li><strong>Add Edge:</strong> O(1)</li>
+                        <li><strong>Best for:</strong> Sparse graphs, traversal algorithms</li>
+                        <li><strong>Advantage:</strong> Space efficient for sparse graphs</li>
+                    </ul>
+                </div>
+
+                <div class="code-title">Adjacency List Structure</div>
+                <div class="code-block">
+                    <pre>
+struct Node {
+    int vertex;
+    struct Node* next;
+};
+
+struct Graph {
+    int numVertices;
+    struct Node** adjLists;
+};
+                    </pre>
+                </div>
+
+                <div class="code-title">Create Node</div>
+                <div class="code-block">
+                    <pre>
+struct Node* createNode(int v) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->vertex = v;
+    newNode->next = NULL;
+    return newNode;
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">Initialize Adjacency List</div>
+                <div class="code-block">
+                    <pre>
+struct Graph* createGraph(int vertices) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->numVertices = vertices;
+    
+    graph->adjLists = (struct Node**)malloc(vertices * sizeof(struct Node*));
+    
+    int i;
+    for (i = 0; i < vertices; i++) {
+        graph->adjLists[i] = NULL;
+    }
+    
+    return graph;
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">Add Edge (Undirected Graph)</div>
+                <div class="code-block">
+                    <pre>
+void addEdge(struct Graph* graph, int src, int dest) {
+    // Add edge from src to dest
+    struct Node* newNode = createNode(dest);
+    newNode->next = graph->adjLists[src];
+    graph->adjLists[src] = newNode;
+    
+    // Add edge from dest to src (for undirected graph)
+    newNode = createNode(src);
+    newNode->next = graph->adjLists[dest];
+    graph->adjLists[dest] = newNode;
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">Display Adjacency List</div>
+                <div class="code-block">
+                    <pre>
+void displayGraph(struct Graph* graph) {
+    int v;
+    printf("\nAdjacency List:\n");
+    
+    for (v = 0; v < graph->numVertices; v++) {
+        struct Node* temp = graph->adjLists[v];
+        printf("Vertex %d: ", v);
+        
+        while (temp) {
+            printf("%d -> ", temp->vertex);
+            temp = temp->next;
+        }
+        printf("NULL\n");
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Comparison: Matrix vs List</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Adjacency Matrix</th>
+                            <th>Adjacency List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Space</td>
+                            <td>O(V²)</td>
+                            <td>O(V + E)</td>
+                        </tr>
+                        <tr>
+                            <td>Add Vertex</td>
+                            <td>O(V²)</td>
+                            <td>O(1)</td>
+                        </tr>
+                        <tr>
+                            <td>Add Edge</td>
+                            <td>O(1)</td>
+                            <td>O(1)</td>
+                        </tr>
+                        <tr>
+                            <td>Remove Edge</td>
+                            <td>O(1)</td>
+                            <td>O(V)</td>
+                        </tr>
+                        <tr>
+                            <td>Check Edge</td>
+                            <td>O(1)</td>
+                            <td>O(V)</td>
+                        </tr>
+                        <tr>
+                            <td>Find Neighbors</td>
+                            <td>O(V)</td>
+                            <td>O(degree)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Depth First Search -->
+            <div class="section" id="dfs">
+                <h2>11.2 Depth First Search (DFS)</h2>
+                <p>DFS is a graph traversal algorithm that explores as far as possible along each branch before backtracking. It uses a stack (or recursion) to keep track of vertices.</p>
+
+                <h3>DFS Algorithm Steps</h3>
+                <ol>
+                    <li>Start at a source vertex and mark it as visited</li>
+                    <li>Visit an adjacent unvisited vertex</li>
+                    <li>Recursively apply DFS to that vertex</li>
+                    <li>Backtrack when no unvisited adjacent vertices remain</li>
+                    <li>Repeat until all vertices are visited</li>
+                </ol>
+
+                <div class="visual-example">
+                    <h4>DFS Traversal Example</h4>
+                    <div class="graph-visual">
+Graph:      0 --- 1
+            |     |
+            2 --- 3
+
+Starting from vertex 0:
+                    </div>
+                    <div class="step">Visit 0, mark as visited</div>
+                    <div class="step">Visit 1 (adjacent to 0), mark as visited</div>
+                    <div class="step">Visit 3 (adjacent to 1), mark as visited</div>
+                    <div class="step">Visit 2 (adjacent to 3), mark as visited</div>
+                    <div class="step">DFS Order: 0 → 1 → 3 → 2</div>
+                </div>
+
+                <h3>DFS Using Adjacency List (Recursive)</h3>
+                <div class="code-title">DFS Recursive Implementation</div>
+                <div class="code-block">
+                    <pre>
+void DFSUtil(struct Graph* graph, int vertex, int visited[]) {
+    // Mark current vertex as visited
+    visited[vertex] = 1;
+    printf("%d ", vertex);
+    
+    // Recur for all adjacent vertices
+    struct Node* temp = graph->adjLists[vertex];
+    while (temp != NULL) {
+        int adjVertex = temp->vertex;
+        if (!visited[adjVertex]) {
+            DFSUtil(graph, adjVertex, visited);
+        }
+        temp = temp->next;
+    }
+}
+
+void DFS(struct Graph* graph, int startVertex) {
+    int visited[MAX_VERTICES] = {0};
+    
+    printf("DFS Traversal starting from vertex %d: ", startVertex);
+    DFSUtil(graph, startVertex, visited);
+    printf("\n");
+}
+                    </pre>
+                </div>
+
+                <h3>DFS Using Stack (Iterative)</h3>
+                <div class="code-title">DFS Iterative Implementation</div>
+                <div class="code-block">
+                    <pre>
+void DFSIterative(struct Graph* graph, int startVertex) {
+    int visited[MAX_VERTICES] = {0};
+    int stack[MAX_VERTICES];
+    int top = -1;
+    
+    // Push start vertex to stack
+    stack[++top] = startVertex;
+    
+    printf("DFS Traversal (Iterative) from vertex %d: ", startVertex);
+    
+    while (top >= 0) {
+        // Pop vertex from stack
+        int vertex = stack[top--];
+        
+        if (!visited[vertex]) {
+            printf("%d ", vertex);
+            visited[vertex] = 1;
+        }
+        
+        // Push all adjacent unvisited vertices
+        struct Node* temp = graph->adjLists[vertex];
+        while (temp != NULL) {
+            int adjVertex = temp->vertex;
+            if (!visited[adjVertex]) {
+                stack[++top] = adjVertex;
+            }
+            temp = temp->next;
+        }
+    }
+    printf("\n");
+}
+                    </pre>
+                </div>
+
+                <h3>Complete DFS Program</h3>
+                <div class="code-title">Complete DFS Example</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define MAX_VERTICES 10
+
+struct Node {
+    int vertex;
+    struct Node* next;
+};
+
+struct Graph {
+    int numVertices;
+    struct Node** adjLists;
+};
+
+struct Node* createNode(int v);
+struct Graph* createGraph(int vertices);
+void addEdge(struct Graph* graph, int src, int dest);
+void DFSUtil(struct Graph* graph, int vertex, int visited[]);
+void DFS(struct Graph* graph, int startVertex);
+
+int main() {
+    struct Graph* graph = createGraph(4);
+    
+    addEdge(graph, 0, 1);
+    addEdge(graph, 0, 2);
+    addEdge(graph, 1, 3);
+    addEdge(graph, 2, 3);
+    
+    DFS(graph, 0);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <div class="info-box">
+                    <h4>DFS Applications</h4>
+                    <ul>
+                        <li>Finding connected components</li>
+                        <li>Detecting cycles in a graph</li>
+                        <li>Topological sorting</li>
+                        <li>Solving maze problems</li>
+                        <li>Path finding</li>
+                        <li>Strongly connected components</li>
+                    </ul>
+                </div>
+
+                <h3>Time and Space Complexity</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Adjacency Matrix</th>
+                            <th>Adjacency List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Time Complexity</td>
+                            <td>O(V²)</td>
+                            <td>O(V + E)</td>
+                        </tr>
+                        <tr>
+                            <td>Space Complexity</td>
+                            <td>O(V)</td>
+                            <td>O(V)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- DFS vs BFS Comparison -->
+            <div class="section">
+                <h2>DFS vs BFS Comparison</h2>
+
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>DFS</th>
+                            <th>BFS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data Structure</td>
+                            <td>Stack (or Recursion)</td>
+                            <td>Queue</td>
+                        </tr>
+                        <tr>
+                            <td>Exploration</td>
+                            <td>Goes deep into graph</td>
+                            <td>Explores level by level</td>
+                        </tr>
+                        <tr>
+                            <td>Memory</td>
+                            <td>Less memory for deep graphs</td>
+                            <td>More memory for wide graphs</td>
+                        </tr>
+                        <tr>
+                            <td>Shortest Path</td>
+                            <td>Does not guarantee</td>
+                            <td>Guarantees shortest path</td>
+                        </tr>
+                        <tr>
+                            <td>Implementation</td>
+                            <td>Simpler (recursive)</td>
+                            <td>Iterative with queue</td>
+                        </tr>
+                        <tr>
+                            <td>Best For</td>
+                            <td>Cycles, topological sort</td>
+                            <td>Shortest path, levels</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="visual-example">
+                    <h4>Visual Comparison</h4>
+                    <div class="graph-visual">
+Graph:          1
+              / | \
+             2  3  4
+            /       \
+           5         6
+
+DFS Order: 1 → 2 → 5 → 3 → 4 → 6
+BFS Order: 1 → 2 → 3 → 4 → 5 → 6
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graph Algorithms Applications -->
+            <div class="section">
+                <h2>Complete Graph Programs</h2>
+
+                <h3>Program 1: Detect Cycle in Undirected Graph using DFS</h3>
+                <div class="code-title">Cycle Detection</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define MAX_VERTICES 10
+
+struct Node {
+    int vertex;
+    struct Node* next;
+};
+
+struct Graph {
+    int numVertices;
+    struct Node** adjLists;
+};
+
+struct Node* createNode(int v) {
+    struct Node* newNode = malloc(sizeof(struct Node));
+    newNode->vertex = v;
+    newNode->next = NULL;
+    return newNode;
+}
+
+struct Graph* createGraph(int vertices) {
+    struct Graph* graph = malloc(sizeof(struct Graph));
+    graph->numVertices = vertices;
+    graph->adjLists = malloc(vertices * sizeof(struct Node*));
+    
+    int i;
+    for (i = 0; i < vertices; i++) {
+        graph->adjLists[i] = NULL;
+    }
+    return graph;
+}
+
+void addEdge(struct Graph* graph, int src, int dest) {
+    struct Node* newNode = createNode(dest);
+    newNode->next = graph->adjLists[src];
+    graph->adjLists[src] = newNode;
+    
+    newNode = createNode(src);
+    newNode->next = graph->adjLists[dest];
+    graph->adjLists[dest] = newNode;
+}
+
+int isCyclicUtil(struct Graph* graph, int v, int visited[], int parent) {
+    visited[v] = 1;
+    
+    struct Node* temp = graph->adjLists[v];
+    while (temp != NULL) {
+        int adjVertex = temp->vertex;
+        
+        if (!visited[adjVertex]) {
+            if (isCyclicUtil(graph, adjVertex, visited, v)) {
+                return 1;
+            }
+        }
+        else if (adjVertex != parent) {
+            return 1;  // Cycle detected
+        }
+        temp = temp->next;
+    }
+    return 0;
+}
+
+int isCyclic(struct Graph* graph) {
+    int visited[MAX_VERTICES] = {0};
+    int i;
+    
+    for (i = 0; i < graph->numVertices; i++) {
+        if (!visited[i]) {
+            if (isCyclicUtil(graph, i, visited, -1)) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int main() {
+    struct Graph* graph = createGraph(5);
+    
+    addEdge(graph, 0, 1);
+    addEdge(graph, 1, 2);
+    addEdge(graph, 2, 3);
+    addEdge(graph, 3, 4);
+    
+    if (isCyclic(graph)) {
+        printf("Graph contains cycle\n");
+    }
+    else {
+        printf("Graph doesn't contain cycle\n");
+    }
+    
+    // Add edge to create cycle
+    addEdge(graph, 4, 0);
+    
+    if (isCyclic(graph)) {
+        printf("Graph contains cycle\n");
+    }
+    else {
+        printf("Graph doesn't contain cycle\n");
+    }
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Program 2: Find All Paths Between Two Vertices</h3>
+                <div class="code-title">All Paths Finding</div>
+                <div class="code-block">
+                    <pre>
+void printPath(int path[], int pathLen) {
+    int i;
+    for (i = 0; i < pathLen; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+}
+
+void findAllPathsUtil(struct Graph* graph, int src, int dest, 
+                      int visited[], int path[], int pathLen) {
+    // Mark current node as visited and add to path
+    visited[src] = 1;
+    path[pathLen] = src;
+    pathLen++;
+    
+    // If current vertex is destination, print path
+    if (src == dest) {
+        printPath(path, pathLen);
+    }
+    else {
+        // Recur for all adjacent vertices
+        struct Node* temp = graph->adjLists[src];
+        while (temp != NULL) {
+            if (!visited[temp->vertex]) {
+                findAllPathsUtil(graph, temp->vertex, dest, 
+                               visited, path, pathLen);
+            }
+            temp = temp->next;
+        }
+    }
+    
+    // Backtrack: remove current vertex from path and mark unvisited
+    pathLen--;
+    visited[src] = 0;
+}
+
+void findAllPaths(struct Graph* graph, int src, int dest) {
+    int visited[MAX_VERTICES] = {0};
+    int path[MAX_VERTICES];
+    int pathLen = 0;
+    
+    printf("All paths from %d to %d:\n", src, dest);
+    findAllPathsUtil(graph, src, dest, visited, path, pathLen);
+}
+
+int main() {
+    struct Graph* graph = createGraph(4);
+    
+    addEdge(graph, 0, 1);
+    addEdge(graph, 0, 2);
+    addEdge(graph, 1, 2);
+    addEdge(graph, 1, 3);
+    addEdge(graph, 2, 3);
+    
+    findAllPaths(graph, 0, 3);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Program 3: Check if Graph is Connected</h3>
+                <div class="code-title">Graph Connectivity Check</div>
+                <div class="code-block">
+                    <pre>
+void DFSCount(struct Graph* graph, int v, int visited[], int* count) {
+    visited[v] = 1;
+    (*count)++;
+    
+    struct Node* temp = graph->adjLists[v];
+    while (temp != NULL) {
+        if (!visited[temp->vertex]) {
+            DFSCount(graph, temp->vertex, visited, count);
+        }
+        temp = temp->next;
+    }
+}
+
+int isConnected(struct Graph* graph) {
+    int visited[MAX_VERTICES] = {0};
+    int count = 0;
+    
+    // Start DFS from vertex 0
+    DFSCount(graph, 0, visited, &count);
+    
+    // If count equals number of vertices, graph is connected
+    return (count == graph->numVertices);
+}
+
+int main() {
+    struct Graph* graph1 = createGraph(4);
+    addEdge(graph1, 0, 1);
+    addEdge(graph1, 1, 2);
+    addEdge(graph1, 2, 3);
+    
+    printf("Graph 1 is %s\n", 
+           isConnected(graph1) ? "connected" : "not connected");
+    
+    struct Graph* graph2 = createGraph(4);
+    addEdge(graph2, 0, 1);
+    addEdge(graph2, 2, 3);
+    
+    printf("Graph 2 is %s\n", 
+           isConnected(graph2) ? "connected" : "not connected");
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Program 4: Count Connected Components</h3>
+                <div class="code-title">Connected Components</div>
+                <div class="code-block">
+                    <pre>
+void DFSComponent(struct Graph* graph, int v, int visited[]) {
+    visited[v] = 1;
+    printf("%d ", v);
+    
+    struct Node* temp = graph->adjLists[v];
+    while (temp != NULL) {
+        if (!visited[temp->vertex]) {
+            DFSComponent(graph, temp->vertex, visited);
+        }
+        temp = temp->next;
+    }
+}
+
+int countConnectedComponents(struct Graph* graph) {
+    int visited[MAX_VERTICES] = {0};
+    int count = 0;
+    int i;
+    
+    for (i = 0; i < graph->numVertices; i++) {
+        if (!visited[i]) {
+            printf("Component %d: ", count + 1);
+            DFSComponent(graph, i, visited);
+            printf("\n");
+            count++;
+        }
+    }
+    
+    return count;
+}
+
+int main() {
+    struct Graph* graph = createGraph(7);
+    
+    // Component 1
+    addEdge(graph, 0, 1);
+    addEdge(graph, 1, 2);
+    
+    // Component 2
+    addEdge(graph, 3, 4);
+    
+    // Component 3
+    addEdge(graph, 5, 6);
+    
+    int components = countConnectedComponents(graph);
+    printf("\nTotal connected components: %d\n", components);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Practice Problems -->
+            <div class="section">
+                <h2>Practice Problems</h2>
+
+                <h3>Problem 1: Shortest Path in Unweighted Graph</h3>
+                <div class="code-title">Shortest Path using BFS</div>
+                <div class="code-block">
+                    <pre>
+void shortestPath(struct Graph* graph, int src, int dest) {
+    if (src == dest) {
+        printf("Source and destination are same\n");
+        return;
+    }
+    
+    int visited[MAX_VERTICES] = {0};
+    int parent[MAX_VERTICES];
+    int queue[MAX_VERTICES];
+    int front = 0, rear = 0;
+    int i;
+    
+    for (i = 0; i < graph->numVertices; i++) {
+        parent[i] = -1;
+    }
+    
+    visited[src] = 1;
+    queue[rear++] = src;
+    
+    while (front < rear) {
+        int u = queue[front++];
+        
+        struct Node* temp = graph->adjLists[u];
+        while (temp != NULL) {
+            int v = temp->vertex;
+            
+            if (!visited[v]) {
+                visited[v] = 1;
+                parent[v] = u;
+                queue[rear++] = v;
+                
+                if (v == dest) {
+                    // Print path
+                    printf("Shortest path from %d to %d: ", src, dest);
+                    int path[MAX_VERTICES];
+                    int pathLen = 0;
+                    int current = dest;
+                    
+                    while (current != -1) {
+                        path[pathLen++] = current;
+                        current = parent[current];
+                    }
+                    
+                    for (i = pathLen - 1; i >= 0; i--) {
+                        printf("%d ", path[i]);
+                    }
+                    printf("\nPath length: %d\n", pathLen - 1);
+                    return;
+                }
+            }
+            temp = temp->next;
+        }
+    }
+    
+    printf("No path exists from %d to %d\n", src, dest);
+}
+                    </pre>
+                </div>
+
+                <h3>Problem 2: Topological Sort using DFS</h3>
+                <div class="code-title">Topological Sorting (DAG)</div>
+                <div class="code-block">
+                    <pre>
+void topologicalSortUtil(struct Graph* graph, int v, 
+                         int visited[], int stack[], int* top) {
+    visited[v] = 1;
+    
+    struct Node* temp = graph->adjLists[v];
+    while (temp != NULL) {
+        if (!visited[temp->vertex]) {
+            topologicalSortUtil(graph, temp->vertex, visited, stack, top);
+        }
+        temp = temp->next;
+    }
+    
+    // Push current vertex to stack after visiting all descendants
+    stack[++(*top)] = v;
+}
+
+void topologicalSort(struct Graph* graph) {
+    int visited[MAX_VERTICES] = {0};
+    int stack[MAX_VERTICES];
+    int top = -1;
+    int i;
+    
+    // Call helper function for all vertices
+    for (i = 0; i < graph->numVertices; i++) {
+        if (!visited[i]) {
+            topologicalSortUtil(graph, i, visited, stack, &top);
+        }
+    }
+    
+    // Print topological order
+    printf("Topological Sort: ");
+    while (top >= 0) {
+        printf("%d ", stack[top--]);
+    }
+    printf("\n");
+}
+
+int main() {
+    // Create directed graph
+    struct Graph* graph = createGraph(6);
+    
+    // Add directed edges
+    addEdge(graph, 5, 2);
+    addEdge(graph, 5, 0);
+    addEdge(graph, 4, 0);
+    addEdge(graph, 4, 1);
+    addEdge(graph, 2, 3);
+    addEdge(graph, 3, 1);
+    
+    topologicalSort(graph);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Real World Applications -->
+            <div class="section">
+                <h2>Real-World Applications</h2>
+
+                <div class="success-box">
+                    <h4>Graph Applications in Real World</h4>
+                    <ul>
+                        <li><strong>Social Networks:</strong> Friend recommendations, influence analysis</li>
+                        <li><strong>GPS Navigation:</strong> Shortest path algorithms (Dijkstra, A*)</li>
+                        <li><strong>Web Crawling:</strong> BFS for discovering web pages</li>
+                        <li><strong>Network Routing:</strong> Finding optimal data transmission paths</li>
+                        <li><strong>Dependency Resolution:</strong> Package managers, build systems</li>
+                        <li><strong>Recommendation Systems:</strong> Product or content suggestions</li>
+                        <li><strong>Circuit Design:</strong> Electronic circuit analysis</li>
+                        <li><strong>Biology:</strong> Protein interaction networks, phylogenetic trees</li>
+                        <li><strong>Game Development:</strong> Pathfinding, AI decision trees</li>
+                        <li><strong>Compiler Design:</strong> Control flow graphs, data flow analysis</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="section">
+                <h2>Key Takeaways</h2>
+
+                <div class="info-box">
+                    <h4>Important Points to Remember</h4>
+                    <ul>
+                        <li>Graphs can be directed or undirected, weighted or unweighted</li>
+                        <li>Adjacency matrix is better for dense graphs, adjacency list for sparse</li>
+                        <li>DFS uses stack (recursion), explores deeply before backtracking</li>
+                        <li>BFS uses queue, explores level by level</li>
+                        <li>BFS guarantees shortest path in unweighted graphs</li>
+                        <li>Both DFS and BFS have O(V + E) time complexity with adjacency list</li>
+                        <li>Space complexity for both is O(V) for visited array</li>
+                        <li>Choose representation based on graph density and operations needed</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Common Mistakes to Avoid</h4>
+                    <ul>
+                        <li>Not marking vertices as visited (infinite loops)</li>
+                        <li>Forgetting to check bounds when adding edges</li>
+                        <li>Not handling disconnected graphs properly</li>
+                        <li>Confusing directed and undirected edge addition</li>
+                        <li>Memory leaks when using adjacency list</li>
+                        <li>Not initializing visited array correctly</li>
+                        <li>Wrong queue/stack implementation causing incorrect traversal</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>When to Use DFS vs BFS</h4>
+                    <p><strong>Use DFS when:</strong></p>
+                    <ul>
+                        <li>Finding paths or cycles in graphs</li>
+                        <li>Topological sorting</li>
+                        <li>Solving puzzles with only one solution</li>
+                        <li>Memory is limited and graph is deep</li>
+                    </ul>
+                    <p><strong>Use BFS when:</strong></p>
+                    <ul>
+                        <li>Finding shortest path in unweighted graphs</li>
+                        <li>Level-order traversal needed</li>
+                        <li>Finding all nodes within a given distance</li>
+                        <li>Graph is wide and not very deep</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Summary Table -->
+            <div class="section">
+                <h2>Quick Reference Summary</h2>
+
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Concept</th>
+                            <th>Key Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Graph Definition</td>
+                            <td>G = (V, E) - Set of vertices and edges</td>
+                        </tr>
+                        <tr>
+                            <td>Adjacency Matrix Space</td>
+                            <td>O(V²)</td>
+                        </tr>
+                        <tr>
+                            <td>Adjacency List Space</td>
+                            <td>O(V + E)</td>
+                        </tr>
+                        <tr>
+                            <td>DFS Time Complexity</td>
+                            <td>O(V + E) with adjacency list</td>
+                        </tr>
+                        <tr>
+                            <td>BFS Time Complexity</td>
+                            <td>O(V + E) with adjacency list</td>
+                        </tr>
+                        <tr>
+                            <td>DFS Data Structure</td>
+                            <td>Stack (or recursion)</td>
+                        </tr>
+                        <tr>
+                            <td>BFS Data Structure</td>
+                            <td>Queue</td>
+                        </tr>
+                        <tr>
+                            <td>Shortest Path</td>
+                            <td>BFS for unweighted graphs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-buttons">
+                <a href="hashtables.html" class="nav-button">← Previous: Hash Tables</a>
+                <a href="../index.html" class="nav-button">Back to Home →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lists - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-breadcrumb {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .nav-breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .nav-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .text-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .text-content p {
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .code-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: -5px;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        .key-points {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .key-points h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .key-points ul {
+            margin-left: 20px;
+        }
+
+        .key-points li {
+            margin: 8px 0;
+        }
+
+        .visual-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .code-block {
+                padding: 15px;
+                font-size: 0.85em;
+            }
+        }
+
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+        .type { color: #4ec9b0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 Lists</h1>
+            <p>Section 5 - COM2307</p>
+        </header>
+
+        <div class="nav-breadcrumb">
+            <a href="../index.html">← Back to Course Index</a> | <a href="arrays.html">← Previous: Arrays</a>
+        </div>
+
+        <div class="content">
+            <!-- Section 5.1: Array-Based Lists -->
+            <div class="section" id="array-based">
+                <div class="section-title">5.1 Array-Based Lists</div>
+
+                <div class="subsection">
+                    <h3>Introduction to Array-Based Lists</h3>
+                    <div class="text-content">
+                        <p>An <strong>array-based list</strong> (or dynamic array) is an implementation of the list ADT using arrays. It combines the benefits of arrays with dynamic sizing capabilities.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Sequential storage in contiguous memory</li>
+                            <li>Dynamic resizing when capacity is reached</li>
+                            <li>Fast random access O(1)</li>
+                            <li>Variable number of elements</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-title">Array-Based List Implementation</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Array-Based List Implementation */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdlib.h&gt;</span>
+
+<span class="keyword">#define</span> INITIAL_CAPACITY <span class="number">10</span>
+
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> *data;
+    <span class="keyword">int</span> size;
+    <span class="keyword">int</span> capacity;
+} <span class="type">ArrayList</span>;
+
+<span class="comment">/* Initialize the list */</span>
+<span class="keyword">void</span> <span class="function">initList</span>(<span class="type">ArrayList</span> *list) {
+    list->data = (<span class="keyword">int</span>*)<span class="function">malloc</span>(INITIAL_CAPACITY * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+    list->size = <span class="number">0</span>;
+    list->capacity = INITIAL_CAPACITY;
+}
+
+<span class="comment">/* Resize the array when needed */</span>
+<span class="keyword">void</span> <span class="function">resize</span>(<span class="type">ArrayList</span> *list) {
+    list->capacity *= <span class="number">2</span>;
+    list->data = (<span class="keyword">int</span>*)<span class="function">realloc</span>(list->data, list->capacity * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+}
+
+<span class="comment">/* Insert at end */</span>
+<span class="keyword">void</span> <span class="function">append</span>(<span class="type">ArrayList</span> *list, <span class="keyword">int</span> value) {
+    <span class="keyword">if</span>(list->size == list->capacity) {
+        <span class="function">resize</span>(list);
+    }
+    list->data[list->size++] = value;
+}
+
+<span class="comment">/* Insert at position */</span>
+<span class="keyword">void</span> <span class="function">insertAt</span>(<span class="type">ArrayList</span> *list, <span class="keyword">int</span> pos, <span class="keyword">int</span> value) {
+    <span class="keyword">int</span> i;
+    
+    <span class="keyword">if</span>(pos < <span class="number">0</span> || pos > list->size) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, current->data);
+        current = current->next;
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="type">Node</span> *head = NULL;
+    
+    head = <span class="function">sortedInsert</span>(head, <span class="number">30</span>);
+    head = <span class="function">sortedInsert</span>(head, <span class="number">10</span>);
+    head = <span class="function">sortedInsert</span>(head, <span class="number">50</span>);
+    head = <span class="function">sortedInsert</span>(head, <span class="number">20</span>);
+    head = <span class="function">sortedInsert</span>(head, <span class="number">40</span>);
+    
+    <span class="function">printf</span>(<span class="string">"Sorted "</span>);
+    <span class="function">displayList</span>(head);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5.4: Doubly Linked Lists -->
+            <div class="section" id="doubly-linked">
+                <div class="section-title">5.4 Doubly Linked Lists</div>
+
+                <div class="subsection">
+                    <h3>Introduction to Doubly Linked Lists</h3>
+                    <div class="text-content">
+                        <p>A <strong>doubly linked list</strong> has nodes with two pointers: one to the next node and one to the previous node. This allows traversal in both directions.</p>
+                        <p><strong>Advantages:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Bidirectional traversal</li>
+                            <li>Easier deletion (no need to track previous node)</li>
+                            <li>Can traverse backward from any node</li>
+                        </ul>
+                        <p><strong>Disadvantages:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Extra memory for previous pointer</li>
+                            <li>More complex insertion/deletion logic</li>
+                        </ul>
+                    </div>
+
+                    <div class="visual-box">
+                        <h4>Doubly Linked List Structure</h4>
+                        <p style="margin: 20px 0; font-family: monospace; font-size: 1.1em;">
+                            NULL ← [10] ⇄ [20] ⇄ [30] ⇄ [40] → NULL
+                        </p>
+                        <p style="color: #666;">Each node: Previous Pointer + Data + Next Pointer</p>
+                    </div>
+
+                    <div class="code-title">Doubly Linked List Implementation</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Doubly Linked List */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdlib.h&gt;</span>
+
+<span class="comment">/* Node structure with prev and next pointers */</span>
+<span class="keyword">typedef struct</span> Node {
+    <span class="keyword">int</span> data;
+    <span class="keyword">struct</span> Node *prev;
+    <span class="keyword">struct</span> Node *next;
+} <span class="type">Node</span>;
+
+<span class="comment">/* Create a new node */</span>
+<span class="type">Node</span>* <span class="function">createNode</span>(<span class="keyword">int</span> data) {
+    <span class="type">Node</span> *newNode = (<span class="type">Node</span>*)<span class="function">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">Node</span>));
+    newNode->data = data;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    <span class="keyword">return</span> newNode;
+}
+
+<span class="comment">/* Insert at beginning */</span>
+<span class="type">Node</span>* <span class="function">insertAtBeginning</span>(<span class="type">Node</span> *head, <span class="keyword">int</span> data) {
+    <span class="type">Node</span> *newNode = <span class="function">createNode</span>(data);
+    
+    <span class="keyword">if</span>(head != NULL) {
+        head->prev = newNode;
+        newNode->next = head;
+    }
+    
+    <span class="keyword">return</span> newNode;
+}
+
+<span class="comment">/* Insert at end */</span>
+<span class="type">Node</span>* <span class="function">insertAtEnd</span>(<span class="type">Node</span> *head, <span class="keyword">int</span> data) {
+    <span class="type">Node</span> *newNode = <span class="function">createNode</span>(data);
+    
+    <span class="keyword">if</span>(head == NULL) {
+        <span class="keyword">return</span> newNode;
+    }
+    
+    <span class="type">Node</span> *current = head;
+    <span class="keyword">while</span>(current->next != NULL) {
+        current = current->next;
+    }
+    
+    current->next = newNode;
+    newNode->prev = current;
+    
+    <span class="keyword">return</span> head;
+}
+
+<span class="comment">/* Delete a node */</span>
+<span class="type">Node</span>* <span class="function">deleteNode</span>(<span class="type">Node</span> *head, <span class="type">Node</span> *delNode) {
+    <span class="keyword">if</span>(head == NULL || delNode == NULL) {
+        <span class="keyword">return</span> head;
+    }
+    
+    <span class="comment">/* If node to be deleted is head */</span>
+    <span class="keyword">if</span>(head == delNode) {
+        head = delNode->next;
+    }
+    
+    <span class="comment">/* Change next only if not last node */</span>
+    <span class="keyword">if</span>(delNode->next != NULL) {
+        delNode->next->prev = delNode->prev;
+    }
+    
+    <span class="comment">/* Change prev only if not first node */</span>
+    <span class="keyword">if</span>(delNode->prev != NULL) {
+        delNode->prev->next = delNode->next;
+    }
+    
+    <span class="function">free</span>(delNode);
+    <span class="keyword">return</span> head;
+}
+
+<span class="comment">/* Display forward */</span>
+<span class="keyword">void</span> <span class="function">displayForward</span>(<span class="type">Node</span> *head) {
+    <span class="type">Node</span> *current = head;
+    <span class="function">printf</span>(<span class="string">"Forward: "</span>);
+    <span class="keyword">while</span>(current != NULL) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, current->data);
+        current = current->next;
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="comment">/* Display backward */</span>
+<span class="keyword">void</span> <span class="function">displayBackward</span>(<span class="type">Node</span> *head) {
+    <span class="type">Node</span> *current = head;
+    
+    <span class="keyword">if</span>(head == NULL) {
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="comment">/* Go to last node */</span>
+    <span class="keyword">while</span>(current->next != NULL) {
+        current = current->next;
+    }
+    
+    <span class="function">printf</span>(<span class="string">"Backward: "</span>);
+    <span class="keyword">while</span>(current != NULL) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, current->data);
+        current = current->prev;
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="type">Node</span> *head = NULL;
+    
+    head = <span class="function">insertAtEnd</span>(head, <span class="number">10</span>);
+    head = <span class="function">insertAtEnd</span>(head, <span class="number">20</span>);
+    head = <span class="function">insertAtEnd</span>(head, <span class="number">30</span>);
+    head = <span class="function">insertAtBeginning</span>(head, <span class="number">5</span>);
+    
+    <span class="function">displayForward</span>(head);
+    <span class="function">displayBackward</span>(head);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5.5: Circular Linked Lists -->
+            <div class="section" id="circular">
+                <div class="section-title">5.5 Circular Linked Lists</div>
+
+                <div class="subsection">
+                    <h3>Introduction to Circular Linked Lists</h3>
+                    <div class="text-content">
+                        <p>A <strong>circular linked list</strong> is a variation where the last node points back to the first node, forming a circle. There is no NULL at the end.</p>
+                        <p><strong>Applications:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Round-robin scheduling</li>
+                            <li>Multiplayer games (turn-based)</li>
+                            <li>Music playlist (repeat mode)</li>
+                            <li>Browser history navigation</li>
+                        </ul>
+                    </div>
+
+                    <div class="visual-box">
+                        <h4>Circular Linked List Structure</h4>
+                        <p style="margin: 20px 0; font-family: monospace; font-size: 1.1em;">
+                            ┌→ [10] → [20] → [30] → [40] ┐<br>
+                            └───────────────────────────┘
+                        </p>
+                        <p style="color: #666;">Last node points back to first node</p>
+                    </div>
+
+                    <div class="code-title">Circular Linked List Implementation</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Circular Linked List */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdlib.h&gt;</span>
+
+<span class="keyword">typedef struct</span> Node {
+    <span class="keyword">int</span> data;
+    <span class="keyword">struct</span> Node *next;
+} <span class="type">Node</span>;
+
+<span class="type">Node</span>* <span class="function">createNode</span>(<span class="keyword">int</span> data) {
+    <span class="type">Node</span> *newNode = (<span class="type">Node</span>*)<span class="function">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">Node</span>));
+    newNode->data = data;
+    newNode->next = NULL;
+    <span class="keyword">return</span> newNode;
+}
+
+<span class="comment">/* Insert at beginning */</span>
+<span class="type">Node</span>* <span class="function">insertAtBeginning</span>(<span class="type">Node</span> *head, <span class="keyword">int</span> data) {
+    <span class="type">Node</span> *newNode = <span class="function">createNode</span>(data);
+    
+    <span class="keyword">if</span>(head == NULL) {
+        newNode->next = newNode;  <span class="comment">/* Point to itself */</span>
+        <span class="keyword">return</span> newNode;
+    }
+    
+    <span class="comment">/* Find last node */</span>
+    <span class="type">Node</span> *current = head;
+    <span class="keyword">while</span>(current->next != head) {
+        current = current->next;
+    }
+    
+    newNode->next = head;
+    current->next = newNode;
+    
+    <span class="keyword">return</span> newNode;
+}
+
+<span class="comment">/* Insert at end */</span>
+<span class="type">Node</span>* <span class="function">insertAtEnd</span>(<span class="type">Node</span> *head, <span class="keyword">int</span> data) {
+    <span class="type">Node</span> *newNode = <span class="function">createNode</span>(data);
+    
+    <span class="keyword">if</span>(head == NULL) {
+        newNode->next = newNode;
+        <span class="keyword">return</span> newNode;
+    }
+    
+    <span class="comment">/* Find last node */</span>
+    <span class="type">Node</span> *current = head;
+    <span class="keyword">while</span>(current->next != head) {
+        current = current->next;
+    }
+    
+    current->next = newNode;
+    newNode->next = head;
+    
+    <span class="keyword">return</span> head;
+}
+
+<span class="comment">/* Delete a node by value */</span>
+<span class="type">Node</span>* <span class="function">deleteNode</span>(<span class="type">Node</span> *head, <span class="keyword">int</span> key) {
+    <span class="keyword">if</span>(head == NULL) {
+        <span class="keyword">return</span> NULL;
+    }
+    
+    <span class="type">Node</span> *current = head;
+    <span class="type">Node</span> *prev = NULL;
+    
+    <span class="comment">/* If head needs to be deleted */</span>
+    <span class="keyword">if</span>(head->data == key) {
+        <span class="comment">/* Find last node */</span>
+        <span class="keyword">while</span>(current->next != head) {
+            current = current->next;
+        }
+        
+        <span class="keyword">if</span>(head == head->next) {
+            <span class="function">free</span>(head);
+            <span class="keyword">return</span> NULL;
+        }
+        
+        current->next = head->next;
+        <span class="function">free</span>(head);
+        <span class="keyword">return</span> current->next;
+    }
+    
+    <span class="comment">/* Search for node */</span>
+    prev = head;
+    current = head->next;
+    <span class="keyword">while</span>(current != head && current->data != key) {
+        prev = current;
+        current = current->next;
+    }
+    
+    <span class="keyword">if</span>(current->data == key) {
+        prev->next = current->next;
+        <span class="function">free</span>(current);
+    }
+    
+    <span class="keyword">return</span> head;
+}
+
+<span class="comment">/* Display circular list */</span>
+<span class="keyword">void</span> <span class="function">displayList</span>(<span class="type">Node</span> *head) {
+    <span class="keyword">if</span>(head == NULL) {
+        <span class="function">printf</span>(<span class="string">"List is empty\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="type">Node</span> *current = head;
+    <span class="function">printf</span>(<span class="string">"Circular List: "</span>);
+    
+    <span class="keyword">do</span> {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, current->data);
+        current = current->next;
+    } <span class="keyword">while</span>(current != head);
+    
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="type">Node</span> *head = NULL;
+    
+    head = <span class="function">insertAtEnd</span>(head, <span class="number">10</span>);
+    head = <span class="function">insertAtEnd</span>(head, <span class="number">20</span>);
+    head = <span class="function">insertAtEnd</span>(head, <span class="number">30</span>);
+    head = <span class="function">insertAtBeginning</span>(head, <span class="number">5</span>);
+    
+    <span class="function">displayList</span>(head);
+    
+    head = <span class="function">deleteNode</span>(head, <span class="number">20</span>);
+    <span class="function">printf</span>(<span class="string">"After deleting 20:\n"</span>);
+    <span class="function">displayList</span>(head);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Section -->
+            <div class="section">
+                <div class="section-title">Comparison of List Types</div>
+
+                <div class="subsection">
+                    <h3>Time Complexity Comparison</h3>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Operation</th>
+                                <th>Array-Based</th>
+                                <th>Singly Linked</th>
+                                <th>Doubly Linked</th>
+                                <th>Circular Linked</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Access by Index</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Insert at Beginning</td>
+                                <td>O(n)</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                                <td>O(n)*</td>
+                            </tr>
+                            <tr>
+                                <td>Insert at End</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Delete at Beginning</td>
+                                <td>O(n)</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                                <td>O(n)*</td>
+                            </tr>
+                            <tr>
+                                <td>Delete at End</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                                <td>O(1)**</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Search</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                        * O(n) due to finding last node to update circular link<br>
+                        ** O(1) if tail pointer is maintained
+                    </p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Space Complexity Comparison</h3>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>List Type</th>
+                                <th>Space per Element</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Array-Based List</td>
+                                <td>Data only</td>
+                                <td>Most space efficient, but may waste allocated space</td>
+                            </tr>
+                            <tr>
+                                <td>Singly Linked List</td>
+                                <td>Data + 1 pointer</td>
+                                <td>Extra pointer overhead</td>
+                            </tr>
+                            <tr>
+                                <td>Doubly Linked List</td>
+                                <td>Data + 2 pointers</td>
+                                <td>Highest memory overhead</td>
+                            </tr>
+                            <tr>
+                                <td>Circular Linked List</td>
+                                <td>Data + 1 pointer</td>
+                                <td>Same as singly linked</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>When to Use Each Type</h3>
+                    
+                    <div class="key-points">
+                        <h4>Array-Based List</h4>
+                        <ul>
+                            <li>Need fast random access by index</li>
+                            <li>Size is relatively stable</li>
+                            <li>Memory efficiency is important</li>
+                            <li>Cache performance matters</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>Singly Linked List</h4>
+                        <ul>
+                            <li>Frequent insertions/deletions at beginning</li>
+                            <li>Size changes frequently</li>
+                            <li>Don't need random access</li>
+                            <li>Memory is fragmented</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>Doubly Linked List</h4>
+                        <ul>
+                            <li>Need bidirectional traversal</li>
+                            <li>Implementing undo/redo functionality</li>
+                            <li>Browser history navigation</li>
+                            <li>LRU cache implementation</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>Circular Linked List</h4>
+                        <ul>
+                            <li>Round-robin scheduling</li>
+                            <li>Multiplayer game turns</li>
+                            <li>Circular buffers</li>
+                            <li>Music/video playlists</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <div class="section-title">Summary</div>
+                
+                <div class="key-points">
+                    <h4>Key Takeaways</h4>
+                    <ul>
+                        <li><strong>Array-Based Lists:</strong> Fast access, fixed/growable size, contiguous memory</li>
+                        <li><strong>Singly Linked Lists:</strong> Dynamic size, efficient insertion at head, one-way traversal</li>
+                        <li><strong>Sorted Linked Lists:</strong> Maintain order automatically, O(n) insertion</li>
+                        <li><strong>Doubly Linked Lists:</strong> Bidirectional traversal, easier deletion, more memory</li>
+                        <li><strong>Circular Linked Lists:</strong> No end node, useful for cyclic operations</li>
+                        <li><strong>Trade-offs:</strong> Memory vs flexibility vs access speed</li>
+                        <li><strong>Choose based on:</strong> Access patterns, insertion/deletion frequency, memory constraints</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>Important:</strong> Understanding different list implementations helps you choose the right data structure for your specific use case. Consider the operations you'll perform most frequently when making your choice!
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p><a href="arrays.html">← Previous: Arrays</a> | <a href="../index.html">Back to Course Index</a> | <a href="stacks.html">Next: Stacks →</a></p>
+            <p style="margin-top: 10px; opacity: 0.8;">© 2024 COM2307 - Data Structures & Algorithms</p>
+        </footer>
+    </div>
+</body>
+</html>

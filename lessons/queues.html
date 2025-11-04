@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queues - Data Structures & Algorithms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 20px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .concept-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .concept-box h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+        }
+
+        .code-block .function {
+            color: #dcdcaa;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .diagram {
+            background: white;
+            padding: 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .note {
+            background: #d1ecf1;
+            border-left: 5px solid #0c5460;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Queues (FIFO)</h1>
+            <p>Data Structures & Algorithms - COM2307</p>
+        </header>
+
+        <div class="nav">
+            <a href="../index.html">← Back to Course Index</a>
+        </div>
+
+        <div class="content">
+            <!-- Section 7.1 -->
+            <div class="section" id="introduction">
+                <h2>7.1 Introduction to Queues (FIFO)</h2>
+                
+                <p>A <span class="highlight">queue</span> is a linear data structure that follows the <strong>FIFO (First In, First Out)</strong> principle. This means that the first element added to the queue will be the first one to be removed, similar to a line of people waiting at a ticket counter.</p>
+
+                <div class="concept-box">
+                    <h4>Key Characteristics</h4>
+                    <ul>
+                        <li><strong>FIFO Order:</strong> First element inserted is the first to be removed</li>
+                        <li><strong>Two-End Access:</strong> Insertion at rear (back), deletion from front</li>
+                        <li><strong>Limited Access:</strong> Cannot access elements in the middle directly</li>
+                    </ul>
+                </div>
+
+                <h3>Basic Queue Operations</h3>
+                <table>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Description</th>
+                        <th>Time Complexity</th>
+                    </tr>
+                    <tr>
+                        <td><strong>enqueue()</strong></td>
+                        <td>Add an element to the rear of the queue</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>dequeue()</strong></td>
+                        <td>Remove and return the front element</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>front()/peek()</strong></td>
+                        <td>Return the front element without removing it</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>isEmpty()</strong></td>
+                        <td>Check if the queue is empty</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>isFull()</strong></td>
+                        <td>Check if the queue is full (for array-based)</td>
+                        <td>O(1)</td>
+                    </tr>
+                </table>
+
+                <div class="diagram">
+                    <h4>Queue Visualization</h4>
+                    <pre>
+    Enqueue 10      Enqueue 20      Enqueue 30       Dequeue
+    -----------     -----------     -----------     -----------
+    FRONT  REAR     FRONT    REAR   FRONT      REAR FRONT  REAR
+      ↓     ↓         ↓       ↓       ↓         ↓     ↓     ↓
+     [10]            [10][20]        [10][20][30]    [20][30]
+    -----------     -----------     -----------     -----------
+    </pre>
+                </div>
+            </div>
+
+            <!-- Section 7.2 -->
+            <div class="section" id="array-based">
+                <h2>7.2 Array-Based Queue (Circular)</h2>
+                
+                <p>A circular queue uses a fixed-size array where the rear wraps around to the beginning when it reaches the end. This prevents wasted space that occurs in a simple linear queue.</p>
+
+                <div class="concept-box">
+                    <h4>Why Circular Queue?</h4>
+                    <p>In a simple linear queue, after several enqueue and dequeue operations, the front moves forward leaving unused space at the beginning. A circular queue solves this by treating the array as circular.</p>
+                    <ul>
+                        <li><strong>Efficient Space Usage:</strong> Reuses freed space at the front</li>
+                        <li><strong>Fixed Size:</strong> No dynamic memory allocation</li>
+                        <li><strong>Modulo Arithmetic:</strong> Uses (index + 1) % size for wrapping</li>
+                    </ul>
+                </div>
+
+                <h3>Complete C Implementation - Circular Queue</h3>
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_SIZE 5
+
+<span class="comment">// Circular Queue structure</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_SIZE];
+    <span class="keyword">int</span> front;
+    <span class="keyword">int</span> rear;
+    <span class="keyword">int</span> size;
+} Queue;
+
+<span class="comment">// Initialize queue</span>
+<span class="keyword">void</span> <span class="function">initQueue</span>(Queue* q) {
+    q-&gt;front = -1;
+    q-&gt;rear = -1;
+    q-&gt;size = 0;
+}
+
+<span class="comment">// Check if queue is empty</span>
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Queue* q) {
+    <span class="keyword">return</span> q-&gt;size == 0;
+}
+
+<span class="comment">// Check if queue is full</span>
+<span class="keyword">bool</span> <span class="function">isFull</span>(Queue* q) {
+    <span class="keyword">return</span> q-&gt;size == MAX_SIZE;
+}
+
+<span class="comment">// Enqueue operation - O(1)</span>
+<span class="keyword">void</span> <span class="function">enqueue</span>(Queue* q, <span class="keyword">int</span> value) {
+    <span class="keyword">if</span> (isFull(q)) {
+        printf(<span class="string">"Queue Overflow! Cannot enqueue %d\n"</span>, value);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="keyword">if</span> (isEmpty(q)) {
+        q-&gt;front = 0;
+        q-&gt;rear = 0;
+    } <span class="keyword">else</span> {
+        q-&gt;rear = (q-&gt;rear + 1) % MAX_SIZE;
+    }
+    
+    q-&gt;items[q-&gt;rear] = value;
+    q-&gt;size++;
+    printf(<span class="string">"Enqueued %d\n"</span>, value);
+}
+
+<span class="comment">// Dequeue operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">dequeue</span>(Queue* q) {
+    <span class="keyword">if</span> (isEmpty(q)) {
+        printf(<span class="string">"Queue Underflow! Cannot dequeue\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    
+    <span class="keyword">int</span> value = q-&gt;items[q-&gt;front];
+    
+    <span class="keyword">if</span> (q-&gt;front == q-&gt;rear) {
+        <span class="comment">// Queue has only one element</span>
+        q-&gt;front = -1;
+        q-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        q-&gt;front = (q-&gt;front + 1) % MAX_SIZE;
+    }
+    
+    q-&gt;size--;
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// Peek/Front operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">front</span>(Queue* q) {
+    <span class="keyword">if</span> (isEmpty(q)) {
+        printf(<span class="string">"Queue is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    <span class="keyword">return</span> q-&gt;items[q-&gt;front];
+}
+
+<span class="comment">// Display queue contents</span>
+<span class="keyword">void</span> <span class="function">display</span>(Queue* q) {
+    <span class="keyword">if</span> (isEmpty(q)) {
+        printf(<span class="string">"Queue is empty!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Queue contents (front to rear): "</span>);
+    <span class="keyword">int</span> i = q-&gt;front;
+    <span class="keyword">int</span> count = 0;
+    
+    <span class="keyword">while</span> (count &lt; q-&gt;size) {
+        printf(<span class="string">"%d "</span>, q-&gt;items[i]);
+        i = (i + 1) % MAX_SIZE;
+        count++;
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="comment">// Main function demonstrating queue operations</span>
+<span class="keyword">int</span> <span class="function">main</span>() {
+    Queue queue;
+    initQueue(&amp;queue);
+    
+    printf(<span class="string">"=== Circular Queue Demo ===\n\n"</span>);
+    
+    <span class="comment">// Enqueue elements</span>
+    enqueue(&amp;queue, 10);
+    enqueue(&amp;queue, 20);
+    enqueue(&amp;queue, 30);
+    enqueue(&amp;queue, 40);
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;queue);
+    
+    <span class="comment">// Front element</span>
+    printf(<span class="string">"\nFront element: %d\n"</span>, front(&amp;queue));
+    
+    <span class="comment">// Dequeue operations</span>
+    printf(<span class="string">"\nDequeued: %d\n"</span>, dequeue(&amp;queue));
+    printf(<span class="string">"Dequeued: %d\n"</span>, dequeue(&amp;queue));
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;queue);
+    
+    <span class="comment">// Enqueue more elements (demonstrating circular nature)</span>
+    printf(<span class="string">"\n"</span>);
+    enqueue(&amp;queue, 50);
+    enqueue(&amp;queue, 60);
+    enqueue(&amp;queue, 70);
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;queue);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <div class="note">
+                    <strong>Note:</strong> In circular queue, we use modulo arithmetic <code>(index + 1) % MAX_SIZE</code> to wrap around. The queue is full when <code>size == MAX_SIZE</code>, and empty when <code>size == 0</code>.
+                </div>
+            </div>
+
+            <!-- Section 7.3 -->
+            <div class="section" id="linked-based">
+                <h2>7.3 Linked List-Based Queue</h2>
+                
+                <p>A linked list-based queue uses nodes connected by pointers. We maintain pointers to both the front and rear of the queue for efficient O(1) enqueue and dequeue operations.</p>
+
+                <div class="concept-box">
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Dynamic size (no overflow)</li>
+                        <li>Memory efficient (allocates only what's needed)</li>
+                        <li>No wasted space</li>
+                    </ul>
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Extra memory for pointers</li>
+                        <li>Slightly slower than array (pointer dereferencing)</li>
+                        <li>Poor cache locality</li>
+                    </ul>
+                </div>
+
+                <h3>Complete C Implementation</h3>
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+<span class="comment">// Node structure</span>
+<span class="keyword">typedef struct</span> Node {
+    <span class="keyword">int</span> data;
+    <span class="keyword">struct</span> Node* next;
+} Node;
+
+<span class="comment">// Queue structure</span>
+<span class="keyword">typedef struct</span> {
+    Node* front;
+    Node* rear;
+    <span class="keyword">int</span> size;
+} Queue;
+
+<span class="comment">// Initialize queue</span>
+<span class="keyword">void</span> <span class="function">initQueue</span>(Queue* q) {
+    q-&gt;front = NULL;
+    q-&gt;rear = NULL;
+    q-&gt;size = 0;
+}
+
+<span class="comment">// Check if queue is empty</span>
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Queue* q) {
+    <span class="keyword">return</span> q-&gt;front == NULL;
+}
+
+<span class="comment">// Create a new node</span>
+Node* <span class="function">createNode</span>(<span class="keyword">int</span> value) {
+    Node* newNode = (Node*)malloc(<span class="keyword">sizeof</span>(Node));
+    <span class="keyword">if</span> (newNode == NULL) {
+        printf(<span class="string">"Memory allocation failed!\n"</span>);
+        exit(1);
+    }
+    newNode-&gt;data = value;
+    newNode-&gt;next = NULL;
+    <span class="keyword">return</span> newNode;
+}
+
+<span class="comment">// Enqueue operation - O(1)</span>
+<span class="keyword">void</span> <span class="function">enqueue</span>(Queue* q, <span class="keyword">int</span> value) {
+    Node* newNode = createNode(value);
+    
+    <span class="keyword">if</span> (isEmpty(q)) {
+        q-&gt;front = newNode;
+        q-&gt;rear = newNode;
+    } <span class="keyword">else</span> {
+        q-&gt;rear-&gt;next = newNode;
+        q-&gt;rear = newNode;
+    }
+    
+    q-&gt;size++;
+    printf(<span class="string">"Enqueued %d\n"</span>, value);
+}
+
+<span class="comment">// Dequeue operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">dequeue</span>(Queue* q) {
+    <span class="keyword">if</span> (isEmpty(q)) {
+        printf(<span class="string">"Queue Underflow! Cannot dequeue\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    
+    Node* temp = q-&gt;front;
+    <span class="keyword">int</span> value = temp-&gt;data;
+    
+    q-&gt;front = q-&gt;front-&gt;next;
+    
+    <span class="keyword">if</span> (q-&gt;front == NULL) {
+        q-&gt;rear = NULL;
+    }
+    
+    free(temp);
+    q-&gt;size--;
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// Front/Peek operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">front</span>(Queue* q) {
+    <span class="keyword">if</span> (isEmpty(q)) {
+        printf(<span class="string">"Queue is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    <span class="keyword">return</span> q-&gt;front-&gt;data;
+}
+
+<span class="comment">// Display queue contents</span>
+<span class="keyword">void</span> <span class="function">display</span>(Queue* q) {
+    <span class="keyword">if</span> (isEmpty(q)) {
+        printf(<span class="string">"Queue is empty!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Queue contents (front to rear): "</span>);
+    Node* current = q-&gt;front;
+    <span class="keyword">while</span> (current != NULL) {
+        printf(<span class="string">"%d "</span>, current-&gt;data);
+        current = current-&gt;next;
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="comment">// Get queue size</span>
+<span class="keyword">int</span> <span class="function">getSize</span>(Queue* q) {
+    <span class="keyword">return</span> q-&gt;size;
+}
+
+<span class="comment">// Free all nodes in the queue</span>
+<span class="keyword">void</span> <span class="function">freeQueue</span>(Queue* q) {
+    <span class="keyword">while</span> (!isEmpty(q)) {
+        dequeue(q);
+    }
+}
+
+<span class="comment">// Main function demonstrating queue operations</span>
+<span class="keyword">int</span> <span class="function">main</span>() {
+    Queue queue;
+    initQueue(&amp;queue);
+    
+    printf(<span class="string">"=== Linked List-Based Queue Demo ===\n\n"</span>);
+    
+    <span class="comment">// Enqueue elements</span>
+    enqueue(&amp;queue, 100);
+    enqueue(&amp;queue, 200);
+    enqueue(&amp;queue, 300);
+    enqueue(&amp;queue, 400);
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;queue);
+    printf(<span class="string">"Queue size: %d\n"</span>, getSize(&amp;queue));
+    
+    <span class="comment">// Front element</span>
+    printf(<span class="string">"\nFront element: %d\n"</span>, front(&amp;queue));
+    
+    <span class="comment">// Dequeue operations</span>
+    printf(<span class="string">"\nDequeued: %d\n"</span>, dequeue(&amp;queue));
+    printf(<span class="string">"Dequeued: %d\n"</span>, dequeue(&amp;queue));
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;queue);
+    printf(<span class="string">"Queue size: %d\n"</span>, getSize(&amp;queue));
+    
+    <span class="comment">// Clean up</span>
+    freeQueue(&amp;queue);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+            </div>
+
+            <!-- Section 7.4 -->
+            <div class="section" id="priority">
+                <h2>7.4 Priority Queue</h2>
+                
+                <p>A <span class="highlight">priority queue</span> is a special type of queue where each element has a priority associated with it. Elements with higher priority are dequeued before elements with lower priority, regardless of their order in the queue.</p>
+
+                <div class="concept-box">
+                    <h4>Priority Queue Characteristics</h4>
+                    <ul>
+                        <li>Elements are served based on priority, not insertion order</li>
+                        <li>Higher priority elements are dequeued first</li>
+                        <li>If two elements have same priority, FIFO order is maintained</li>
+                        <li>Commonly implemented using heaps for efficiency</li>
+                    </ul>
+                </div>
+
+                <h3>Complete C Implementation - Simple Priority Queue</h3>
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="comment">// Priority Queue element structure</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> data;
+    <span class="keyword">int</span> priority;
+} Element;
+
+<span class="comment">// Priority Queue structure</span>
+<span class="keyword">typedef struct</span> {
+    Element items[MAX_SIZE];
+    <span class="keyword">int</span> size;
+} PriorityQueue;
+
+<span class="comment">// Initialize priority queue</span>
+<span class="keyword">void</span> <span class="function">initPriorityQueue</span>(PriorityQueue* pq) {
+    pq-&gt;size = 0;
+}
+
+<span class="comment">// Check if priority queue is empty</span>
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(PriorityQueue* pq) {
+    <span class="keyword">return</span> pq-&gt;size == 0;
+}
+
+<span class="comment">// Check if priority queue is full</span>
+<span class="keyword">bool</span> <span class="function">isFull</span>(PriorityQueue* pq) {
+    <span class="keyword">return</span> pq-&gt;size == MAX_SIZE;
+}
+
+<span class="comment">// Enqueue with priority - O(n) for simple implementation</span>
+<span class="keyword">void</span> <span class="function">enqueue</span>(PriorityQueue* pq, <span class="keyword">int</span> value, <span class="keyword">int</span> priority) {
+    <span class="keyword">if</span> (isFull(pq)) {
+        printf(<span class="string">"Priority Queue is full!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="comment">// Find correct position based on priority</span>
+    <span class="keyword">int</span> i = pq-&gt;size - 1;
+    
+    <span class="comment">// Shift elements with lower priority to the right</span>
+    <span class="keyword">while</span> (i &gt;= 0 &amp;&amp; pq-&gt;items[i].priority &lt; priority) {
+        pq-&gt;items[i + 1] = pq-&gt;items[i];
+        i--;
+    }
+    
+    <span class="comment">// Insert new element</span>
+    pq-&gt;items[i + 1].data = value;
+    pq-&gt;items[i + 1].priority = priority;
+    pq-&gt;size++;
+    
+    printf(<span class="string">"Enqueued %d with priority %d\n"</span>, value, priority);
+}
+
+<span class="comment">// Dequeue highest priority element - O(1)</span>
+<span class="keyword">int</span> <span class="function">dequeue</span>(PriorityQueue* pq) {
+    <span class="keyword">if</span> (isEmpty(pq)) {
+        printf(<span class="string">"Priority Queue is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    
+    <span class="comment">// Highest priority is at index 0</span>
+    <span class="keyword">int</span> value = pq-&gt;items[0].data;
+    
+    <span class="comment">// Shift all elements to the left</span>
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; pq-&gt;size - 1; i++) {
+        pq-&gt;items[i] = pq-&gt;items[i + 1];
+    }
+    
+    pq-&gt;size--;
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// Peek at highest priority element - O(1)</span>
+<span class="keyword">int</span> <span class="function">peek</span>(PriorityQueue* pq) {
+    <span class="keyword">if</span> (isEmpty(pq)) {
+        printf(<span class="string">"Priority Queue is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    <span class="keyword">return</span> pq-&gt;items[0].data;
+}
+
+<span class="comment">// Display priority queue contents</span>
+<span class="keyword">void</span> <span class="function">display</span>(PriorityQueue* pq) {
+    <span class="keyword">if</span> (isEmpty(pq)) {
+        printf(<span class="string">"Priority Queue is empty!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Priority Queue (highest to lowest priority):\n"</span>);
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; pq-&gt;size; i++) {
+        printf(<span class="string">"  Data: %d, Priority: %d\n"</span>, 
+               pq-&gt;items[i].data, pq-&gt;items[i].priority);
+    }
+}
+
+<span class="comment">// Main function demonstrating priority queue</span>
+<span class="keyword">int</span> <span class="function">main</span>() {
+    PriorityQueue pq;
+    initPriorityQueue(&amp;pq);
+    
+    printf(<span class="string">"=== Priority Queue Demo ===\n\n"</span>);
+    
+    <span class="comment">// Enqueue with different priorities</span>
+    enqueue(&amp;pq, 100, 2);  <span class="comment">// Low priority</span>
+    enqueue(&amp;pq, 200, 5);  <span class="comment">// High priority</span>
+    enqueue(&amp;pq, 300, 1);  <span class="comment">// Lowest priority</span>
+    enqueue(&amp;pq, 400, 4);  <span class="comment">// Medium-high priority</span>
+    enqueue(&amp;pq, 500, 3);  <span class="comment">// Medium priority</span>
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;pq);
+    
+    <span class="comment">// Peek at highest priority</span>
+    printf(<span class="string">"\nHighest priority element: %d\n"</span>, peek(&amp;pq));
+    
+    <span class="comment">// Dequeue elements (should come out by priority)</span>
+    printf(<span class="string">"\nDequeuing elements by priority:\n"</span>);
+    printf(<span class="string">"Dequeued: %d\n"</span>, dequeue(&amp;pq));
+    printf(<span class="string">"Dequeued: %d\n"</span>, dequeue(&amp;pq));
+    printf(<span class="string">"Dequeued: %d\n"</span>, dequeue(&amp;pq));
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;pq);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <div class="note">
+                    <strong>Note:</strong> This is a simple priority queue implementation. For better performance, priority queues are typically implemented using binary heaps, which provide O(log n) enqueue and dequeue operations.
+                </div>
+            </div>
+
+            <!-- Section 7.5 -->
+            <div class="section" id="applications">
+                <h2>7.5 Queue Applications</h2>
+
+                <h3>Application 1: Job Scheduling System</h3>
+                <p>Queues are used in operating systems to manage processes and jobs waiting for CPU time.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="comment">// Job structure</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> jobId;
+    <span class="keyword">char</span> jobName[50];
+    <span class="keyword">int</span> executionTime;
+} Job;
+
+<span class="comment">// Job Queue structure</span>
+<span class="keyword">typedef struct</span> {
+    Job jobs[MAX_SIZE];
+    <span class="keyword">int</span> front;
+    <span class="keyword">int</span> rear;
+    <span class="keyword">int</span> size;
+} JobQueue;
+
+<span class="comment">// Initialize job queue</span>
+<span class="keyword">void</span> <span class="function">initJobQueue</span>(JobQueue* jq) {
+    jq-&gt;front = -1;
+    jq-&gt;rear = -1;
+    jq-&gt;size = 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(JobQueue* jq) {
+    <span class="keyword">return</span> jq-&gt;size == 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isFull</span>(JobQueue* jq) {
+    <span class="keyword">return</span> jq-&gt;size == MAX_SIZE;
+}
+
+<span class="comment">// Add job to queue</span>
+<span class="keyword">void</span> <span class="function">addJob</span>(JobQueue* jq, <span class="keyword">int</span> id, <span class="keyword">char</span>* name, <span class="keyword">int</span> time) {
+    <span class="keyword">if</span> (isFull(jq)) {
+        printf(<span class="string">"Job queue is full!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="keyword">if</span> (isEmpty(jq)) {
+        jq-&gt;front = 0;
+        jq-&gt;rear = 0;
+    } <span class="keyword">else</span> {
+        jq-&gt;rear = (jq-&gt;rear + 1) % MAX_SIZE;
+    }
+    
+    jq-&gt;jobs[jq-&gt;rear].jobId = id;
+    strcpy(jq-&gt;jobs[jq-&gt;rear].jobName, name);
+    jq-&gt;jobs[jq-&gt;rear].executionTime = time;
+    jq-&gt;size++;
+    
+    printf(<span class="string">"Job %d (%s) added to queue\n"</span>, id, name);
+}
+
+<span class="comment">// Process next job</span>
+<span class="keyword">void</span> <span class="function">processJob</span>(JobQueue* jq) {
+    <span class="keyword">if</span> (isEmpty(jq)) {
+        printf(<span class="string">"No jobs in queue!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    Job currentJob = jq-&gt;jobs[jq-&gt;front];
+    
+    printf(<span class="string">"Processing Job %d: %s (Time: %d seconds)\n"</span>, 
+           currentJob.jobId, currentJob.jobName, currentJob.executionTime);
+    
+    <span class="keyword">if</span> (jq-&gt;front == jq-&gt;rear) {
+        jq-&gt;front = -1;
+        jq-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        jq-&gt;front = (jq-&gt;front + 1) % MAX_SIZE;
+    }
+    
+    jq-&gt;size--;
+}
+
+<span class="comment">// Display all jobs in queue</span>
+<span class="keyword">void</span> <span class="function">displayJobs</span>(JobQueue* jq) {
+    <span class="keyword">if</span> (isEmpty(jq)) {
+        printf(<span class="string">"No jobs in queue!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Jobs in queue:\n"</span>);
+    <span class="keyword">int</span> i = jq-&gt;front;
+    <span class="keyword">int</span> count = 0;
+    
+    <span class="keyword">while</span> (count &lt; jq-&gt;size) {
+        printf(<span class="string">"  Job %d: %s (Time: %d sec)\n"</span>,
+               jq-&gt;jobs[i].jobId, jq-&gt;jobs[i].jobName, 
+               jq-&gt;jobs[i].executionTime);
+        i = (i + 1) % MAX_SIZE;
+        count++;
+    }
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    JobQueue jobQueue;
+    initJobQueue(&amp;jobQueue);
+    
+    printf(<span class="string">"=== Job Scheduling System ===\n\n"</span>);
+    
+    <span class="comment">// Add jobs</span>
+    addJob(&amp;jobQueue, 1, <span class="string">"Print Document"</span>, 5);
+    addJob(&amp;jobQueue, 2, <span class="string">"Compile Code"</span>, 15);
+    addJob(&amp;jobQueue, 3, <span class="string">"Run Tests"</span>, 10);
+    addJob(&amp;jobQueue, 4, <span class="string">"Deploy App"</span>, 20);
+    
+    printf(<span class="string">"\n"</span>);
+    displayJobs(&amp;jobQueue);
+    
+    <span class="comment">// Process jobs</span>
+    printf(<span class="string">"\n--- Processing Jobs ---\n"</span>);
+    processJob(&amp;jobQueue);
+    processJob(&amp;jobQueue);
+    
+    printf(<span class="string">"\n"</span>);
+    displayJobs(&amp;jobQueue);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Application 2: Breadth-First Search (BFS) in Graphs</h3>
+                <p>Queues are essential for implementing BFS traversal in graphs and trees.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_VERTICES 10
+#define MAX_QUEUE 100
+
+<span class="comment">// Queue for BFS</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_QUEUE];
+    <span class="keyword">int</span> front;
+    <span class="keyword">int</span> rear;
+} Queue;
+
+<span class="keyword">void</span> <span class="function">initQueue</span>(Queue* q) {
+    q-&gt;front = -1;
+    q-&gt;rear = -1;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Queue* q) {
+    <span class="keyword">return</span> q-&gt;front == -1;
+}
+
+<span class="keyword">void</span> <span class="function">enqueue</span>(Queue* q, <span class="keyword">int</span> value) {
+    <span class="keyword">if</span> (q-&gt;rear == MAX_QUEUE - 1) {
+        <span class="keyword">return</span>;
+    }
+    <span class="keyword">if</span> (q-&gt;front == -1) {
+        q-&gt;front = 0;
+    }
+    q-&gt;items[++(q-&gt;rear)] = value;
+}
+
+<span class="keyword">int</span> <span class="function">dequeue</span>(Queue* q) {
+    <span class="keyword">int</span> value = q-&gt;items[q-&gt;front];
+    <span class="keyword">if</span> (q-&gt;front &gt;= q-&gt;rear) {
+        q-&gt;front = -1;
+        q-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        q-&gt;front++;
+    }
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// BFS traversal of a graph</span>
+<span class="keyword">void</span> <span class="function">BFS</span>(<span class="keyword">int</span> graph[MAX_VERTICES][MAX_VERTICES], 
+        <span class="keyword">int</span> numVertices, <span class="keyword">int</span> startVertex) {
+    <span class="keyword">bool</span> visited[MAX_VERTICES] = {false};
+    Queue q;
+    initQueue(&amp;q);
+    
+    printf(<span class="string">"BFS Traversal starting from vertex %d: "</span>, startVertex);
+    
+    <span class="comment">// Mark start vertex as visited and enqueue</span>
+    visited[startVertex] = true;
+    enqueue(&amp;q, startVertex);
+    
+    <span class="keyword">while</span> (!isEmpty(&amp;q)) {
+        <span class="comment">// Dequeue a vertex and print it</span>
+        <span class="keyword">int</span> currentVertex = dequeue(&amp;q);
+        printf(<span class="string">"%d "</span>, currentVertex);
+        
+        <span class="comment">// Enqueue all unvisited adjacent vertices</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; numVertices; i++) {
+            <span class="keyword">if</span> (graph[currentVertex][i] == 1 &amp;&amp; !visited[i]) {
+                visited[i] = true;
+                enqueue(&amp;q, i);
+            }
+        }
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> numVertices = 6;
+    
+    <span class="comment">// Create adjacency matrix for graph</span>
+    <span class="keyword">int</span> graph[MAX_VERTICES][MAX_VERTICES] = {
+        {0, 1, 1, 0, 0, 0},  <span class="comment">// Vertex 0 connects to 1, 2</span>
+        {1, 0, 0, 1, 1, 0},  <span class="comment">// Vertex 1 connects to 0, 3, 4</span>
+        {1, 0, 0, 0, 0, 1},  <span class="comment">// Vertex 2 connects to 0, 5</span>
+        {0, 1, 0, 0, 0, 0},  <span class="comment">// Vertex 3 connects to 1</span>
+        {0, 1, 0, 0, 0, 0},  <span class="comment">// Vertex 4 connects to 1</span>
+        {0, 0, 1, 0, 0, 0}   <span class="comment">// Vertex 5 connects to 2</span>
+    };
+    
+    printf(<span class="string">"=== BFS Traversal Demo ===\n\n"</span>);
+    
+    printf(<span class="string">"Graph connections:\n"</span>);
+    printf(<span class="string">"0 -- 1, 2\n"</span>);
+    printf(<span class="string">"1 -- 0, 3, 4\n"</span>);
+    printf(<span class="string">"2 -- 0, 5\n"</span>);
+    printf(<span class="string">"3 -- 1\n"</span>);
+    printf(<span class="string">"4 -- 1\n"</span>);
+    printf(<span class="string">"5 -- 2\n\n"</span>);
+    
+    BFS(graph, numVertices, 0);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Application 3: Printer Queue Simulation</h3>
+                <p>Simulating a printer queue where multiple print jobs wait to be processed.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_SIZE 50
+
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> documentId;
+    <span class="keyword">char</span> documentName[50];
+    <span class="keyword">int</span> pages;
+} PrintJob;
+
+<span class="keyword">typedef struct</span> {
+    PrintJob jobs[MAX_SIZE];
+    <span class="keyword">int</span> front;
+    <span class="keyword">int</span> rear;
+    <span class="keyword">int</span> size;
+} PrintQueue;
+
+<span class="keyword">void</span> <span class="function">initPrintQueue</span>(PrintQueue* pq) {
+    pq-&gt;front = -1;
+    pq-&gt;rear = -1;
+    pq-&gt;size = 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(PrintQueue* pq) {
+    <span class="keyword">return</span> pq-&gt;size == 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isFull</span>(PrintQueue* pq) {
+    <span class="keyword">return</span> pq-&gt;size == MAX_SIZE;
+}
+
+<span class="comment">// Add print job to queue</span>
+<span class="keyword">void</span> <span class="function">addPrintJob</span>(PrintQueue* pq, <span class="keyword">int</span> id, <span class="keyword">char</span>* name, <span class="keyword">int</span> pages) {
+    <span class="keyword">if</span> (isFull(pq)) {
+        printf(<span class="string">"Print queue is full!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="keyword">if</span> (isEmpty(pq)) {
+        pq-&gt;front = 0;
+        pq-&gt;rear = 0;
+    } <span class="keyword">else</span> {
+        pq-&gt;rear = (pq-&gt;rear + 1) % MAX_SIZE;
+    }
+    
+    pq-&gt;jobs[pq-&gt;rear].documentId = id;
+    strcpy(pq-&gt;jobs[pq-&gt;rear].documentName, name);
+    pq-&gt;jobs[pq-&gt;rear].pages = pages;
+    pq-&gt;size++;
+    
+    printf(<span class="string">"Added to queue: Document %d - %s (%d pages)\n"</span>, 
+           id, name, pages);
+}
+
+<span class="comment">// Print next document</span>
+<span class="keyword">void</span> <span class="function">printNext</span>(PrintQueue* pq) {
+    <span class="keyword">if</span> (isEmpty(pq)) {
+        printf(<span class="string">"No documents in queue!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    PrintJob job = pq-&gt;jobs[pq-&gt;front];
+    
+    printf(<span class="string">"PRINTING: Document %d - %s (%d pages)\n"</span>,
+           job.documentId, job.documentName, job.pages);
+    printf(<span class="string">"Estimated time: %d seconds\n"</span>, job.pages * 2);
+    
+    <span class="keyword">if</span> (pq-&gt;front == pq-&gt;rear) {
+        pq-&gt;front = -1;
+        pq-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        pq-&gt;front = (pq-&gt;front + 1) % MAX_SIZE;
+    }
+    
+    pq-&gt;size--;
+}
+
+<span class="comment">// Display queue status</span>
+<span class="keyword">void</span> <span class="function">displayQueue</span>(PrintQueue* pq) {
+    <span class="keyword">if</span> (isEmpty(pq)) {
+        printf(<span class="string">"Print queue is empty.\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Documents in print queue (%d):\n"</span>, pq-&gt;size);
+    <span class="keyword">int</span> i = pq-&gt;front;
+    <span class="keyword">int</span> count = 0;
+    <span class="keyword">int</span> position = 1;
+    
+    <span class="keyword">while</span> (count &lt; pq-&gt;size) {
+        printf(<span class="string">"  %d. Document %d: %s (%d pages)\n"</span>,
+               position++, pq-&gt;jobs[i].documentId, 
+               pq-&gt;jobs[i].documentName, pq-&gt;jobs[i].pages);
+        i = (i + 1) % MAX_SIZE;
+        count++;
+    }
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    PrintQueue printQueue;
+    initPrintQueue(&amp;printQueue);
+    
+    printf(<span class="string">"=== Printer Queue Simulation ===\n\n"</span>);
+    
+    <span class="comment">// Add print jobs</span>
+    addPrintJob(&amp;printQueue, 1, <span class="string">"Report.pdf"</span>, 10);
+    addPrintJob(&amp;printQueue, 2, <span class="string">"Invoice.docx"</span>, 3);
+    addPrintJob(&amp;printQueue, 3, <span class="string">"Presentation.pptx"</span>, 25);
+    addPrintJob(&amp;printQueue, 4, <span class="string">"Resume.pdf"</span>, 2);
+    
+    printf(<span class="string">"\n"</span>);
+    displayQueue(&amp;printQueue);
+    
+    <span class="comment">// Process print jobs</span>
+    printf(<span class="string">"\n--- Processing Print Jobs ---\n"</span>);
+    printNext(&amp;printQueue);
+    
+    printf(<span class="string">"\n"</span>);
+    printNext(&amp;printQueue);
+    
+    printf(<span class="string">"\n"</span>);
+    displayQueue(&amp;printQueue);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Application 4: Call Center Queue System</h3>
+                <p>Managing incoming customer service calls in order.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> callId;
+    <span class="keyword">char</span> callerName[50];
+    <span class="keyword">char</span> issue[100];
+    <span class="keyword">int</span> waitTime;
+} Call;
+
+<span class="keyword">typedef struct</span> {
+    Call calls[MAX_SIZE];
+    <span class="keyword">int</span> front;
+    <span class="keyword">int</span> rear;
+    <span class="keyword">int</span> size;
+} CallQueue;
+
+<span class="keyword">void</span> <span class="function">initCallQueue</span>(CallQueue* cq) {
+    cq-&gt;front = -1;
+    cq-&gt;rear = -1;
+    cq-&gt;size = 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(CallQueue* cq) {
+    <span class="keyword">return</span> cq-&gt;size == 0;
+}
+
+<span class="keyword">void</span> <span class="function">addCall</span>(CallQueue* cq, <span class="keyword">int</span> id, <span class="keyword">char</span>* name, <span class="keyword">char</span>* issue) {
+    <span class="keyword">if</span> (cq-&gt;size == MAX_SIZE) {
+        printf(<span class="string">"Call queue is full!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="keyword">if</span> (isEmpty(cq)) {
+        cq-&gt;front = 0;
+        cq-&gt;rear = 0;
+    } <span class="keyword">else</span> {
+        cq-&gt;rear = (cq-&gt;rear + 1) % MAX_SIZE;
+    }
+    
+    cq-&gt;calls[cq-&gt;rear].callId = id;
+    strcpy(cq-&gt;calls[cq-&gt;rear].callerName, name);
+    strcpy(cq-&gt;calls[cq-&gt;rear].issue, issue);
+    cq-&gt;calls[cq-&gt;rear].waitTime = 0;
+    cq-&gt;size++;
+    
+    printf(<span class="string">"Call %d from %s added to queue\n"</span>, id, name);
+}
+
+<span class="keyword">void</span> <span class="function">answerCall</span>(CallQueue* cq) {
+    <span class="keyword">if</span> (isEmpty(cq)) {
+        printf(<span class="string">"No calls in queue!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    Call currentCall = cq-&gt;calls[cq-&gt;front];
+    
+    printf(<span class="string">"ANSWERING CALL %d:\n"</span>, currentCall.callId);
+    printf(<span class="string">"  Caller: %s\n"</span>, currentCall.callerName);
+    printf(<span class="string">"  Issue: %s\n"</span>, currentCall.issue);
+    printf(<span class="string">"  Wait time: %d minutes\n"</span>, currentCall.waitTime);
+    
+    <span class="keyword">if</span> (cq-&gt;front == cq-&gt;rear) {
+        cq-&gt;front = -1;
+        cq-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        cq-&gt;front = (cq-&gt;front + 1) % MAX_SIZE;
+    }
+    
+    cq-&gt;size--;
+}
+
+<span class="keyword">void</span> <span class="function">displayCallQueue</span>(CallQueue* cq) {
+    <span class="keyword">if</span> (isEmpty(cq)) {
+        printf(<span class="string">"No calls waiting.\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Calls in queue (%d):\n"</span>, cq-&gt;size);
+    <span class="keyword">int</span> i = cq-&gt;front;
+    <span class="keyword">int</span> count = 0;
+    
+    <span class="keyword">while</span> (count &lt; cq-&gt;size) {
+        printf(<span class="string">"  Position %d: Call %d - %s (%s)\n"</span>,
+               count + 1, cq-&gt;calls[i].callId, 
+               cq-&gt;calls[i].callerName, cq-&gt;calls[i].issue);
+        i = (i + 1) % MAX_SIZE;
+        count++;
+    }
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    CallQueue callQueue;
+    initCallQueue(&amp;callQueue);
+    
+    printf(<span class="string">"=== Call Center Queue System ===\n\n"</span>);
+    
+    <span class="comment">// Incoming calls</span>
+    addCall(&amp;callQueue, 101, <span class="string">"John Smith"</span>, <span class="string">"Billing issue"</span>);
+    addCall(&amp;callQueue, 102, <span class="string">"Sarah Johnson"</span>, <span class="string">"Technical support"</span>);
+    addCall(&amp;callQueue, 103, <span class="string">"Mike Brown"</span>, <span class="string">"Product inquiry"</span>);
+    addCall(&amp;callQueue, 104, <span class="string">"Emily Davis"</span>, <span class="string">"Account access"</span>);
+    
+    printf(<span class="string">"\n"</span>);
+    displayCallQueue(&amp;callQueue);
+    
+    <span class="comment">// Answer calls</span>
+    printf(<span class="string">"\n--- Agent Available ---\n"</span>);
+    answerCall(&amp;callQueue);
+    
+    printf(<span class="string">"\n--- Agent Available ---\n"</span>);
+    answerCall(&amp;callQueue);
+    
+    printf(<span class="string">"\n"</span>);
+    displayCallQueue(&amp;callQueue);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <div class="concept-box">
+                    <h4>Common Queue Applications</h4>
+                    <ul>
+                        <li><strong>Operating Systems:</strong> Process scheduling, CPU task management</li>
+                        <li><strong>Networking:</strong> Data packet handling, router buffers</li>
+                        <li><strong>Printers:</strong> Print job spooling</li>
+                        <li><strong>Call Centers:</strong> Customer service call management</li>
+                        <li><strong>Graph Algorithms:</strong> BFS traversal</li>
+                        <li><strong>Simulation:</strong> Modeling waiting lines and service systems</li>
+                        <li><strong>Messaging:</strong> Message queues in distributed systems</li>
+                        <li><strong>IO Buffers:</strong> Keyboard buffer, disk I/O</li>
+                    </ul>
+                </div>
+
+                <h3>Time Complexity Comparison</h3>
+                <table>
+                    <tr>
+                        <th>Implementation</th>
+                        <th>Enqueue</th>
+                        <th>Dequeue</th>
+                        <th>Front/Peek</th>
+                        <th>Space</th>
+                    </tr>
+                    <tr>
+                        <td>Array (Circular)</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                        <td>O(n) - Fixed</td>
+                    </tr>
+                    <tr>
+                        <td>Linked List</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                        <td>O(n) - Dynamic</td>
+                    </tr>
+                    <tr>
+                        <td>Priority Queue (Array)</td>
+                        <td>O(n)</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                        <td>O(n)</td>
+                    </tr>
+                    <tr>
+                        <td>Priority Queue (Heap)</td>
+                        <td>O(log n)</td>
+                        <td>O(log n)</td>
+                        <td>O(1)</td>
+                        <td>O(n)</td>
+                    </tr>
+                </table>
+
+                <h3>Queue vs Stack Comparison</h3>
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Queue (FIFO)</th>
+                        <th>Stack (LIFO)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Order</strong></td>
+                        <td>First In, First Out</td>
+                        <td>Last In, First Out</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Insertion</strong></td>
+                        <td>At rear (enqueue)</td>
+                        <td>At top (push)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deletion</strong></td>
+                        <td>From front (dequeue)</td>
+                        <td>From top (pop)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pointers</strong></td>
+                        <td>Front and Rear</td>
+                        <td>Only Top</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Real-World</strong></td>
+                        <td>Ticket counter, Printer queue</td>
+                        <td>Stack of plates, Browser history</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Usage</strong></td>
+                        <td>BFS, Scheduling, Buffering</td>
+                        <td>DFS, Recursion, Undo/Redo</td>
+                    </tr>
+                </table>
+
+                <div class="note">
+                    <strong>Key Takeaway:</strong> Queues are fundamental for maintaining order in systems where fairness matters (first come, first served). They are essential in operating systems, networking, and any application requiring sequential processing. The choice between array-based and linked list implementation depends on whether you need fixed or dynamic size, and the specific performance requirements of your application.
+                </div>
+            </div>
+
+            <!-- Additional Examples Section -->
+            <div class="section">
+                <h2>Additional Queue Examples</h2>
+
+                <h3>Example 5: Deque (Double-Ended Queue)</h3>
+                <p>A deque allows insertion and deletion at both ends, combining features of both stacks and queues.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_SIZE 10
+
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_SIZE];
+    <span class="keyword">int</span> front;
+    <span class="keyword">int</span> rear;
+    <span class="keyword">int</span> size;
+} Deque;
+
+<span class="keyword">void</span> <span class="function">initDeque</span>(Deque* dq) {
+    dq-&gt;front = -1;
+    dq-&gt;rear = -1;
+    dq-&gt;size = 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Deque* dq) {
+    <span class="keyword">return</span> dq-&gt;size == 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isFull</span>(Deque* dq) {
+    <span class="keyword">return</span> dq-&gt;size == MAX_SIZE;
+}
+
+<span class="comment">// Insert at front</span>
+<span class="keyword">void</span> <span class="function">insertFront</span>(Deque* dq, <span class="keyword">int</span> value) {
+    <span class="keyword">if</span> (isFull(dq)) {
+        printf(<span class="string">"Deque is full!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="keyword">if</span> (isEmpty(dq)) {
+        dq-&gt;front = 0;
+        dq-&gt;rear = 0;
+    } <span class="keyword">else</span> {
+        dq-&gt;front = (dq-&gt;front - 1 + MAX_SIZE) % MAX_SIZE;
+    }
+    
+    dq-&gt;items[dq-&gt;front] = value;
+    dq-&gt;size++;
+    printf(<span class="string">"Inserted %d at front\n"</span>, value);
+}
+
+<span class="comment">// Insert at rear</span>
+<span class="keyword">void</span> <span class="function">insertRear</span>(Deque* dq, <span class="keyword">int</span> value) {
+    <span class="keyword">if</span> (isFull(dq)) {
+        printf(<span class="string">"Deque is full!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="keyword">if</span> (isEmpty(dq)) {
+        dq-&gt;front = 0;
+        dq-&gt;rear = 0;
+    } <span class="keyword">else</span> {
+        dq-&gt;rear = (dq-&gt;rear + 1) % MAX_SIZE;
+    }
+    
+    dq-&gt;items[dq-&gt;rear] = value;
+    dq-&gt;size++;
+    printf(<span class="string">"Inserted %d at rear\n"</span>, value);
+}
+
+<span class="comment">// Delete from front</span>
+<span class="keyword">int</span> <span class="function">deleteFront</span>(Deque* dq) {
+    <span class="keyword">if</span> (isEmpty(dq)) {
+        printf(<span class="string">"Deque is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    
+    <span class="keyword">int</span> value = dq-&gt;items[dq-&gt;front];
+    
+    <span class="keyword">if</span> (dq-&gt;front == dq-&gt;rear) {
+        dq-&gt;front = -1;
+        dq-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        dq-&gt;front = (dq-&gt;front + 1) % MAX_SIZE;
+    }
+    
+    dq-&gt;size--;
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// Delete from rear</span>
+<span class="keyword">int</span> <span class="function">deleteRear</span>(Deque* dq) {
+    <span class="keyword">if</span> (isEmpty(dq)) {
+        printf(<span class="string">"Deque is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    
+    <span class="keyword">int</span> value = dq-&gt;items[dq-&gt;rear];
+    
+    <span class="keyword">if</span> (dq-&gt;front == dq-&gt;rear) {
+        dq-&gt;front = -1;
+        dq-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        dq-&gt;rear = (dq-&gt;rear - 1 + MAX_SIZE) % MAX_SIZE;
+    }
+    
+    dq-&gt;size--;
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// Display deque</span>
+<span class="keyword">void</span> <span class="function">display</span>(Deque* dq) {
+    <span class="keyword">if</span> (isEmpty(dq)) {
+        printf(<span class="string">"Deque is empty!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Deque contents: "</span>);
+    <span class="keyword">int</span> i = dq-&gt;front;
+    <span class="keyword">int</span> count = 0;
+    
+    <span class="keyword">while</span> (count &lt; dq-&gt;size) {
+        printf(<span class="string">"%d "</span>, dq-&gt;items[i]);
+        i = (i + 1) % MAX_SIZE;
+        count++;
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    Deque deque;
+    initDeque(&amp;deque);
+    
+    printf(<span class="string">"=== Deque (Double-Ended Queue) Demo ===\n\n"</span>);
+    
+    insertRear(&amp;deque, 10);
+    insertRear(&amp;deque, 20);
+    insertFront(&amp;deque, 5);
+    insertFront(&amp;deque, 1);
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;deque);
+    
+    printf(<span class="string">"\nDeleted from front: %d\n"</span>, deleteFront(&amp;deque));
+    printf(<span class="string">"Deleted from rear: %d\n"</span>, deleteRear(&amp;deque));
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;deque);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Example 6: Queue Reversal</h3>
+                <p>Using a stack to reverse the elements of a queue.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="comment">// Stack structure</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_SIZE];
+    <span class="keyword">int</span> top;
+} Stack;
+
+<span class="comment">// Queue structure</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_SIZE];
+    <span class="keyword">int</span> front;
+    <span class="keyword">int</span> rear;
+    <span class="keyword">int</span> size;
+} Queue;
+
+<span class="comment">// Stack operations</span>
+<span class="keyword">void</span> <span class="function">initStack</span>(Stack* s) {
+    s-&gt;top = -1;
+}
+
+<span class="keyword">bool</span> <span class="function">isStackEmpty</span>(Stack* s) {
+    <span class="keyword">return</span> s-&gt;top == -1;
+}
+
+<span class="keyword">void</span> <span class="function">push</span>(Stack* s, <span class="keyword">int</span> value) {
+    s-&gt;items[++(s-&gt;top)] = value;
+}
+
+<span class="keyword">int</span> <span class="function">pop</span>(Stack* s) {
+    <span class="keyword">return</span> s-&gt;items[(s-&gt;top)--];
+}
+
+<span class="comment">// Queue operations</span>
+<span class="keyword">void</span> <span class="function">initQueue</span>(Queue* q) {
+    q-&gt;front = -1;
+    q-&gt;rear = -1;
+    q-&gt;size = 0;
+}
+
+<span class="keyword">bool</span> <span class="function">isQueueEmpty</span>(Queue* q) {
+    <span class="keyword">return</span> q-&gt;size == 0;
+}
+
+<span class="keyword">void</span> <span class="function">enqueue</span>(Queue* q, <span class="keyword">int</span> value) {
+    <span class="keyword">if</span> (q-&gt;front == -1) {
+        q-&gt;front = 0;
+    }
+    q-&gt;rear = (q-&gt;rear + 1) % MAX_SIZE;
+    q-&gt;items[q-&gt;rear] = value;
+    q-&gt;size++;
+}
+
+<span class="keyword">int</span> <span class="function">dequeue</span>(Queue* q) {
+    <span class="keyword">int</span> value = q-&gt;items[q-&gt;front];
+    <span class="keyword">if</span> (q-&gt;front == q-&gt;rear) {
+        q-&gt;front = -1;
+        q-&gt;rear = -1;
+    } <span class="keyword">else</span> {
+        q-&gt;front = (q-&gt;front + 1) % MAX_SIZE;
+    }
+    q-&gt;size--;
+    <span class="keyword">return</span> value;
+}
+
+<span class="keyword">void</span> <span class="function">displayQueue</span>(Queue* q) {
+    <span class="keyword">if</span> (isQueueEmpty(q)) {
+        printf(<span class="string">"Queue is empty!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    printf(<span class="string">"Queue: "</span>);
+    <span class="keyword">int</span> i = q-&gt;front;
+    <span class="keyword">int</span> count = 0;
+    <span class="keyword">while</span> (count &lt; q-&gt;size) {
+        printf(<span class="string">"%d "</span>, q-&gt;items[i]);
+        i = (i + 1) % MAX_SIZE;
+        count++;
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="comment">// Reverse queue using stack</span>
+<span class="keyword">void</span> <span class="function">reverseQueue</span>(Queue* q) {
+    Stack s;
+    initStack(&amp;s);
+    
+    <span class="comment">// Dequeue all elements and push to stack</span>
+    <span class="keyword">while</span> (!isQueueEmpty(q)) {
+        push(&amp;s, dequeue(q));
+    }
+    
+    <span class="comment">// Pop from stack and enqueue back to queue</span>
+    <span class="keyword">while</span> (!isStackEmpty(&amp;s)) {
+        enqueue(q, pop(&amp;s));
+    }
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    Queue queue;
+    initQueue(&amp;queue);
+    
+    printf(<span class="string">"=== Queue Reversal Demo ===\n\n"</span>);
+    
+    <span class="comment">// Add elements to queue</span>
+    enqueue(&amp;queue, 10);
+    enqueue(&amp;queue, 20);
+    enqueue(&amp;queue, 30);
+    enqueue(&amp;queue, 40);
+    enqueue(&amp;queue, 50);
+    
+    printf(<span class="string">"Original "</span>);
+    displayQueue(&amp;queue);
+    
+    <span class="comment">// Reverse the queue</span>
+    reverseQueue(&amp;queue);
+    
+    printf(<span class="string">"Reversed "</span>);
+    displayQueue(&amp;queue);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Queue Implementation Summary</h3>
+                <div class="concept-box">
+                    <h4>When to Use Each Implementation</h4>
+                    <ul>
+                        <li><strong>Circular Array Queue:</strong> When you know the maximum size, need fast operations, and want cache-friendly performance</li>
+                        <li><strong>Linked List Queue:</strong> When size varies significantly, memory efficiency matters, or you need truly unlimited capacity</li>
+                        <li><strong>Priority Queue:</strong> When elements need to be processed based on priority rather than order of arrival</li>
+                        <li><strong>Deque:</strong> When you need flexibility to add/remove from both ends (useful in sliding window problems)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <footer style="background: #2c3e50; color: white; padding: 30px; text-align: center; margin-top: 50px;">
+            <p>© 2024 COM2307 - Data Structures & Algorithms</p>
+            <p style="margin-top: 10px;">
+                <a href="../index.html" style="color: #667eea; text-decoration: none;">← Back to Course Index</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

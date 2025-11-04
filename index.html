@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures & Algorithms - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .course-info {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .course-info h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-card h3 {
+            color: #667eea;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: rgba(255,255,255,0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .lessons {
+            display: grid;
+            gap: 15px;
+        }
+
+        .lesson {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lesson:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            background: #e9ecef;
+        }
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .lesson-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .lesson-link {
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 20px;
+            background: white;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #667eea;
+        }
+
+        .lesson-link:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .sub-lessons {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .sub-lesson {
+            padding: 8px 15px;
+            color: #555;
+            font-size: 0.95em;
+            border-left: 2px solid #ddd;
+            margin: 5px 0;
+        }
+
+        .sub-lesson:before {
+            content: "→ ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.2em;
+            }
+
+            .lesson {
+                padding: 15px;
+            }
+
+            .lesson-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Data Structures & Algorithms</h1>
+            <p>COM2307 - Complete Course Index</p>
+        </header>
+
+        <div class="content">
+            <!-- Section 1 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">1</span>
+                    Introduction to Data Structures and Algorithms
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">1.1 Software Engineering Overview</span>
+                            <a href="lessons/introduction.html#software-engineering" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">1.2 What are Data Structures?</span>
+                            <a href="lessons/introduction.html#what-are-ds" class="lesson-link">View</a>
+                        </div>
+                        <div class="sub-lessons">
+                            <div class="sub-lesson">Definition and Importance</div>
+                            <div class="sub-lesson">Optimizing Performance</div>
+                            <div class="sub-lesson">Resource Management</div>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">1.3 Abstract Data Types (ADT)</span>
+                            <a href="lessons/introduction.html#adt" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">1.4 What are Algorithms?</span>
+                            <a href="lessons/introduction.html#algorithms" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">1.5 Real-World Applications</span>
+                            <a href="lessons/introduction.html#applications" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">2</span>
+                    Algorithm Performance & Complexity Analysis
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">2.1 Complexity of Algorithms</span>
+                            <a href="lessons/complexity.html#basics" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">2.2 Asymptotic Notation</span>
+                            <a href="lessons/complexity.html#asymptotic" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">2.3 Big O Notation (Upper Bound)</span>
+                            <a href="lessons/complexity.html#big-o" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">2.4 Big Ω Notation (Lower Bound)</span>
+                            <a href="lessons/complexity.html#big-omega" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">2.5 Big Θ Notation (Tight Bound)</span>
+                            <a href="lessons/complexity.html#big-theta" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">3</span>
+                    C/C++ Programming Background
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">3.1 Input/Output Operations</span>
+                            <a href="lessons/cpp-basics.html#io" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">3.2 Control Structures</span>
+                            <a href="lessons/cpp-basics.html#control" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">3.3 Functions and Parameters</span>
+                            <a href="lessons/cpp-basics.html#functions" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">3.4 Pointers</span>
+                            <a href="lessons/cpp-basics.html#pointers" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">4</span>
+                    Arrays
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">4.1 Definition and Characteristics</span>
+                            <a href="lessons/arrays.html#definition" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">4.2 Array Operations</span>
+                            <a href="lessons/arrays.html#operations" class="lesson-link">View</a>
+                        </div>
+                        <div class="sub-lessons">
+                            <div class="sub-lesson">Insertion</div>
+                            <div class="sub-lesson">Deletion</div>
+                            <div class="sub-lesson">Searching</div>
+                            <div class="sub-lesson">Traversal</div>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">4.3 Advantages and Disadvantages</span>
+                            <a href="lessons/arrays.html#pros-cons" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">5</span>
+                    Lists
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">5.1 Array-Based Lists</span>
+                            <a href="lessons/lists.html#array-based" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">5.2 Singly Linked Lists</span>
+                            <a href="lessons/lists.html#singly-linked" class="lesson-link">View</a>
+                        </div>
+                        <div class="sub-lessons">
+                            <div class="sub-lesson">Node Structure</div>
+                            <div class="sub-lesson">Insert Operations</div>
+                            <div class="sub-lesson">Delete Operations</div>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">5.3 Sorted Linked Lists</span>
+                            <a href="lessons/lists.html#sorted" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">5.4 Doubly Linked Lists</span>
+                            <a href="lessons/lists.html#doubly-linked" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">5.5 Circular Linked Lists</span>
+                            <a href="lessons/lists.html#circular" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">6</span>
+                    Stacks
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">6.1 Introduction to Stacks (LIFO)</span>
+                            <a href="lessons/stacks.html#introduction" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">6.2 Array-Based Stack</span>
+                            <a href="lessons/stacks.html#array-based" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">6.3 Linked List-Based Stack</span>
+                            <a href="lessons/stacks.html#linked-based" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">6.4 Stack Applications</span>
+                            <a href="lessons/stacks.html#applications" class="lesson-link">View</a>
+                        </div>
+                        <div class="sub-lessons">
+                            <div class="sub-lesson">Balanced Symbol Checker</div>
+                            <div class="sub-lesson">Expression Evaluation</div>
+                            <div class="sub-lesson">N-Queens Problem</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">7</span>
+                    Queues
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">7.1 Introduction to Queues (FIFO)</span>
+                            <a href="lessons/queues.html#introduction" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">7.2 Array-Based Queue (Circular)</span>
+                            <a href="lessons/queues.html#array-based" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">7.3 Linked List-Based Queue</span>
+                            <a href="lessons/queues.html#linked-based" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">7.4 Priority Queue</span>
+                            <a href="lessons/queues.html#priority" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">7.5 Queue Applications</span>
+                            <a href="lessons/queues.html#applications" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">8</span>
+                    Binary Trees
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">8.1 Introduction to Trees</span>
+                            <a href="lessons/trees.html#introduction" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">8.2 Binary Trees</span>
+                            <a href="lessons/trees.html#binary-trees" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">8.3 Binary Search Trees (BST)</span>
+                            <a href="lessons/trees.html#bst" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">8.4 Tree Traversals</span>
+                            <a href="lessons/trees.html#traversals" class="lesson-link">View</a>
+                        </div>
+                        <div class="sub-lessons">
+                            <div class="sub-lesson">Inorder Traversal</div>
+                            <div class="sub-lesson">Preorder Traversal</div>
+                            <div class="sub-lesson">Postorder Traversal</div>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">8.5 BST Operations</span>
+                            <a href="lessons/trees.html#operations" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">8.6 Tree Properties & Types</span>
+                            <a href="lessons/trees.html#properties" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">8.7 Tree Applications</span>
+                            <a href="lessons/trees.html#applications" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">9</span>
+                    Sorting & Searching Algorithms
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">9.1 Selection Sort</span>
+                            <a href="lessons/sorting.html#selection" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">9.2 Bubble Sort</span>
+                            <a href="lessons/sorting.html#bubble" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">9.3 Merge Sort</span>
+                            <a href="lessons/sorting.html#merge" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">9.4 Binary Search</span>
+                            <a href="lessons/sorting.html#binary-search" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">10</span>
+                    Hash Tables
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">10.1 Hash Tables using Arrays</span>
+                            <a href="lessons/hashtables.html#array-based" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">10.2 Hash Tables using Linked Lists</span>
+                            <a href="lessons/hashtables.html#linked-based" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 11 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-number">11</span>
+                    Graphs
+                </div>
+                <div class="lessons">
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">11.1 Graph Representation</span>
+                            <a href="lessons/graphs.html#representation" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">11.2 Depth First Search (DFS)</span>
+                            <a href="lessons/graphs.html#dfs" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                    <div class="lesson">
+                        <div class="lesson-header">
+                            <span class="lesson-title">11.3 Breadth First Search (BFS)</span>
+                            <a href="lessons/graphs.html#bfs" class="lesson-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <h3>📖 Course Resources</h3>
+            <div class="footer-links">
+                <a href="resources/references.html">References</a>
+                <a href="resources/syllabus.html">Syllabus</a>
+                <a href="resources/assignments.html">Assignments</a>
+                <a href="resources/practice.html">Practice Problems</a>
+                <a href="resources/contact.html">Contact</a>
+            </div>
+            <p style="margin-top: 20px; opacity: 0.8;">© 2024 COM2307 - Data Structures & Algorithms</p>
+        </footer>
+    </div>
+</body>
+</html>

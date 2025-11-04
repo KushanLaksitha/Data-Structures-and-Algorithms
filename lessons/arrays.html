@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-breadcrumb {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .nav-breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .nav-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .text-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .text-content p {
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .code-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: -5px;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        .key-points {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .key-points h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .key-points ul {
+            margin-left: 20px;
+        }
+
+        .key-points li {
+            margin: 8px 0;
+        }
+
+        .visual-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .array-visualization {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .array-cell {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #667eea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+
+        .array-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .array-index {
+            font-size: 0.8em;
+            color: #667eea;
+            margin-top: 5px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .advantage {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .disadvantage {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .code-block {
+                padding: 15px;
+                font-size: 0.85em;
+            }
+
+            .array-cell {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Arrays</h1>
+            <p>Section 4 - COM2307</p>
+        </header>
+
+        <div class="nav-breadcrumb">
+            <a href="../index.html">← Back to Course Index</a>
+        </div>
+
+        <div class="content">
+            <!-- Section 4.1: Definition and Characteristics -->
+            <div class="section" id="definition">
+                <div class="section-title">4.1 Definition and Characteristics</div>
+
+                <div class="subsection">
+                    <h3>What is an Array?</h3>
+                    <div class="text-content">
+                        <p>An <strong>array</strong> is a collection of elements of the same data type stored in contiguous memory locations. Each element can be accessed using an index.</p>
+                        <p><strong>Key Characteristics:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Fixed size (size must be known at compile time)</li>
+                            <li>Homogeneous data (all elements of same type)</li>
+                            <li>Contiguous memory allocation</li>
+                            <li>Zero-based indexing (first element at index 0)</li>
+                            <li>Random access (O(1) time complexity)</li>
+                        </ul>
+                    </div>
+
+                    <div class="visual-box">
+                        <h4>Array Structure Visualization</h4>
+                        <div class="array-visualization">
+                            <div class="array-cell">
+                                <div class="array-value">10</div>
+                                <div class="array-index">[0]</div>
+                            </div>
+                            <div class="array-cell">
+                                <div class="array-value">20</div>
+                                <div class="array-index">[1]</div>
+                            </div>
+                            <div class="array-cell">
+                                <div class="array-value">30</div>
+                                <div class="array-index">[2]</div>
+                            </div>
+                            <div class="array-cell">
+                                <div class="array-value">40</div>
+                                <div class="array-index">[3]</div>
+                            </div>
+                            <div class="array-cell">
+                                <div class="array-value">50</div>
+                                <div class="array-index">[4]</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 15px; color: #666;">Array: int arr[5] = {10, 20, 30, 40, 50};</p>
+                    </div>
+
+                    <div class="code-title">Array Declaration and Initialization</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Array Declaration and Initialization */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="comment">/* Method 1: Declaration with size */</span>
+    <span class="keyword">int</span> arr1[<span class="number">5</span>];
+    
+    <span class="comment">/* Method 2: Declaration with initialization */</span>
+    <span class="keyword">int</span> arr2[<span class="number">5</span>] = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+    
+    <span class="comment">/* Method 3: Partial initialization (rest are 0) */</span>
+    <span class="keyword">int</span> arr3[<span class="number">5</span>] = {<span class="number">1</span>, <span class="number">2</span>};  <span class="comment">/* arr3 = {1, 2, 0, 0, 0} */</span>
+    
+    <span class="comment">/* Method 4: Size inferred from initialization */</span>
+    <span class="keyword">int</span> arr4[] = {<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>};  <span class="comment">/* Size = 3 */</span>
+    
+    <span class="comment">/* Accessing elements */</span>
+    <span class="function">printf</span>(<span class="string">"arr2[0] = %d\n"</span>, arr2[<span class="number">0</span>]);
+    <span class="function">printf</span>(<span class="string">"arr2[2] = %d\n"</span>, arr2[<span class="number">2</span>]);
+    
+    <span class="comment">/* Modifying elements */</span>
+    arr2[<span class="number">1</span>] = <span class="number">25</span>;
+    <span class="function">printf</span>(<span class="string">"Modified arr2[1] = %d\n"</span>, arr2[<span class="number">1</span>]);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>Memory Layout</h4>
+                        <ul>
+                            <li>If <code>int arr[5]</code> starts at address 1000</li>
+                            <li>arr[0] is at address 1000</li>
+                            <li>arr[1] is at address 1004 (assuming int = 4 bytes)</li>
+                            <li>arr[2] is at address 1008</li>
+                            <li>Formula: <code>Address of arr[i] = base_address + (i * sizeof(datatype))</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Multi-Dimensional Arrays</h3>
+                    
+                    <div class="code-title">2D Array (Matrix)</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Two-Dimensional Array */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> matrix[<span class="number">3</span>][<span class="number">3</span>] = {
+        {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>},
+        {<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>},
+        {<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>}
+    };
+    
+    <span class="keyword">int</span> i, j;
+    
+    <span class="function">printf</span>(<span class="string">"Matrix:\n"</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < <span class="number">3</span>; i++) {
+        <span class="keyword">for</span>(j = <span class="number">0</span>; j < <span class="number">3</span>; j++) {
+            <span class="function">printf</span>(<span class="string">"%d "</span>, matrix[i][j]);
+        }
+        <span class="function">printf</span>(<span class="string">"\n"</span>);
+    }
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4.2: Array Operations -->
+            <div class="section" id="operations">
+                <div class="section-title">4.2 Array Operations</div>
+
+                <div class="subsection">
+                    <h3>Traversal</h3>
+                    <div class="text-content">
+                        <p>Traversal means visiting each element of the array exactly once. Time Complexity: <strong>O(n)</strong></p>
+                    </div>
+                    
+                    <div class="code-title">Array Traversal</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Traversing an Array */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[] = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+    <span class="keyword">int</span> n = <span class="number">5</span>;
+    <span class="keyword">int</span> i;
+    
+    <span class="function">printf</span>(<span class="string">"Array elements:\n"</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"arr[%d] = %d\n"</span>, i, arr[i]);
+    }
+    
+    <span class="comment">/* Calculate sum */</span>
+    <span class="keyword">int</span> sum = <span class="number">0</span>;
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        sum += arr[i];
+    }
+    <span class="function">printf</span>(<span class="string">"\nSum = %d\n"</span>, sum);
+    
+    <span class="comment">/* Find maximum */</span>
+    <span class="keyword">int</span> max = arr[<span class="number">0</span>];
+    <span class="keyword">for</span>(i = <span class="number">1</span>; i < n; i++) {
+        <span class="keyword">if</span>(arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    <span class="function">printf</span>(<span class="string">"Maximum = %d\n"</span>, max);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Insertion</h3>
+                    <div class="text-content">
+                        <p>Inserting an element into an array requires shifting elements to make space.</p>
+                        <p><strong>Time Complexity:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Insert at end: O(1)</li>
+                            <li>Insert at beginning: O(n)</li>
+                            <li>Insert at position i: O(n)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-title">Insert Element at Position</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Insert element at given position */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">insertElement</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> *n, <span class="keyword">int</span> pos, <span class="keyword">int</span> value) {
+    <span class="keyword">int</span> i;
+    
+    <span class="comment">/* Shift elements to the right */</span>
+    <span class="keyword">for</span>(i = *n; i > pos; i--) {
+        arr[i] = arr[i - <span class="number">1</span>];
+    }
+    
+    <span class="comment">/* Insert the new element */</span>
+    arr[pos] = value;
+    (*n)++;
+}
+
+<span class="keyword">void</span> <span class="function">displayArray</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">int</span> i;
+    <span class="function">printf</span>(<span class="string">"Array: "</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[<span class="number">10</span>] = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+    <span class="keyword">int</span> n = <span class="number">5</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Original "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="comment">/* Insert 25 at position 2 */</span>
+    <span class="function">insertElement</span>(arr, &n, <span class="number">2</span>, <span class="number">25</span>);
+    <span class="function">printf</span>(<span class="string">"After inserting 25 at position 2: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="comment">/* Insert at beginning */</span>
+    <span class="function">insertElement</span>(arr, &n, <span class="number">0</span>, <span class="number">5</span>);
+    <span class="function">printf</span>(<span class="string">"After inserting 5 at beginning: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="comment">/* Insert at end */</span>
+    <span class="function">insertElement</span>(arr, &n, n, <span class="number">60</span>);
+    <span class="function">printf</span>(<span class="string">"After inserting 60 at end: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Deletion</h3>
+                    <div class="text-content">
+                        <p>Deleting an element requires shifting elements to fill the gap.</p>
+                        <p><strong>Time Complexity:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Delete from end: O(1)</li>
+                            <li>Delete from beginning: O(n)</li>
+                            <li>Delete from position i: O(n)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-title">Delete Element from Position</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Delete element from given position */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">deleteElement</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> *n, <span class="keyword">int</span> pos) {
+    <span class="keyword">int</span> i;
+    
+    <span class="keyword">if</span>(pos < <span class="number">0</span> || pos >= *n) {
+        <span class="function">printf</span>(<span class="string">"Invalid position!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="comment">/* Shift elements to the left */</span>
+    <span class="keyword">for</span>(i = pos; i < *n - <span class="number">1</span>; i++) {
+        arr[i] = arr[i + <span class="number">1</span>];
+    }
+    
+    (*n)--;
+}
+
+<span class="keyword">void</span> <span class="function">displayArray</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">int</span> i;
+    <span class="function">printf</span>(<span class="string">"Array: "</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[] = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+    <span class="keyword">int</span> n = <span class="number">5</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Original "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="comment">/* Delete element at position 2 */</span>
+    <span class="function">deleteElement</span>(arr, &n, <span class="number">2</span>);
+    <span class="function">printf</span>(<span class="string">"After deleting position 2: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="comment">/* Delete first element */</span>
+    <span class="function">deleteElement</span>(arr, &n, <span class="number">0</span>);
+    <span class="function">printf</span>(<span class="string">"After deleting first element: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Searching</h3>
+                    
+                    <div class="text-content">
+                        <p><strong>Linear Search:</strong> Sequential search through array elements.</p>
+                    </div>
+                    
+                    <div class="code-title">Linear Search</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Linear Search - O(n) */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">linearSearch</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n, <span class="keyword">int</span> key) {
+    <span class="keyword">int</span> i;
+    
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="keyword">if</span>(arr[i] == key) {
+            <span class="keyword">return</span> i;  <span class="comment">/* Return index if found */</span>
+        }
+    }
+    
+    <span class="keyword">return</span> -<span class="number">1</span>;  <span class="comment">/* Return -1 if not found */</span>
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[] = {<span class="number">64</span>, <span class="number">25</span>, <span class="number">12</span>, <span class="number">22</span>, <span class="number">11</span>};
+    <span class="keyword">int</span> n = <span class="number">5</span>;
+    <span class="keyword">int</span> key = <span class="number">22</span>;
+    <span class="keyword">int</span> result;
+    
+    result = <span class="function">linearSearch</span>(arr, n, key);
+    
+    <span class="keyword">if</span>(result != -<span class="number">1</span>) {
+        <span class="function">printf</span>(<span class="string">"Element %d found at index %d\n"</span>, key, result);
+    } <span class="keyword">else</span> {
+        <span class="function">printf</span>(<span class="string">"Element %d not found\n"</span>, key);
+    }
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+
+                    <div class="note">
+                        <strong>Note:</strong> Binary Search (O(log n)) is more efficient but requires a sorted array. Linear Search works on both sorted and unsorted arrays.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4.3: Advantages and Disadvantages -->
+            <div class="section" id="pros-cons">
+                <div class="section-title">4.3 Advantages and Disadvantages</div>
+
+                <div class="subsection">
+                    <h3>Comparison Overview</h3>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Details</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Random Access</strong></td>
+                                <td>Direct access using index - O(1)</td>
+                                <td><span class="advantage">✓ Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Memory Efficiency</strong></td>
+                                <td>No extra memory for links/pointers</td>
+                                <td><span class="advantage">✓ Good</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cache Performance</strong></td>
+                                <td>Contiguous memory improves cache hits</td>
+                                <td><span class="advantage">✓ Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Insertion/Deletion</strong></td>
+                                <td>Requires shifting elements - O(n)</td>
+                                <td><span class="disadvantage">✗ Poor</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fixed Size</strong></td>
+                                <td>Size cannot change after declaration</td>
+                                <td><span class="disadvantage">✗ Inflexible</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Memory Waste</strong></td>
+                                <td>Unused allocated space is wasted</td>
+                                <td><span class="disadvantage">✗ Inefficient</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Advantages</h3>
+                    <div class="key-points">
+                        <h4>Benefits of Arrays</h4>
+                        <ul>
+                            <li><strong>Fast Access:</strong> O(1) time to access any element using index</li>
+                            <li><strong>Simple Implementation:</strong> Easy to understand and implement</li>
+                            <li><strong>Memory Efficient:</strong> No overhead for storing links or pointers</li>
+                            <li><strong>Cache Friendly:</strong> Contiguous memory layout improves CPU cache performance</li>
+                            <li><strong>Predictable Memory:</strong> Memory allocation is straightforward and predictable</li>
+                            <li><strong>Multi-dimensional Support:</strong> Easy to create matrices and higher-dimensional structures</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-title">Example: Fast Random Access</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Arrays provide O(1) access time */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;time.h&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[<span class="number">1000000</span>];
+    <span class="keyword">int</span> i;
+    
+    <span class="comment">/* Initialize array */</span>
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < <span class="number">1000000</span>; i++) {
+        arr[i] = i;
+    }
+    
+    <span class="comment">/* Accessing first element - O(1) */</span>
+    <span class="function">printf</span>(<span class="string">"First element: %d\n"</span>, arr[<span class="number">0</span>]);
+    
+    <span class="comment">/* Accessing middle element - O(1) */</span>
+    <span class="function">printf</span>(<span class="string">"Middle element: %d\n"</span>, arr[<span class="number">500000</span>]);
+    
+    <span class="comment">/* Accessing last element - O(1) */</span>
+    <span class="function">printf</span>(<span class="string">"Last element: %d\n"</span>, arr[<span class="number">999999</span>]);
+    
+    <span class="comment">/* All accesses take same constant time! */</span>
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Disadvantages</h3>
+                    <div class="key-points" style="background: #ffe7e7; border-left-color: #dc3545;">
+                        <h4 style="color: #dc3545;">Limitations of Arrays</h4>
+                        <ul>
+                            <li><strong>Fixed Size:</strong> Cannot grow or shrink dynamically; size must be known at compile time</li>
+                            <li><strong>Costly Insertion/Deletion:</strong> Requires shifting elements, O(n) time complexity</li>
+                            <li><strong>Memory Waste:</strong> If array is not fully utilized, allocated memory is wasted</li>
+                            <li><strong>No Built-in Bounds Checking:</strong> Accessing out-of-bounds index causes undefined behavior</li>
+                            <li><strong>Contiguous Memory Required:</strong> Large arrays may fail to allocate if contiguous memory is unavailable</li>
+                            <li><strong>Homogeneous Data:</strong> Can only store elements of the same data type</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-title">Example: Costly Insertion</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Insertion at beginning requires shifting all elements */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">insertAtBeginning</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> *n, <span class="keyword">int</span> value) {
+    <span class="keyword">int</span> i;
+    
+    <span class="comment">/* Shift all elements one position right - O(n) */</span>
+    <span class="keyword">for</span>(i = *n; i > <span class="number">0</span>; i--) {
+        arr[i] = arr[i - <span class="number">1</span>];
+    }
+    
+    arr[<span class="number">0</span>] = value;
+    (*n)++;
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[<span class="number">100</span>] = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+    <span class="keyword">int</span> n = <span class="number">5</span>;
+    <span class="keyword">int</span> i;
+    
+    <span class="function">printf</span>(<span class="string">"Original array: "</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+    
+    <span class="comment">/* Insert 5 at beginning - expensive operation */</span>
+    <span class="function">insertAtBeginning</span>(arr, &n, <span class="number">5</span>);
+    
+    <span class="function">printf</span>(<span class="string">"After insertion: "</span>);
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>When to Use Arrays</h3>
+                    
+                    <div class="text-content">
+                        <p><strong>Arrays are ideal when:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>The size of the data is known in advance</li>
+                            <li>Random access to elements is required frequently</li>
+                            <li>Memory efficiency is important (no pointer overhead)</li>
+                            <li>You need to implement other data structures (stacks, queues, etc.)</li>
+                            <li>Working with mathematical operations (matrices, vectors)</li>
+                        </ul>
+                        <br>
+                        <p><strong>Consider alternatives when:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Size changes frequently (use dynamic structures like linked lists)</li>
+                            <li>Frequent insertions/deletions at beginning or middle</li>
+                            <li>Memory is limited and array might be underutilized</li>
+                            <li>Need to store heterogeneous data types</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Topics -->
+            <div class="section">
+                <div class="section-title">Additional Array Operations</div>
+
+                <div class="subsection">
+                    <h3>Reversing an Array</h3>
+                    
+                    <div class="code-title">Reverse Array</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Reverse an array */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">reverseArray</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">int</span> start = <span class="number">0</span>;
+    <span class="keyword">int</span> end = n - <span class="number">1</span>;
+    <span class="keyword">int</span> temp;
+    
+    <span class="keyword">while</span>(start < end) {
+        <span class="comment">/* Swap elements */</span>
+        temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        
+        start++;
+        end--;
+    }
+}
+
+<span class="keyword">void</span> <span class="function">displayArray</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">int</span> i;
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[] = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+    <span class="keyword">int</span> n = <span class="number">5</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Original array: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="function">reverseArray</span>(arr, n);
+    
+    <span class="function">printf</span>(<span class="string">"Reversed array: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Rotating an Array</h3>
+                    
+                    <div class="code-title">Rotate Array Left by K positions</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Rotate array left by k positions */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">rotateLeft</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n, <span class="keyword">int</span> k) {
+    <span class="keyword">int</span> i, j;
+    <span class="keyword">int</span> temp;
+    
+    k = k % n;  <span class="comment">/* Handle k > n */</span>
+    
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < k; i++) {
+        temp = arr[<span class="number">0</span>];
+        
+        <span class="comment">/* Shift all elements left by 1 */</span>
+        <span class="keyword">for</span>(j = <span class="number">0</span>; j < n - <span class="number">1</span>; j++) {
+            arr[j] = arr[j + <span class="number">1</span>];
+        }
+        
+        arr[n - <span class="number">1</span>] = temp;
+    }
+}
+
+<span class="keyword">void</span> <span class="function">displayArray</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">int</span> i;
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[] = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+    <span class="keyword">int</span> n = <span class="number">5</span>;
+    <span class="keyword">int</span> k = <span class="number">2</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Original array: "</span>);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="function">rotateLeft</span>(arr, n, k);
+    
+    <span class="function">printf</span>(<span class="string">"After rotating left by %d: "</span>, k);
+    <span class="function">displayArray</span>(arr, n);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Merging Two Arrays</h3>
+                    
+                    <div class="code-title">Merge Two Sorted Arrays</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Merge two sorted arrays */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">mergeSortedArrays</span>(<span class="keyword">int</span> arr1[], <span class="keyword">int</span> n1, <span class="keyword">int</span> arr2[], <span class="keyword">int</span> n2, <span class="keyword">int</span> result[]) {
+    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = <span class="number">0</span>;
+    
+    <span class="comment">/* Merge while both arrays have elements */</span>
+    <span class="keyword">while</span>(i < n1 && j < n2) {
+        <span class="keyword">if</span>(arr1[i] <= arr2[j]) {
+            result[k++] = arr1[i++];
+        } <span class="keyword">else</span> {
+            result[k++] = arr2[j++];
+        }
+    }
+    
+    <span class="comment">/* Copy remaining elements from arr1 */</span>
+    <span class="keyword">while</span>(i < n1) {
+        result[k++] = arr1[i++];
+    }
+    
+    <span class="comment">/* Copy remaining elements from arr2 */</span>
+    <span class="keyword">while</span>(j < n2) {
+        result[k++] = arr2[j++];
+    }
+}
+
+<span class="keyword">void</span> <span class="function">displayArray</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">int</span> i;
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n; i++) {
+        <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr1[] = {<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>};
+    <span class="keyword">int</span> arr2[] = {<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>};
+    <span class="keyword">int</span> n1 = <span class="number">4</span>, n2 = <span class="number">4</span>;
+    <span class="keyword">int</span> result[<span class="number">8</span>];
+    
+    <span class="function">printf</span>(<span class="string">"Array 1: "</span>);
+    <span class="function">displayArray</span>(arr1, n1);
+    
+    <span class="function">printf</span>(<span class="string">"Array 2: "</span>);
+    <span class="function">displayArray</span>(arr2, n2);
+    
+    <span class="function">mergeSortedArrays</span>(arr1, n1, arr2, n2, result);
+    
+    <span class="function">printf</span>(<span class="string">"Merged array: "</span>);
+    <span class="function">displayArray</span>(result, n1 + n2);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Finding Duplicates</h3>
+                    
+                    <div class="code-title">Find Duplicate Elements</div>
+                    <div class="code-block">
+                        <pre><span class="comment">/* Find and print duplicate elements */</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="keyword">void</span> <span class="function">findDuplicates</span>(<span class="keyword">int</span> arr[], <span class="keyword">int</span> n) {
+    <span class="keyword">int</span> i, j;
+    <span class="keyword">int</span> found = <span class="number">0</span>;
+    
+    <span class="function">printf</span>(<span class="string">"Duplicate elements: "</span>);
+    
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i < n - <span class="number">1</span>; i++) {
+        <span class="keyword">for</span>(j = i + <span class="number">1</span>; j < n; j++) {
+            <span class="keyword">if</span>(arr[i] == arr[j]) {
+                <span class="comment">/* Check if already printed */</span>
+                <span class="keyword">int</span> k, alreadyPrinted = <span class="number">0</span>;
+                <span class="keyword">for</span>(k = <span class="number">0</span>; k < i; k++) {
+                    <span class="keyword">if</span>(arr[k] == arr[i]) {
+                        alreadyPrinted = <span class="number">1</span>;
+                        <span class="keyword">break</span>;
+                    }
+                }
+                
+                <span class="keyword">if</span>(!alreadyPrinted) {
+                    <span class="function">printf</span>(<span class="string">"%d "</span>, arr[i]);
+                    found = <span class="number">1</span>;
+                }
+                <span class="keyword">break</span>;
+            }
+        }
+    }
+    
+    <span class="keyword">if</span>(!found) {
+        <span class="function">printf</span>(<span class="string">"None"</span>);
+    }
+    <span class="function">printf</span>(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> arr[] = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>};
+    <span class="keyword">int</span> n = <span class="number">8</span>;
+    
+    <span class="function">findDuplicates</span>(arr, n);
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <div class="section-title">Summary</div>
+                
+                <div class="key-points">
+                    <h4>Key Takeaways</h4>
+                    <ul>
+                        <li><strong>Definition:</strong> Arrays are contiguous memory blocks storing homogeneous data</li>
+                        <li><strong>Access Time:</strong> O(1) for random access using index</li>
+                        <li><strong>Insertion:</strong> O(1) at end, O(n) at beginning or middle</li>
+                        <li><strong>Deletion:</strong> O(1) at end, O(n) at beginning or middle</li>
+                        <li><strong>Search:</strong> O(n) for unsorted, O(log n) for sorted (binary search)</li>
+                        <li><strong>Memory:</strong> Fixed size, contiguous allocation required</li>
+                        <li><strong>Best For:</strong> Fast random access, fixed-size collections</li>
+                        <li><strong>Worst For:</strong> Dynamic sizing, frequent insertions/deletions</li>
+                    </ul>
+                </div>
+
+                <div class="visual-box">
+                    <h4>Time Complexity Summary</h4>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Operation</th>
+                                <th>Best Case</th>
+                                <th>Average Case</th>
+                                <th>Worst Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Access</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Search</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Insert at End</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Insert at Position</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Delete at End</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Delete at Position</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="note">
+                    <strong>Remember:</strong> Arrays are the foundation for many other data structures like stacks, queues, and heaps. Understanding arrays thoroughly is essential for mastering more complex data structures!
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p><a href="../index.html">← Back to Course Index</a> | <a href="lists.html">Next: Lists →</a></p>
+            <p style="margin-top: 10px; opacity: 0.8;">© 2024 COM2307 - Data Structures & Algorithms</p>
+        </footer>
+    </div>
+</body>
+</html>

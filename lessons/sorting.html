@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting & Searching Algorithms - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .code-title {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success-box h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .complexity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .complexity-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .complexity-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .complexity-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .visual-example {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+        }
+
+        .visual-example h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .step {
+            background: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 3px solid #764ba2;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .code-block {
+                padding: 15px;
+            }
+
+            .code-block pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 Sorting & Searching Algorithms</h1>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> > Section 9: Sorting & Searching Algorithms
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="section">
+                <h2>Introduction to Sorting</h2>
+                <p>Sorting is the process of arranging data in a particular order (ascending or descending). Efficient sorting is crucial for optimizing the performance of other algorithms that require sorted data, such as search algorithms.</p>
+                
+                <div class="info-box">
+                    <h4>Why Sorting Matters</h4>
+                    <ul>
+                        <li>Makes searching faster and more efficient</li>
+                        <li>Improves data presentation and readability</li>
+                        <li>Essential for database operations</li>
+                        <li>Used in many optimization algorithms</li>
+                        <li>Fundamental for data analysis</li>
+                    </ul>
+                </div>
+
+                <h3>Sorting Categories</h3>
+                <ul>
+                    <li><strong>Internal Sorting:</strong> All data fits in memory (RAM)</li>
+                    <li><strong>External Sorting:</strong> Data is too large for memory, uses disk storage</li>
+                    <li><strong>Stable Sorting:</strong> Maintains relative order of equal elements</li>
+                    <li><strong>In-place Sorting:</strong> Requires minimal extra memory</li>
+                </ul>
+            </div>
+
+            <!-- Selection Sort -->
+            <div class="section" id="selection">
+                <h2>9.1 Selection Sort</h2>
+                <p>Selection Sort works by repeatedly finding the minimum element from the unsorted portion and placing it at the beginning. It divides the array into sorted and unsorted regions.</p>
+
+                <h3>Algorithm Steps</h3>
+                <ol>
+                    <li>Find the minimum element in the unsorted array</li>
+                    <li>Swap it with the element at the beginning of unsorted array</li>
+                    <li>Move the boundary between sorted and unsorted by one position</li>
+                    <li>Repeat until the entire array is sorted</li>
+                </ol>
+
+                <div class="visual-example">
+                    <h4>Example: Sorting [64, 25, 12, 22, 11]</h4>
+                    <div class="step">Pass 1: [11, 25, 12, 22, 64] - Minimum is 11, swap with 64</div>
+                    <div class="step">Pass 2: [11, 12, 25, 22, 64] - Minimum is 12, swap with 25</div>
+                    <div class="step">Pass 3: [11, 12, 22, 25, 64] - Minimum is 22, swap with 25</div>
+                    <div class="step">Pass 4: [11, 12, 22, 25, 64] - Minimum is 25, no swap needed</div>
+                    <div class="step">Result: [11, 12, 22, 25, 64] - Sorted!</div>
+                </div>
+
+                <div class="code-title">Selection Sort Implementation</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+
+void selectionSort(int arr[], int n) {
+    int i, j, minIndex, temp;
+    
+    for (i = 0; i < n - 1; i++) {
+        minIndex = i;
+        
+        // Find the minimum element in unsorted array
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        
+        // Swap the found minimum with the first element
+        if (minIndex != i) {
+            temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+    }
+}
+
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("Original array: ");
+    printArray(arr, n);
+    
+    selectionSort(arr, n);
+    
+    printf("Sorted array: ");
+    printArray(arr, n);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Complexity Analysis</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Case</th>
+                            <th>Time Complexity</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Best Case</td>
+                            <td>O(n²)</td>
+                            <td>Already sorted array</td>
+                        </tr>
+                        <tr>
+                            <td>Average Case</td>
+                            <td>O(n²)</td>
+                            <td>Random order</td>
+                        </tr>
+                        <tr>
+                            <td>Worst Case</td>
+                            <td>O(n²)</td>
+                            <td>Reverse sorted array</td>
+                        </tr>
+                        <tr>
+                            <td>Space Complexity</td>
+                            <td>O(1)</td>
+                            <td>In-place sorting</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4>Characteristics</h4>
+                    <ul>
+                        <li><strong>Stable:</strong> No (can be made stable with modifications)</li>
+                        <li><strong>In-place:</strong> Yes</li>
+                        <li><strong>Comparisons:</strong> n(n-1)/2 comparisons</li>
+                        <li><strong>Swaps:</strong> Maximum n-1 swaps</li>
+                        <li><strong>Best for:</strong> Small arrays or when swap cost is high</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bubble Sort -->
+            <div class="section" id="bubble">
+                <h2>9.2 Bubble Sort</h2>
+                <p>Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them if they're in the wrong order. The pass through the list is repeated until no swaps are needed.</p>
+
+                <h3>Algorithm Steps</h3>
+                <ol>
+                    <li>Compare each pair of adjacent elements</li>
+                    <li>Swap them if they are in wrong order</li>
+                    <li>After each pass, the largest element "bubbles up" to its correct position</li>
+                    <li>Repeat for all elements</li>
+                </ol>
+
+                <div class="visual-example">
+                    <h4>Example: Sorting [5, 1, 4, 2, 8]</h4>
+                    <div class="step">Pass 1: [1, 4, 2, 5, 8] - 8 bubbles to end</div>
+                    <div class="step">Pass 2: [1, 2, 4, 5, 8] - 5 bubbles to correct position</div>
+                    <div class="step">Pass 3: [1, 2, 4, 5, 8] - 4 stays in position</div>
+                    <div class="step">Pass 4: [1, 2, 4, 5, 8] - Already sorted</div>
+                    <div class="step">Result: [1, 2, 4, 5, 8] - Sorted!</div>
+                </div>
+
+                <div class="code-title">Bubble Sort Implementation</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    int swapped;
+    
+    for (i = 0; i < n - 1; i++) {
+        swapped = 0;
+        
+        // Last i elements are already in place
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap arr[j] and arr[j+1]
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+        
+        // If no swapping occurred, array is sorted
+        if (swapped == 0) {
+            break;
+        }
+    }
+}
+
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {5, 1, 4, 2, 8};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("Original array: ");
+    printArray(arr, n);
+    
+    bubbleSort(arr, n);
+    
+    printf("Sorted array: ");
+    printArray(arr, n);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Optimized Bubble Sort</h3>
+                <p>The optimized version uses a flag to detect if any swap happened in a pass. If no swap occurs, the array is already sorted and we can stop early.</p>
+
+                <h3>Complexity Analysis</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Case</th>
+                            <th>Time Complexity</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Best Case</td>
+                            <td>O(n)</td>
+                            <td>Already sorted (with optimization)</td>
+                        </tr>
+                        <tr>
+                            <td>Average Case</td>
+                            <td>O(n²)</td>
+                            <td>Random order</td>
+                        </tr>
+                        <tr>
+                            <td>Worst Case</td>
+                            <td>O(n²)</td>
+                            <td>Reverse sorted array</td>
+                        </tr>
+                        <tr>
+                            <td>Space Complexity</td>
+                            <td>O(1)</td>
+                            <td>In-place sorting</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success-box">
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Simple to understand and implement</li>
+                        <li>Stable sorting algorithm</li>
+                        <li>In-place sorting (minimal memory usage)</li>
+                        <li>Can detect if list is already sorted</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Very slow for large datasets</li>
+                        <li>O(n²) time complexity in average and worst cases</li>
+                        <li>Not suitable for practical applications with large data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Merge Sort -->
+            <div class="section" id="merge">
+                <h2>9.3 Merge Sort</h2>
+                <p>Merge Sort is a divide-and-conquer algorithm that divides the array into two halves, recursively sorts them, and then merges the two sorted halves. It's one of the most efficient sorting algorithms.</p>
+
+                <h3>Algorithm Steps</h3>
+                <ol>
+                    <li><strong>Divide:</strong> Split the array into two halves</li>
+                    <li><strong>Conquer:</strong> Recursively sort both halves</li>
+                    <li><strong>Combine:</strong> Merge the two sorted halves into one sorted array</li>
+                </ol>
+
+                <div class="visual-example">
+                    <h4>Example: Sorting [38, 27, 43, 3]</h4>
+                    <div class="step">Divide: [38, 27] and [43, 3]</div>
+                    <div class="step">Divide: [38] [27] and [43] [3]</div>
+                    <div class="step">Merge: [27, 38] and [3, 43]</div>
+                    <div class="step">Merge: [3, 27, 38, 43]</div>
+                    <div class="step">Result: [3, 27, 38, 43] - Sorted!</div>
+                </div>
+
+                <div class="code-title">Merge Function</div>
+                <div class="code-block">
+                    <pre>
+void merge(int arr[], int left, int mid, int right) {
+    int i, j, k;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    
+    // Create temporary arrays
+    int L[n1], R[n2];
+    
+    // Copy data to temporary arrays
+    for (i = 0; i < n1; i++) {
+        L[i] = arr[left + i];
+    }
+    for (j = 0; j < n2; j++) {
+        R[j] = arr[mid + 1 + j];
+    }
+    
+    // Merge the temporary arrays back
+    i = 0;
+    j = 0;
+    k = left;
+    
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    
+    // Copy remaining elements of L[]
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    
+    // Copy remaining elements of R[]
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">Merge Sort Implementation</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+
+void merge(int arr[], int left, int mid, int right);
+
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        
+        // Sort first and second halves
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        
+        // Merge the sorted halves
+        merge(arr, left, mid, right);
+    }
+}
+
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {38, 27, 43, 3, 9, 82, 10};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("Original array: ");
+    printArray(arr, n);
+    
+    mergeSort(arr, 0, n - 1);
+    
+    printf("Sorted array: ");
+    printArray(arr, n);
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Complexity Analysis</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Case</th>
+                            <th>Time Complexity</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Best Case</td>
+                            <td>O(n log n)</td>
+                            <td>Already sorted array</td>
+                        </tr>
+                        <tr>
+                            <td>Average Case</td>
+                            <td>O(n log n)</td>
+                            <td>Random order</td>
+                        </tr>
+                        <tr>
+                            <td>Worst Case</td>
+                            <td>O(n log n)</td>
+                            <td>Reverse sorted array</td>
+                        </tr>
+                        <tr>
+                            <td>Space Complexity</td>
+                            <td>O(n)</td>
+                            <td>Requires extra space for merging</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success-box">
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Guaranteed O(n log n) time complexity</li>
+                        <li>Stable sorting algorithm</li>
+                        <li>Predictable performance</li>
+                        <li>Works well with large datasets</li>
+                        <li>Excellent for linked lists</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Requires O(n) extra space</li>
+                        <li>Not in-place sorting</li>
+                        <li>Slower than quicksort in practice for arrays</li>
+                        <li>Recursive implementation uses stack space</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Key Characteristics</h4>
+                    <ul>
+                        <li><strong>Stable:</strong> Yes - maintains relative order of equal elements</li>
+                        <li><strong>In-place:</strong> No - requires additional memory</li>
+                        <li><strong>Adaptive:</strong> No - always O(n log n)</li>
+                        <li><strong>Best for:</strong> Large datasets, linked lists, when stability matters</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Binary Search -->
+            <div class="section" id="binary-search">
+                <h2>9.4 Binary Search</h2>
+                <p>Binary Search is an efficient algorithm for finding a target value within a sorted array. It works by repeatedly dividing the search interval in half.</p>
+
+                <div class="warning-box">
+                    <h4>Important Requirement</h4>
+                    <p>Binary Search only works on SORTED arrays. The array must be sorted in ascending or descending order before applying binary search.</p>
+                </div>
+
+                <h3>Algorithm Steps</h3>
+                <ol>
+                    <li>Start with the middle element of the sorted array</li>
+                    <li>If target equals middle element, return its position</li>
+                    <li>If target is less than middle, search the left half</li>
+                    <li>If target is greater than middle, search the right half</li>
+                    <li>Repeat until element is found or search space is empty</li>
+                </ol>
+
+                <div class="visual-example">
+                    <h4>Example: Searching for 23 in [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]</h4>
+                    <div class="step">Step 1: Middle = 16, Target 23 > 16, search right half</div>
+                    <div class="step">Step 2: Middle = 56, Target 23 < 56, search left half</div>
+                    <div class="step">Step 3: Middle = 23, Target 23 = 23, Found at index 5!</div>
+                </div>
+
+                <h3>Iterative Implementation</h3>
+                <div class="code-title">Binary Search - Iterative</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+
+int binarySearchIterative(int arr[], int n, int target) {
+    int left = 0;
+    int right = n - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        // Check if target is at mid
+        if (arr[mid] == target) {
+            return mid;
+        }
+        
+        // If target is greater, ignore left half
+        if (arr[mid] < target) {
+            left = mid + 1;
+        }
+        // If target is smaller, ignore right half
+        else {
+            right = mid - 1;
+        }
+    }
+    
+    // Element not found
+    return -1;
+}
+
+int main() {
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 23;
+    
+    int result = binarySearchIterative(arr, n, target);
+    
+    if (result != -1) {
+        printf("Element %d found at index %d\n", target, result);
+    }
+    else {
+        printf("Element %d not found in array\n", target);
+    }
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Recursive Implementation</h3>
+                <div class="code-title">Binary Search - Recursive</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+
+int binarySearchRecursive(int arr[], int left, int right, int target) {
+    if (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        // If element is present at middle
+        if (arr[mid] == target) {
+            return mid;
+        }
+        
+        // If element is smaller than mid, search left subarray
+        if (arr[mid] > target) {
+            return binarySearchRecursive(arr, left, mid - 1, target);
+        }
+        
+        // Else search right subarray
+        return binarySearchRecursive(arr, mid + 1, right, target);
+    }
+    
+    // Element not found
+    return -1;
+}
+
+int main() {
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 23;
+    
+    int result = binarySearchRecursive(arr, 0, n - 1, target);
+    
+    if (result != -1) {
+        printf("Element %d found at index %d\n", target, result);
+    }
+    else {
+        printf("Element %d not found in array\n", target);
+    }
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Complexity Analysis</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Case</th>
+                            <th>Time Complexity</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Best Case</td>
+                            <td>O(1)</td>
+                            <td>Element found at middle</td>
+                        </tr>
+                        <tr>
+                            <td>Average Case</td>
+                            <td>O(log n)</td>
+                            <td>Element somewhere in array</td>
+                        </tr>
+                        <tr>
+                            <td>Worst Case</td>
+                            <td>O(log n)</td>
+                            <td>Element at end or not present</td>
+                        </tr>
+                        <tr>
+                            <td>Space Complexity</td>
+                            <td>O(1) / O(log n)</td>
+                            <td>Iterative / Recursive</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success-box">
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Very efficient for large sorted datasets</li>
+                        <li>O(log n) time complexity - much faster than linear search</li>
+                        <li>Simple to implement</li>
+                        <li>Works well with sorted arrays</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Requires sorted data</li>
+                        <li>Not efficient for small datasets</li>
+                        <li>Works only with direct access data structures (arrays)</li>
+                        <li>Sorting overhead if data is not already sorted</li>
+                    </ul>
+                </div>
+
+                <h3>Complete Binary Search Program</h3>
+                <div class="code-title">Binary Search - Complete Example</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+
+int binarySearch(int arr[], int n, int target) {
+    int left = 0;
+    int right = n - 1;
+    int comparisons = 0;
+    
+    while (left <= right) {
+        comparisons++;
+        int mid = left + (right - left) / 2;
+        
+        printf("Comparison %d: Checking index %d (value: %d)\n", 
+               comparisons, mid, arr[mid]);
+        
+        if (arr[mid] == target) {
+            printf("Found after %d comparisons!\n", comparisons);
+            return mid;
+        }
+        
+        if (arr[mid] < target) {
+            left = mid + 1;
+            printf("  Target is greater, searching right half\n");
+        }
+        else {
+            right = mid - 1;
+            printf("  Target is smaller, searching left half\n");
+        }
+    }
+    
+    printf("Not found after %d comparisons\n", comparisons);
+    return -1;
+}
+
+void printArray(int arr[], int n) {
+    int i;
+    printf("Array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printArray(arr, n);
+    printf("\nSearching for 23:\n");
+    int result = binarySearch(arr, n, 23);
+    
+    if (result != -1) {
+        printf("\nElement found at index %d\n", result);
+    }
+    else {
+        printf("\nElement not found\n");
+    }
+    
+    printf("\n\nSearching for 50:\n");
+    result = binarySearch(arr, n, 50);
+    
+    if (result != -1) {
+        printf("\nElement found at index %d\n", result);
+    }
+    else {
+        printf("\nElement not found\n");
+    }
+    
+    return 0;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Comparison of Algorithms -->
+            <div class="section">
+                <h2>Comparison of Sorting Algorithms</h2>
+                
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Best Case</th>
+                            <th>Average Case</th>
+                            <th>Worst Case</th>
+                            <th>Space</th>
+                            <th>Stable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Selection Sort</td>
+                            <td>O(n²)</td>
+                            <td>O(n²)</td>
+                            <td>O(n²)</td>
+                            <td>O(1)</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Bubble Sort</td>
+                            <td>O(n)</td>
+                            <td>O(n²)</td>
+                            <td>O(n²)</td>
+                            <td>O(1)</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Merge Sort</td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n)</td>
+                            <td>Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>When to Use Which Algorithm?</h3>
+                <div class="info-box">
+                    <h4>Selection Sort</h4>
+                    <ul>
+                        <li>Small datasets (less than 20 elements)</li>
+                        <li>When memory writes are costly</li>
+                        <li>When simplicity is more important than efficiency</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Bubble Sort</h4>
+                    <ul>
+                        <li>Educational purposes to understand sorting</li>
+                        <li>Small datasets or nearly sorted data</li>
+                        <li>When detecting if data is already sorted</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Merge Sort</h4>
+                    <ul>
+                        <li>Large datasets requiring guaranteed O(n log n)</li>
+                        <li>When stability is required</li>
+                        <li>Linked lists (efficient for sequential access)</li>
+                        <li>External sorting (sorting large files)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Binary Search</h4>
+                    <ul>
+                        <li>Large sorted datasets</li>
+                        <li>When frequent searches are needed</li>
+                        <li>Database indexing and searching</li>
+                        <li>When O(log n) search time is critical</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Practice Problems -->
+            <div class="section">
+                <h2>Practice Problems</h2>
+
+                <h3>Problem 1: Sort in Descending Order</h3>
+                <div class="code-title">Modify Selection Sort for Descending Order</div>
+                <div class="code-block">
+                    <pre>
+void selectionSortDescending(int arr[], int n) {
+    int i, j, maxIndex, temp;
+    
+    for (i = 0; i < n - 1; i++) {
+        maxIndex = i;
+        
+        // Find maximum element in unsorted array
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] > arr[maxIndex]) {
+                maxIndex = j;
+            }
+        }
+        
+        // Swap
+        if (maxIndex != i) {
+            temp = arr[i];
+            arr[i] = arr[maxIndex];
+            arr[maxIndex] = temp;
+        }
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Problem 2: Count Comparisons</h3>
+                <div class="code-title">Modified Bubble Sort with Comparison Counter</div>
+                <div class="code-block">
+                    <pre>
+int bubbleSortWithCount(int arr[], int n) {
+    int i, j, temp;
+    int comparisons = 0;
+    
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            comparisons++;
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    
+    return comparisons;
+}
+                    </pre>
+                </div>
+
+                <h3>Problem 3: Find First and Last Position</h3>
+                <div class="code-title">Binary Search Variants</div>
+                <div class="code-block">
+                    <pre>
+int findFirstOccurrence(int arr[], int n, int target) {
+    int left = 0, right = n - 1;
+    int result = -1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target) {
+            result = mid;
+            right = mid - 1;  // Continue searching left
+        }
+        else if (arr[mid] < target) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+    
+    return result;
+}
+
+int findLastOccurrence(int arr[], int n, int target) {
+    int left = 0, right = n - 1;
+    int result = -1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target) {
+            result = mid;
+            left = mid + 1;  // Continue searching right
+        }
+        else if (arr[mid] < target) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+    
+    return result;
+}
+                    </pre>
+                </div>
+
+                <h3>Problem 4: Merge Two Sorted Arrays</h3>
+                <div class="code-title">Merge Two Sorted Arrays</div>
+                <div class="code-block">
+                    <pre>
+void mergeTwoArrays(int arr1[], int n1, int arr2[], int n2, int result[]) {
+    int i = 0, j = 0, k = 0;
+    
+    // Merge until one array is exhausted
+    while (i < n1 && j < n2) {
+        if (arr1[i] <= arr2[j]) {
+            result[k++] = arr1[i++];
+        }
+        else {
+            result[k++] = arr2[j++];
+        }
+    }
+    
+    // Copy remaining elements from arr1
+    while (i < n1) {
+        result[k++] = arr1[i++];
+    }
+    
+    // Copy remaining elements from arr2
+    while (j < n2) {
+        result[k++] = arr2[j++];
+    }
+}
+
+int main() {
+    int arr1[] = {1, 3, 5, 7};
+    int arr2[] = {2, 4, 6, 8};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    int result[n1 + n2];
+    
+    mergeTwoArrays(arr1, n1, arr2, n2, result);
+    
+    printf("Merged array: ");
+    for (int i = 0; i < n1 + n2; i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Real World Applications -->
+            <div class="section">
+                <h2>Real-World Applications</h2>
+
+                <div class="success-box">
+                    <h4>Sorting Applications</h4>
+                    <ul>
+                        <li><strong>E-commerce:</strong> Sorting products by price, rating, or popularity</li>
+                        <li><strong>Databases:</strong> Organizing records for efficient retrieval</li>
+                        <li><strong>File Systems:</strong> Sorting files by name, date, or size</li>
+                        <li><strong>Social Media:</strong> Sorting posts by timestamp or engagement</li>
+                        <li><strong>Gaming:</strong> Leaderboards and high score tables</li>
+                        <li><strong>Data Analysis:</strong> Preparing data for statistical operations</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>Binary Search Applications</h4>
+                    <ul>
+                        <li><strong>Dictionary/Phone Books:</strong> Quick lookup of words or contacts</li>
+                        <li><strong>Library Systems:</strong> Finding books in catalogues</li>
+                        <li><strong>Database Indexing:</strong> Fast data retrieval</li>
+                        <li><strong>Version Control:</strong> Finding specific commits in Git</li>
+                        <li><strong>Auto-complete:</strong> Suggesting words while typing</li>
+                        <li><strong>Gaming:</strong> Finding player rankings or scores</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="section">
+                <h2>Key Takeaways</h2>
+
+                <div class="info-box">
+                    <h4>Important Points to Remember</h4>
+                    <ul>
+                        <li>Choose the right algorithm based on data size and requirements</li>
+                        <li>Binary Search requires sorted data - always sort first if needed</li>
+                        <li>Merge Sort is best for guaranteed O(n log n) performance</li>
+                        <li>Simple algorithms (Bubble, Selection) are good for learning but not for production</li>
+                        <li>Consider space complexity - some algorithms trade memory for speed</li>
+                        <li>Stable sorting matters when dealing with multiple attributes</li>
+                        <li>Always analyze both time and space complexity</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Common Mistakes to Avoid</h4>
+                    <ul>
+                        <li>Using binary search on unsorted arrays</li>
+                        <li>Not checking array bounds in loop conditions</li>
+                        <li>Incorrect calculation of mid point (can cause integer overflow)</li>
+                        <li>Forgetting to handle edge cases (empty arrays, single elements)</li>
+                        <li>Not considering the cost of sorting when using binary search</li>
+                        <li>Memory leaks when using additional arrays in merge sort</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-buttons">
+                <a href="trees.html" class="nav-button">← Previous: Binary Trees</a>
+                <a href="hashtables.html" class="nav-button">Next: Hash Tables →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacks - Data Structures & Algorithms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 20px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .concept-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .concept-box h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+        }
+
+        .code-block .function {
+            color: #dcdcaa;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .diagram {
+            background: white;
+            padding: 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .note {
+            background: #d1ecf1;
+            border-left: 5px solid #0c5460;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Stacks (LIFO)</h1>
+            <p>Data Structures & Algorithms - COM2307</p>
+        </header>
+
+        <div class="nav">
+            <a href="../index.html">← Back to Course Index</a>
+        </div>
+
+        <div class="content">
+            <!-- Section 6.1 -->
+            <div class="section" id="introduction">
+                <h2>6.1 Introduction to Stacks (LIFO)</h2>
+                
+                <p>A <span class="highlight">stack</span> is a linear data structure that follows the <strong>LIFO (Last In, First Out)</strong> principle. This means that the last element added to the stack will be the first one to be removed, similar to a stack of plates where you can only add or remove plates from the top.</p>
+
+                <div class="concept-box">
+                    <h4>Key Characteristics</h4>
+                    <ul>
+                        <li><strong>LIFO Order:</strong> Last element inserted is the first to be removed</li>
+                        <li><strong>Single Point Access:</strong> All operations occur at the top of the stack</li>
+                        <li><strong>Limited Access:</strong> Cannot access elements in the middle directly</li>
+                    </ul>
+                </div>
+
+                <h3>Basic Stack Operations</h3>
+                <table>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Description</th>
+                        <th>Time Complexity</th>
+                    </tr>
+                    <tr>
+                        <td><strong>push()</strong></td>
+                        <td>Add an element to the top of the stack</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>pop()</strong></td>
+                        <td>Remove and return the top element</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>peek()/top()</strong></td>
+                        <td>Return the top element without removing it</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>isEmpty()</strong></td>
+                        <td>Check if the stack is empty</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>isFull()</strong></td>
+                        <td>Check if the stack is full (for array-based)</td>
+                        <td>O(1)</td>
+                    </tr>
+                </table>
+
+                <div class="diagram">
+                    <h4>Stack Visualization</h4>
+                    <pre>
+    Push 10        Push 20        Push 30         Pop
+    -------        -------        -------        -------
+                                     30   ←TOP      
+                      20   ←TOP      20             20   ←TOP
+       10   ←TOP      10             10             10
+    -------        -------        -------        -------
+    </pre>
+                </div>
+            </div>
+
+            <!-- Section 6.2 -->
+            <div class="section" id="array-based">
+                <h2>6.2 Array-Based Stack Implementation</h2>
+                
+                <p>An array-based stack uses a fixed-size array to store elements. We maintain a variable <code>top</code> that points to the index of the topmost element.</p>
+
+                <div class="concept-box">
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Simple implementation</li>
+                        <li>Fast access (no pointer overhead)</li>
+                        <li>Better cache performance</li>
+                    </ul>
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Fixed size (may waste memory or overflow)</li>
+                        <li>Cannot grow dynamically</li>
+                    </ul>
+                </div>
+
+                <h3>Complete C Implementation</h3>
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="comment">// Stack structure</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_SIZE];
+    <span class="keyword">int</span> top;
+} Stack;
+
+<span class="comment">// Initialize stack</span>
+<span class="keyword">void</span> <span class="function">initStack</span>(Stack* s) {
+    s-&gt;top = -1;
+}
+
+<span class="comment">// Check if stack is empty</span>
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Stack* s) {
+    <span class="keyword">return</span> s-&gt;top == -1;
+}
+
+<span class="comment">// Check if stack is full</span>
+<span class="keyword">bool</span> <span class="function">isFull</span>(Stack* s) {
+    <span class="keyword">return</span> s-&gt;top == MAX_SIZE - 1;
+}
+
+<span class="comment">// Push operation - O(1)</span>
+<span class="keyword">void</span> <span class="function">push</span>(Stack* s, <span class="keyword">int</span> value) {
+    <span class="keyword">if</span> (isFull(s)) {
+        printf(<span class="string">"Stack Overflow! Cannot push %d\n"</span>, value);
+        <span class="keyword">return</span>;
+    }
+    s-&gt;items[++(s-&gt;top)] = value;
+    printf(<span class="string">"Pushed %d onto stack\n"</span>, value);
+}
+
+<span class="comment">// Pop operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">pop</span>(Stack* s) {
+    <span class="keyword">if</span> (isEmpty(s)) {
+        printf(<span class="string">"Stack Underflow! Cannot pop\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    <span class="keyword">int</span> value = s-&gt;items[(s-&gt;top)--];
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// Peek operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">peek</span>(Stack* s) {
+    <span class="keyword">if</span> (isEmpty(s)) {
+        printf(<span class="string">"Stack is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    <span class="keyword">return</span> s-&gt;items[s-&gt;top];
+}
+
+<span class="comment">// Display stack contents</span>
+<span class="keyword">void</span> <span class="function">display</span>(Stack* s) {
+    <span class="keyword">if</span> (isEmpty(s)) {
+        printf(<span class="string">"Stack is empty!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    printf(<span class="string">"Stack contents (top to bottom): "</span>);
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = s-&gt;top; i &gt;= 0; i--) {
+        printf(<span class="string">"%d "</span>, s-&gt;items[i]);
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="comment">// Main function demonstrating stack operations</span>
+<span class="keyword">int</span> <span class="function">main</span>() {
+    Stack stack;
+    initStack(&amp;stack);
+    
+    printf(<span class="string">"=== Array-Based Stack Demo ===\n\n"</span>);
+    
+    <span class="comment">// Push elements</span>
+    push(&amp;stack, 10);
+    push(&amp;stack, 20);
+    push(&amp;stack, 30);
+    push(&amp;stack, 40);
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;stack);
+    
+    <span class="comment">// Peek operation</span>
+    printf(<span class="string">"\nTop element: %d\n"</span>, peek(&amp;stack));
+    
+    <span class="comment">// Pop operations</span>
+    printf(<span class="string">"\nPopped: %d\n"</span>, pop(&amp;stack));
+    printf(<span class="string">"Popped: %d\n"</span>, pop(&amp;stack));
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;stack);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <div class="note">
+                    <strong>Note:</strong> In array-based implementation, <code>top = -1</code> indicates an empty stack. When we push an element, we first increment <code>top</code> and then store the value.
+                </div>
+            </div>
+
+            <!-- Section 6.3 -->
+            <div class="section" id="linked-based">
+                <h2>6.3 Linked List-Based Stack Implementation</h2>
+                
+                <p>A linked list-based stack uses nodes connected by pointers. The top of the stack is the head of the linked list, allowing dynamic size growth.</p>
+
+                <div class="concept-box">
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Dynamic size (no overflow)</li>
+                        <li>Memory efficient (allocates only what's needed)</li>
+                        <li>No wasted space</li>
+                    </ul>
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Extra memory for pointers</li>
+                        <li>Slightly slower than array (pointer dereferencing)</li>
+                        <li>Poor cache locality</li>
+                    </ul>
+                </div>
+
+                <h3>Complete C Implementation</h3>
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+<span class="comment">// Node structure</span>
+<span class="keyword">typedef struct</span> Node {
+    <span class="keyword">int</span> data;
+    <span class="keyword">struct</span> Node* next;
+} Node;
+
+<span class="comment">// Stack structure</span>
+<span class="keyword">typedef struct</span> {
+    Node* top;
+} Stack;
+
+<span class="comment">// Initialize stack</span>
+<span class="keyword">void</span> <span class="function">initStack</span>(Stack* s) {
+    s-&gt;top = NULL;
+}
+
+<span class="comment">// Check if stack is empty</span>
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Stack* s) {
+    <span class="keyword">return</span> s-&gt;top == NULL;
+}
+
+<span class="comment">// Create a new node</span>
+Node* <span class="function">createNode</span>(<span class="keyword">int</span> value) {
+    Node* newNode = (Node*)malloc(<span class="keyword">sizeof</span>(Node));
+    <span class="keyword">if</span> (newNode == NULL) {
+        printf(<span class="string">"Memory allocation failed!\n"</span>);
+        exit(1);
+    }
+    newNode-&gt;data = value;
+    newNode-&gt;next = NULL;
+    <span class="keyword">return</span> newNode;
+}
+
+<span class="comment">// Push operation - O(1)</span>
+<span class="keyword">void</span> <span class="function">push</span>(Stack* s, <span class="keyword">int</span> value) {
+    Node* newNode = createNode(value);
+    newNode-&gt;next = s-&gt;top;
+    s-&gt;top = newNode;
+    printf(<span class="string">"Pushed %d onto stack\n"</span>, value);
+}
+
+<span class="comment">// Pop operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">pop</span>(Stack* s) {
+    <span class="keyword">if</span> (isEmpty(s)) {
+        printf(<span class="string">"Stack Underflow! Cannot pop\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    Node* temp = s-&gt;top;
+    <span class="keyword">int</span> value = temp-&gt;data;
+    s-&gt;top = s-&gt;top-&gt;next;
+    free(temp);
+    <span class="keyword">return</span> value;
+}
+
+<span class="comment">// Peek operation - O(1)</span>
+<span class="keyword">int</span> <span class="function">peek</span>(Stack* s) {
+    <span class="keyword">if</span> (isEmpty(s)) {
+        printf(<span class="string">"Stack is empty!\n"</span>);
+        <span class="keyword">return</span> -1;
+    }
+    <span class="keyword">return</span> s-&gt;top-&gt;data;
+}
+
+<span class="comment">// Display stack contents</span>
+<span class="keyword">void</span> <span class="function">display</span>(Stack* s) {
+    <span class="keyword">if</span> (isEmpty(s)) {
+        printf(<span class="string">"Stack is empty!\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    printf(<span class="string">"Stack contents (top to bottom): "</span>);
+    Node* current = s-&gt;top;
+    <span class="keyword">while</span> (current != NULL) {
+        printf(<span class="string">"%d "</span>, current-&gt;data);
+        current = current-&gt;next;
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="comment">// Free all nodes in the stack</span>
+<span class="keyword">void</span> <span class="function">freeStack</span>(Stack* s) {
+    <span class="keyword">while</span> (!isEmpty(s)) {
+        pop(s);
+    }
+}
+
+<span class="comment">// Main function demonstrating stack operations</span>
+<span class="keyword">int</span> <span class="function">main</span>() {
+    Stack stack;
+    initStack(&amp;stack);
+    
+    printf(<span class="string">"=== Linked List-Based Stack Demo ===\n\n"</span>);
+    
+    <span class="comment">// Push elements</span>
+    push(&amp;stack, 100);
+    push(&amp;stack, 200);
+    push(&amp;stack, 300);
+    push(&amp;stack, 400);
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;stack);
+    
+    <span class="comment">// Peek operation</span>
+    printf(<span class="string">"\nTop element: %d\n"</span>, peek(&amp;stack));
+    
+    <span class="comment">// Pop operations</span>
+    printf(<span class="string">"\nPopped: %d\n"</span>, pop(&amp;stack));
+    printf(<span class="string">"Popped: %d\n"</span>, pop(&amp;stack));
+    
+    printf(<span class="string">"\n"</span>);
+    display(&amp;stack);
+    
+    <span class="comment">// Clean up</span>
+    freeStack(&amp;stack);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+            </div>
+
+            <!-- Section 6.4 -->
+            <div class="section" id="applications">
+                <h2>6.4 Stack Applications</h2>
+
+                <h3>Application 1: Balanced Symbol Checker</h3>
+                <p>Stacks are perfect for checking whether parentheses, brackets, and braces are balanced in expressions.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="comment">// Stack for characters</span>
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">char</span> items[MAX_SIZE];
+    <span class="keyword">int</span> top;
+} CharStack;
+
+<span class="keyword">void</span> <span class="function">initStack</span>(CharStack* s) {
+    s-&gt;top = -1;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(CharStack* s) {
+    <span class="keyword">return</span> s-&gt;top == -1;
+}
+
+<span class="keyword">bool</span> <span class="function">isFull</span>(CharStack* s) {
+    <span class="keyword">return</span> s-&gt;top == MAX_SIZE - 1;
+}
+
+<span class="keyword">void</span> <span class="function">push</span>(CharStack* s, <span class="keyword">char</span> c) {
+    <span class="keyword">if</span> (!isFull(s)) {
+        s-&gt;items[++(s-&gt;top)] = c;
+    }
+}
+
+<span class="keyword">char</span> <span class="function">pop</span>(CharStack* s) {
+    <span class="keyword">if</span> (!isEmpty(s)) {
+        <span class="keyword">return</span> s-&gt;items[(s-&gt;top)--];
+    }
+    <span class="keyword">return</span> <span class="string">'\0'</span>;
+}
+
+<span class="keyword">char</span> <span class="function">peek</span>(CharStack* s) {
+    <span class="keyword">if</span> (!isEmpty(s)) {
+        <span class="keyword">return</span> s-&gt;items[s-&gt;top];
+    }
+    <span class="keyword">return</span> <span class="string">'\0'</span>;
+}
+
+<span class="comment">// Check if opening bracket</span>
+<span class="keyword">bool</span> <span class="function">isOpeningBracket</span>(<span class="keyword">char</span> c) {
+    <span class="keyword">return</span> (c == <span class="string">'('</span> || c == <span class="string">'{'</span> || c == <span class="string">'['</span>);
+}
+
+<span class="comment">// Check if closing bracket</span>
+<span class="keyword">bool</span> <span class="function">isClosingBracket</span>(<span class="keyword">char</span> c) {
+    <span class="keyword">return</span> (c == <span class="string">')'</span> || c == <span class="string">'}'</span> || c == <span class="string">']'</span>);
+}
+
+<span class="comment">// Check if brackets match</span>
+<span class="keyword">bool</span> <span class="function">isMatchingPair</span>(<span class="keyword">char</span> opening, <span class="keyword">char</span> closing) {
+    <span class="keyword">return</span> ((opening == <span class="string">'('</span> &amp;&amp; closing == <span class="string">')'</span>) ||
+            (opening == <span class="string">'{'</span> &amp;&amp; closing == <span class="string">'}'</span>) ||
+            (opening == <span class="string">'['</span> &amp;&amp; closing == <span class="string">']'</span>));
+}
+
+<span class="comment">// Check if expression has balanced symbols</span>
+<span class="keyword">bool</span> <span class="function">isBalanced</span>(<span class="keyword">char</span>* expression) {
+    CharStack stack;
+    initStack(&amp;stack);
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; strlen(expression); i++) {
+        <span class="keyword">char</span> current = expression[i];
+        
+        <span class="keyword">if</span> (isOpeningBracket(current)) {
+            push(&amp;stack, current);
+        }
+        <span class="keyword">else if</span> (isClosingBracket(current)) {
+            <span class="keyword">if</span> (isEmpty(&amp;stack)) {
+                <span class="keyword">return</span> false;
+            }
+            <span class="keyword">char</span> top = pop(&amp;stack);
+            <span class="keyword">if</span> (!isMatchingPair(top, current)) {
+                <span class="keyword">return</span> false;
+            }
+        }
+    }
+    
+    <span class="keyword">return</span> isEmpty(&amp;stack);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">char</span>* expressions[] = {
+        <span class="string">"{[()()]}"</span>,
+        <span class="string">"{[(])}"</span>,
+        <span class="string">"((a+b)*(c-d))"</span>,
+        <span class="string">"((a+b)"</span>,
+        <span class="string">"{[}]"</span>
+    };
+    
+    printf(<span class="string">"=== Balanced Symbol Checker ===\n\n"</span>);
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; 5; i++) {
+        printf(<span class="string">"Expression: %s\n"</span>, expressions[i]);
+        <span class="keyword">if</span> (isBalanced(expressions[i])) {
+            printf(<span class="string">"Result: BALANCED ✓\n\n"</span>);
+        } <span class="keyword">else</span> {
+            printf(<span class="string">"Result: NOT BALANCED ✗\n\n"</span>);
+        }
+    }
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Application 2: Postfix Expression Evaluation</h3>
+                <p>Stacks are used to evaluate postfix (Reverse Polish Notation) expressions efficiently.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_SIZE];
+    <span class="keyword">int</span> top;
+} Stack;
+
+<span class="keyword">void</span> <span class="function">initStack</span>(Stack* s) {
+    s-&gt;top = -1;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Stack* s) {
+    <span class="keyword">return</span> s-&gt;top == -1;
+}
+
+<span class="keyword">void</span> <span class="function">push</span>(Stack* s, <span class="keyword">int</span> value) {
+    s-&gt;items[++(s-&gt;top)] = value;
+}
+
+<span class="keyword">int</span> <span class="function">pop</span>(Stack* s) {
+    <span class="keyword">if</span> (!isEmpty(s)) {
+        <span class="keyword">return</span> s-&gt;items[(s-&gt;top)--];
+    }
+    <span class="keyword">return</span> 0;
+}
+
+<span class="comment">// Evaluate postfix expression</span>
+<span class="keyword">int</span> <span class="function">evaluatePostfix</span>(<span class="keyword">char</span>* expression) {
+    Stack stack;
+    initStack(&amp;stack);
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; strlen(expression); i++) {
+        <span class="keyword">char</span> c = expression[i];
+        
+        <span class="comment">// Skip spaces</span>
+        <span class="keyword">if</span> (c == <span class="string">' '</span>) {
+            <span class="keyword">continue</span>;
+        }
+        
+        <span class="comment">// If operand, push to stack</span>
+        <span class="keyword">if</span> (isdigit(c)) {
+            push(&amp;stack, c - <span class="string">'0'</span>);
+        }
+        <span class="comment">// If operator, pop two operands and apply operation</span>
+        <span class="keyword">else</span> {
+            <span class="keyword">int</span> operand2 = pop(&amp;stack);
+            <span class="keyword">int</span> operand1 = pop(&amp;stack);
+            <span class="keyword">int</span> result;
+            
+            <span class="keyword">switch</span>(c) {
+                <span class="keyword">case</span> <span class="string">'+'</span>:
+                    result = operand1 + operand2;
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'-'</span>:
+                    result = operand1 - operand2;
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'*'</span>:
+                    result = operand1 * operand2;
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">'/'</span>:
+                    result = operand1 / operand2;
+                    <span class="keyword">break</span>;
+                <span class="keyword">default</span>:
+                    printf(<span class="string">"Invalid operator: %c\n"</span>, c);
+                    <span class="keyword">return</span> 0;
+            }
+            push(&amp;stack, result);
+        }
+    }
+    
+    <span class="keyword">return</span> pop(&amp;stack);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">char</span>* expressions[] = {
+        <span class="string">"23+"</span>,           <span class="comment">// 2 + 3 = 5</span>
+        <span class="string">"23*5+"</span>,         <span class="comment">// (2 * 3) + 5 = 11</span>
+        <span class="string">"234*+"</span>,         <span class="comment">// 2 + (3 * 4) = 14</span>
+        <span class="string">"53+82-*"</span>        <span class="comment">// (5 + 3) * (8 - 2) = 48</span>
+    };
+    
+    printf(<span class="string">"=== Postfix Expression Evaluator ===\n\n"</span>);
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; 4; i++) {
+        printf(<span class="string">"Postfix: %s\n"</span>, expressions[i]);
+        <span class="keyword">int</span> result = evaluatePostfix(expressions[i]);
+        printf(<span class="string">"Result: %d\n\n"</span>, result);
+    }
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Application 3: Decimal to Binary Conversion</h3>
+                <p>Stacks can be used to convert decimal numbers to binary representation.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">int</span> items[MAX_SIZE];
+    <span class="keyword">int</span> top;
+} Stack;
+
+<span class="keyword">void</span> <span class="function">initStack</span>(Stack* s) {
+    s-&gt;top = -1;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(Stack* s) {
+    <span class="keyword">return</span> s-&gt;top == -1;
+}
+
+<span class="keyword">void</span> <span class="function">push</span>(Stack* s, <span class="keyword">int</span> value) {
+    s-&gt;items[++(s-&gt;top)] = value;
+}
+
+<span class="keyword">int</span> <span class="function">pop</span>(Stack* s) {
+    <span class="keyword">if</span> (!isEmpty(s)) {
+        <span class="keyword">return</span> s-&gt;items[(s-&gt;top)--];
+    }
+    <span class="keyword">return</span> 0;
+}
+
+<span class="comment">// Convert decimal to binary using stack</span>
+<span class="keyword">void</span> <span class="function">decimalToBinary</span>(<span class="keyword">int</span> decimal) {
+    Stack stack;
+    initStack(&amp;stack);
+    
+    <span class="keyword">if</span> (decimal == 0) {
+        printf(<span class="string">"Binary: 0\n"</span>);
+        <span class="keyword">return</span>;
+    }
+    
+    <span class="comment">// Push remainders onto stack</span>
+    <span class="keyword">int</span> num = decimal;
+    <span class="keyword">while</span> (num &gt; 0) {
+        push(&amp;stack, num % 2);
+        num = num / 2;
+    }
+    
+    <span class="comment">// Pop and print binary digits</span>
+    printf(<span class="string">"Decimal %d in Binary: "</span>, decimal);
+    <span class="keyword">while</span> (!isEmpty(&amp;stack)) {
+        printf(<span class="string">"%d"</span>, pop(&amp;stack));
+    }
+    printf(<span class="string">"\n"</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    printf(<span class="string">"=== Decimal to Binary Converter ===\n\n"</span>);
+    
+    <span class="keyword">int</span> numbers[] = {10, 25, 42, 100, 255};
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; 5; i++) {
+        decimalToBinary(numbers[i]);
+    }
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Application 4: Function Call Stack (Recursion)</h3>
+                <p>This example demonstrates how stacks are used internally for function calls and recursion.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+
+<span class="comment">// Factorial using recursion (implicitly uses call stack)</span>
+<span class="keyword">int</span> <span class="function">factorial</span>(<span class="keyword">int</span> n) {
+    printf(<span class="string">"  Called factorial(%d)\n"</span>, n);
+    
+    <span class="keyword">if</span> (n &lt;= 1) {
+        printf(<span class="string">"  Base case reached: returning 1\n"</span>);
+        <span class="keyword">return</span> 1;
+    }
+    
+    <span class="keyword">int</span> result = n * factorial(n - 1);
+    printf(<span class="string">"  Returning %d from factorial(%d)\n"</span>, result, n);
+    <span class="keyword">return</span> result;
+}
+
+<span class="comment">// Fibonacci using recursion</span>
+<span class="keyword">int</span> <span class="function">fibonacci</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span> (n &lt;= 1) {
+        <span class="keyword">return</span> n;
+    }
+    <span class="keyword">return</span> fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    printf(<span class="string">"=== Function Call Stack Demo ===\n\n"</span>);
+    
+    printf(<span class="string">"Computing factorial(5):\n"</span>);
+    <span class="keyword">int</span> fact = factorial(5);
+    printf(<span class="string">"Final Result: %d\n\n"</span>, fact);
+    
+    printf(<span class="string">"Fibonacci sequence (first 10 numbers):\n"</span>);
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; 10; i++) {
+        printf(<span class="string">"%d "</span>, fibonacci(i));
+    }
+    printf(<span class="string">"\n"</span>);
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <h3>Application 5: Reversing a String</h3>
+                <p>Stack's LIFO property makes it perfect for reversing sequences.</p>
+
+                <div class="code-block">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_SIZE 100
+
+<span class="keyword">typedef struct</span> {
+    <span class="keyword">char</span> items[MAX_SIZE];
+    <span class="keyword">int</span> top;
+} CharStack;
+
+<span class="keyword">void</span> <span class="function">initStack</span>(CharStack* s) {
+    s-&gt;top = -1;
+}
+
+<span class="keyword">bool</span> <span class="function">isEmpty</span>(CharStack* s) {
+    <span class="keyword">return</span> s-&gt;top == -1;
+}
+
+<span class="keyword">void</span> <span class="function">push</span>(CharStack* s, <span class="keyword">char</span> c) {
+    s-&gt;items[++(s-&gt;top)] = c;
+}
+
+<span class="keyword">char</span> <span class="function">pop</span>(CharStack* s) {
+    <span class="keyword">if</span> (!isEmpty(s)) {
+        <span class="keyword">return</span> s-&gt;items[(s-&gt;top)--];
+    }
+    <span class="keyword">return</span> <span class="string">'\0'</span>;
+}
+
+<span class="comment">// Reverse a string using stack</span>
+<span class="keyword">void</span> <span class="function">reverseString</span>(<span class="keyword">char</span>* str) {
+    CharStack stack;
+    initStack(&amp;stack);
+    
+    <span class="comment">// Push all characters onto stack</span>
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; strlen(str); i++) {
+        push(&amp;stack, str[i]);
+    }
+    
+    <span class="comment">// Pop characters to get reversed string</span>
+    <span class="keyword">int</span> i = 0;
+    <span class="keyword">while</span> (!isEmpty(&amp;stack)) {
+        str[i++] = pop(&amp;stack);
+    }
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    printf(<span class="string">"=== String Reversal using Stack ===\n\n"</span>);
+    
+    <span class="keyword">char</span> strings[][50] = {
+        <span class="string">"Hello"</span>,
+        <span class="string">"Data Structures"</span>,
+        <span class="string">"Stack"</span>,
+        <span class="string">"LIFO"</span>
+    };
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; 4; i++) {
+        printf(<span class="string">"Original: %s\n"</span>, strings[i]);
+        reverseString(strings[i]);
+        printf(<span class="string">"Reversed: %s\n\n"</span>, strings[i]);
+    }
+    
+    <span class="keyword">return</span> 0;
+}</pre>
+                </div>
+
+                <div class="concept-box">
+                    <h4>Common Stack Applications</h4>
+                    <ul>
+                        <li><strong>Expression Evaluation:</strong> Infix to postfix conversion, postfix evaluation</li>
+                        <li><strong>Syntax Parsing:</strong> Checking balanced parentheses, XML/HTML validation</li>
+                        <li><strong>Backtracking:</strong> Maze solving, N-Queens problem, Sudoku solver</li>
+                        <li><strong>Function Calls:</strong> Managing function call stack in programming languages</li>
+                        <li><strong>Undo/Redo:</strong> Text editors, graphic design software</li>
+                        <li><strong>Browser History:</strong> Back/Forward navigation</li>
+                        <li><strong>Memory Management:</strong> Stack memory allocation</li>
+                    </ul>
+                </div>
+
+                <h3>Time Complexity Summary</h3>
+                <table>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Array-Based</th>
+                        <th>Linked List-Based</th>
+                    </tr>
+                    <tr>
+                        <td>Push</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td>Pop</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td>Peek</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td>isEmpty</td>
+                        <td>O(1)</td>
+                        <td>O(1)</td>
+                    </tr>
+                    <tr>
+                        <td>Space Complexity</td>
+                        <td>O(n) - Fixed</td>
+                        <td>O(n) - Dynamic</td>
+                    </tr>
+                </table>
+
+                <div class="note">
+                    <strong>Key Takeaway:</strong> Stacks are fundamental data structures with O(1) time complexity for all basic operations. The choice between array-based and linked list-based implementation depends on whether you need fixed or dynamic size, and whether memory efficiency or cache performance is more important for your application.
+                </div>
+            </div>
+
+        </div>
+
+        <footer style="background: #2c3e50; color: white; padding: 30px; text-align: center; margin-top: 50px;">
+            <p>© 2024 COM2307 - Data Structures & Algorithms</p>
+            <p style="margin-top: 10px;">
+                <a href="../index.html" style="color: #667eea; text-decoration: none;">← Back to Course Index</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

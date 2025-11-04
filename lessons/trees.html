@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Trees - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .code-title {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .complexity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .complexity-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .complexity-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .complexity-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .code-block {
+                padding: 15px;
+            }
+
+            .code-block pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌳 Binary Trees</h1>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> > Section 8: Binary Trees
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Introduction to Trees -->
+            <div class="section" id="introduction">
+                <h2>8.1 Introduction to Trees</h2>
+                <p>A tree is a hierarchical data structure consisting of nodes connected by edges. Unlike linear data structures (arrays, linked lists, stacks, queues), trees represent hierarchical relationships between data elements.</p>
+                
+                <div class="info-box">
+                    <h4>Key Tree Terminology</h4>
+                    <ul>
+                        <li><strong>Root:</strong> The topmost node of the tree</li>
+                        <li><strong>Parent:</strong> A node that has child nodes</li>
+                        <li><strong>Child:</strong> A node that descends from another node</li>
+                        <li><strong>Leaf:</strong> A node with no children</li>
+                        <li><strong>Subtree:</strong> A tree formed by a node and its descendants</li>
+                        <li><strong>Height:</strong> Length of the longest path from root to leaf</li>
+                        <li><strong>Depth:</strong> Length of the path from root to a specific node</li>
+                        <li><strong>Level:</strong> All nodes at the same depth</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Binary Trees -->
+            <div class="section" id="binary-trees">
+                <h2>8.2 Binary Trees</h2>
+                <p>A binary tree is a tree data structure where each node has at most two children, referred to as the left child and right child.</p>
+
+                <h3>Node Structure</h3>
+                <div class="code-title">Binary Tree Node Definition</div>
+                <div class="code-block">
+                    <pre>
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+                    </pre>
+                </div>
+
+                <h3>Creating a New Node</h3>
+                <div class="code-title">Function to Create a Node</div>
+                <div class="code-block">
+                    <pre>
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+                    </pre>
+                </div>
+
+                <div class="info-box">
+                    <h4>Types of Binary Trees</h4>
+                    <ul>
+                        <li><strong>Full Binary Tree:</strong> Every node has either 0 or 2 children</li>
+                        <li><strong>Complete Binary Tree:</strong> All levels are filled except possibly the last, which is filled from left to right</li>
+                        <li><strong>Perfect Binary Tree:</strong> All internal nodes have two children and all leaves are at the same level</li>
+                        <li><strong>Balanced Binary Tree:</strong> Height difference between left and right subtrees is at most 1</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Binary Search Trees -->
+            <div class="section" id="bst">
+                <h2>8.3 Binary Search Trees (BST)</h2>
+                <p>A Binary Search Tree is a binary tree with the following properties:</p>
+                <ul>
+                    <li>The left subtree of a node contains only nodes with keys less than the node's key</li>
+                    <li>The right subtree of a node contains only nodes with keys greater than the node's key</li>
+                    <li>Both left and right subtrees must also be binary search trees</li>
+                </ul>
+
+                <h3>BST Insertion</h3>
+                <div class="code-title">Insert Function for BST</div>
+                <div class="code-block">
+                    <pre>
+struct Node* insert(struct Node* root, int value) {
+    if (root == NULL) {
+        return createNode(value);
+    }
+    
+    if (value < root->data) {
+        root->left = insert(root->left, value);
+    }
+    else if (value > root->data) {
+        root->right = insert(root->right, value);
+    }
+    
+    return root;
+}
+                    </pre>
+                </div>
+
+                <h3>BST Search</h3>
+                <div class="code-title">Search Function for BST</div>
+                <div class="code-block">
+                    <pre>
+struct Node* search(struct Node* root, int key) {
+    if (root == NULL || root->data == key) {
+        return root;
+    }
+    
+    if (key < root->data) {
+        return search(root->left, key);
+    }
+    
+    return search(root->right, key);
+}
+                    </pre>
+                </div>
+
+                <h3>Finding Minimum and Maximum</h3>
+                <div class="code-title">Find Minimum Value</div>
+                <div class="code-block">
+                    <pre>
+struct Node* findMin(struct Node* root) {
+    if (root == NULL) {
+        return NULL;
+    }
+    
+    while (root->left != NULL) {
+        root = root->left;
+    }
+    
+    return root;
+}
+                    </pre>
+                </div>
+
+                <div class="code-title">Find Maximum Value</div>
+                <div class="code-block">
+                    <pre>
+struct Node* findMax(struct Node* root) {
+    if (root == NULL) {
+        return NULL;
+    }
+    
+    while (root->right != NULL) {
+        root = root->right;
+    }
+    
+    return root;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Tree Traversals -->
+            <div class="section" id="traversals">
+                <h2>8.4 Tree Traversals</h2>
+                <p>Tree traversal refers to visiting all nodes in a tree in a specific order. There are three main types of depth-first traversals:</p>
+
+                <h3>Inorder Traversal (Left-Root-Right)</h3>
+                <p>Visits left subtree, then root, then right subtree. For BST, this gives nodes in ascending order.</p>
+                <div class="code-title">Inorder Traversal</div>
+                <div class="code-block">
+                    <pre>
+void inorder(struct Node* root) {
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Preorder Traversal (Root-Left-Right)</h3>
+                <p>Visits root first, then left subtree, then right subtree. Useful for creating a copy of the tree.</p>
+                <div class="code-title">Preorder Traversal</div>
+                <div class="code-block">
+                    <pre>
+void preorder(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Postorder Traversal (Left-Right-Root)</h3>
+                <p>Visits left subtree, then right subtree, then root. Useful for deleting the tree.</p>
+                <div class="code-title">Postorder Traversal</div>
+                <div class="code-block">
+                    <pre>
+void postorder(struct Node* root) {
+    if (root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ", root->data);
+    }
+}
+                    </pre>
+                </div>
+
+                <h3>Level Order Traversal (Breadth-First)</h3>
+                <p>Visits nodes level by level from left to right.</p>
+                <div class="code-title">Level Order Traversal</div>
+                <div class="code-block">
+                    <pre>
+void levelOrder(struct Node* root) {
+    if (root == NULL) return;
+    
+    struct Node* queue[100];
+    int front = 0, rear = 0;
+    
+    queue[rear++] = root;
+    
+    while (front < rear) {
+        struct Node* current = queue[front++];
+        printf("%d ", current->data);
+        
+        if (current->left != NULL) {
+            queue[rear++] = current->left;
+        }
+        if (current->right != NULL) {
+            queue[rear++] = current->right;
+        }
+    }
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- BST Operations -->
+            <div class="section" id="operations">
+                <h2>8.5 BST Operations</h2>
+
+                <h3>Deletion in BST</h3>
+                <p>Deletion is the most complex operation in BST. There are three cases:</p>
+                <ul>
+                    <li><strong>Case 1:</strong> Node is a leaf (no children) - Simply remove it</li>
+                    <li><strong>Case 2:</strong> Node has one child - Replace node with its child</li>
+                    <li><strong>Case 3:</strong> Node has two children - Replace with inorder successor or predecessor</li>
+                </ul>
+
+                <div class="code-title">Delete Function for BST</div>
+                <div class="code-block">
+                    <pre>
+struct Node* deleteNode(struct Node* root, int key) {
+    if (root == NULL) {
+        return root;
+    }
+    
+    if (key < root->data) {
+        root->left = deleteNode(root->left, key);
+    }
+    else if (key > root->data) {
+        root->right = deleteNode(root->right, key);
+    }
+    else {
+        // Node with only one child or no child
+        if (root->left == NULL) {
+            struct Node* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL) {
+            struct Node* temp = root->left;
+            free(root);
+            return temp;
+        }
+        
+        // Node with two children
+        struct Node* temp = findMin(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
+    }
+    
+    return root;
+}
+                    </pre>
+                </div>
+
+                <h3>Height of Tree</h3>
+                <div class="code-title">Calculate Height</div>
+                <div class="code-block">
+                    <pre>
+int height(struct Node* root) {
+    if (root == NULL) {
+        return -1;
+    }
+    
+    int leftHeight = height(root->left);
+    int rightHeight = height(root->right);
+    
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+}
+                    </pre>
+                </div>
+
+                <h3>Count Nodes</h3>
+                <div class="code-title">Count Total Nodes</div>
+                <div class="code-block">
+                    <pre>
+int countNodes(struct Node* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
+                    </pre>
+                </div>
+
+                <h3>Count Leaf Nodes</h3>
+                <div class="code-title">Count Leaf Nodes</div>
+                <div class="code-block">
+                    <pre>
+int countLeaves(struct Node* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    
+    if (root->left == NULL && root->right == NULL) {
+        return 1;
+    }
+    
+    return countLeaves(root->left) + countLeaves(root->right);
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Tree Properties -->
+            <div class="section" id="properties">
+                <h2>8.6 Tree Properties & Types</h2>
+
+                <h3>Check if Binary Tree is BST</h3>
+                <div class="code-title">Validate BST</div>
+                <div class="code-block">
+                    <pre>
+int isBST(struct Node* root, int min, int max) {
+    if (root == NULL) {
+        return 1;
+    }
+    
+    if (root->data < min || root->data > max) {
+        return 0;
+    }
+    
+    return isBST(root->left, min, root->data - 1) &&
+           isBST(root->right, root->data + 1, max);
+}
+
+int checkBST(struct Node* root) {
+    return isBST(root, INT_MIN, INT_MAX);
+}
+                    </pre>
+                </div>
+
+                <h3>Check if Tree is Balanced</h3>
+                <div class="code-title">Check Balanced Tree</div>
+                <div class="code-block">
+                    <pre>
+int isBalanced(struct Node* root) {
+    if (root == NULL) {
+        return 1;
+    }
+    
+    int leftHeight = height(root->left);
+    int rightHeight = height(root->right);
+    
+    if (abs(leftHeight - rightHeight) <= 1 &&
+        isBalanced(root->left) &&
+        isBalanced(root->right)) {
+        return 1;
+    }
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Mirror a Binary Tree</h3>
+                <div class="code-title">Mirror Tree</div>
+                <div class="code-block">
+                    <pre>
+void mirror(struct Node* root) {
+    if (root == NULL) {
+        return;
+    }
+    
+    mirror(root->left);
+    mirror(root->right);
+    
+    // Swap left and right children
+    struct Node* temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+}
+                    </pre>
+                </div>
+
+                <h3>Find Lowest Common Ancestor (LCA)</h3>
+                <div class="code-title">LCA in BST</div>
+                <div class="code-block">
+                    <pre>
+struct Node* findLCA(struct Node* root, int n1, int n2) {
+    if (root == NULL) {
+        return NULL;
+    }
+    
+    if (root->data > n1 && root->data > n2) {
+        return findLCA(root->left, n1, n2);
+    }
+    
+    if (root->data < n1 && root->data < n2) {
+        return findLCA(root->right, n1, n2);
+    }
+    
+    return root;
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Applications -->
+            <div class="section" id="applications">
+                <h2>8.7 Tree Applications</h2>
+
+                <h3>Complete Binary Tree Program</h3>
+                <div class="code-title">Complete BST Example</div>
+                <div class="code-block">
+                    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;limits.h&gt;
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+struct Node* insert(struct Node* root, int value) {
+    if (root == NULL) {
+        return createNode(value);
+    }
+    
+    if (value < root->data) {
+        root->left = insert(root->left, value);
+    }
+    else if (value > root->data) {
+        root->right = insert(root->right, value);
+    }
+    
+    return root;
+}
+
+void inorder(struct Node* root) {
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+int main() {
+    struct Node* root = NULL;
+    
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 70);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 60);
+    insert(root, 80);
+    
+    printf("Inorder traversal: ");
+    inorder(root);
+    printf("\n");
+    
+    return 0;
+}
+                    </pre>
+                </div>
+
+                <h3>Time Complexity Analysis</h3>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Average Case</th>
+                            <th>Worst Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Search</td>
+                            <td>O(log n)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Insert</td>
+                            <td>O(log n)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Delete</td>
+                            <td>O(log n)</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Traversal</td>
+                            <td>O(n)</td>
+                            <td>O(n)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>Important Notes</h4>
+                    <ul>
+                        <li>Worst case occurs when the tree becomes skewed (like a linked list)</li>
+                        <li>Balanced BSTs guarantee O(log n) for search, insert, and delete</li>
+                        <li>Always check for NULL before accessing node data</li>
+                        <li>Memory must be freed properly when deleting nodes</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Real-World Applications</h4>
+                    <ul>
+                        <li>File systems (directory structure)</li>
+                        <li>Database indexing</li>
+                        <li>Expression parsing</li>
+                        <li>Decision trees in machine learning</li>
+                        <li>Huffman coding for data compression</li>
+                        <li>Router algorithms</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-buttons">
+                <a href="queues.html" class="nav-button">← Previous: Queues</a>
+                <a href="sorting.html" class="nav-button">Next: Sorting →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
