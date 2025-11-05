@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COM 2307 - Data Structures and Algorithms - Complete Exam Answers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #764ba2;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .exam-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #fafbfc;
+            border-radius: 10px;
+            border: 1px solid #e1e4e8;
+        }
+        
+        .question-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+        
+        .sub-question {
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .sub-question h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .sub-question h4 {
+            color: #764ba2;
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+        
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid #3e4451;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+        }
+        
+        .inline-code {
+            background: #f1f3f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #e83e8c;
+            font-family: monospace;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .example-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example-box strong {
+            color: #856404;
+        }
+        
+        .tree-diagram {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+            white-space: pre;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .highlight {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 15px 0;
+        }
+        
+        .note {
+            background: #d1ecf1;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+            margin: 15px 0;
+        }
+        
+        .print-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: transform 0.2s;
+        }
+        
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .print-btn {
+                display: none;
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e1e4e8;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>COM 2307</h1>
+            <div class="subtitle">DATA STRUCTURES AND ALGORITHMS</div>
+            <div class="subtitle" style="font-size: 1.1em; margin-top: 10px;">Complete Exam Answer Script</div>
+        </header>
+        
+        <div class="exam-info">
+            <strong>Examination:</strong> Second Year Semester II - February - April 2025<br>
+            <strong>Faculty:</strong> Applied Sciences, Rajarata University of Sri Lanka<br>
+            <strong>Time:</strong> Three (03) hours<br>
+            <strong>Instructions:</strong> Answer ALL questions
+        </div>
+        
+        <button class="print-btn" onclick="window.print()">🖨️ Print This Document</button>
+
+        <!-- Question 1 -->
+        <div class="question-section">
+            <div class="question-header">Question 1</div>
+            
+            <div class="sub-question">
+                <h3>a) Big O Notation and Its Significance (4 marks)</h3>
+                
+                <h4>Definition:</h4>
+                <p>Big O notation is a mathematical notation used to describe the upper bound of an algorithm's time or space complexity in terms of input size (n). It represents the worst-case scenario of algorithm performance.</p>
+                
+                <h4>Significance:</h4>
+                <ol>
+                    <li><strong>Performance Prediction:</strong> Allows comparison of algorithms independent of hardware or implementation details</li>
+                    <li><strong>Scalability Analysis:</strong> Helps determine how algorithms perform as data size grows</li>
+                    <li><strong>Algorithm Selection:</strong> Enables developers to choose appropriate algorithms for specific problem sizes</li>
+                    <li><strong>Optimization Guide:</strong> Identifies performance bottlenecks in code</li>
+                </ol>
+                
+                <div class="highlight">
+                    <strong>Common complexities:</strong> O(1) &lt; O(log n) &lt; O(n) &lt; O(n log n) &lt; O(n²) &lt; O(2ⁿ)
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>b) Time Complexities of Array-Based List Operations (4 marks)</h3>
+                
+                <h4>Insertion:</h4>
+                <ul>
+                    <li><strong>At end (with space):</strong> O(1)</li>
+                    <li><strong>At beginning/middle:</strong> O(n) - requires shifting elements</li>
+                    <li><em>Example:</em> Inserting at index 0 requires moving all n elements</li>
+                </ul>
+                
+                <h4>Deletion:</h4>
+                <ul>
+                    <li><strong>At end:</strong> O(1)</li>
+                    <li><strong>At beginning/middle:</strong> O(n) - requires shifting elements</li>
+                    <li><em>Example:</em> Deleting first element requires shifting remaining n-1 elements</li>
+                </ul>
+                
+                <h4>Search:</h4>
+                <ul>
+                    <li><strong>Unsorted array:</strong> O(n) - linear search required</li>
+                    <li><strong>Sorted array:</strong> O(log n) - binary search possible</li>
+                    <li><strong>Direct access by index:</strong> O(1)</li>
+                </ul>
+            </div>
+            
+            <div class="sub-question">
+                <h3>c) Static vs Dynamic Data Structures (4 marks)</h3>
+                
+                <h4>Static Data Structures:</h4>
+                <ul>
+                    <li>Fixed size determined at compile time</li>
+                    <li>Memory allocated on stack or fixed heap allocation</li>
+                    <li>Cannot grow or shrink during execution</li>
+                    <li><strong>Examples:</strong> Arrays, fixed-size structures</li>
+                    <li><strong>Advantages:</strong> Faster access, predictable memory usage</li>
+                    <li><strong>Disadvantages:</strong> Memory waste, inflexibility</li>
+                </ul>
+                
+                <h4>Dynamic Data Structures:</h4>
+                <ul>
+                    <li>Size can change during runtime</li>
+                    <li>Memory allocated dynamically on heap</li>
+                    <li>Can grow and shrink as needed</li>
+                    <li><strong>Examples:</strong> Linked lists, dynamic arrays (vectors), trees</li>
+                    <li><strong>Advantages:</strong> Flexible memory usage, efficient for unknown data sizes</li>
+                    <li><strong>Disadvantages:</strong> Slower access, memory management overhead</li>
+                </ul>
+            </div>
+            
+            <div class="sub-question">
+                <h3>d) Why Bubble Sort is Inefficient for Large Datasets (4 marks)</h3>
+                
+                <h4>Analysis:</h4>
+                
+                <p><strong>1. Quadratic Growth:</strong> O(n²) means operations grow exponentially</p>
+                <ul>
+                    <li>1,000 elements: ~1,000,000 operations</li>
+                    <li>10,000 elements: ~100,000,000 operations</li>
+                    <li>100,000 elements: ~10,000,000,000 operations</li>
+                </ul>
+                
+                <p><strong>2. Excessive Comparisons:</strong> Makes n×(n-1)/2 comparisons even if array is nearly sorted</p>
+                
+                <p><strong>3. Poor Cache Performance:</strong> Repeatedly swaps adjacent elements causing cache misses</p>
+                
+                <p><strong>4. Better Alternatives:</strong> Algorithms like Quick Sort O(n log n) and Merge Sort O(n log n) are significantly faster for large datasets</p>
+                
+                <div class="example-box">
+                    <strong>Example:</strong> For sorting 1 million elements:<br>
+                    Bubble Sort ≈ 1 trillion operations vs Quick Sort ≈ 20 million operations
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>e) Performance Considerations for High-Volume Applications (4 marks)</h3>
+                
+                <h4>Priority Considerations:</h4>
+                
+                <p><strong>1. Time Complexity:</strong> Use O(1) or O(log n) operations where possible</p>
+                <ul>
+                    <li>Hash tables for fast lookups</li>
+                    <li>Balanced trees for sorted data</li>
+                </ul>
+                
+                <p><strong>2. Space-Time Tradeoffs:</strong></p>
+                <ul>
+                    <li>Cache frequently accessed data</li>
+                    <li>Use appropriate data structures (e.g., hash maps vs arrays)</li>
+                </ul>
+                
+                <p><strong>3. Concurrency and Parallelization:</strong></p>
+                <ul>
+                    <li>Lock-free data structures</li>
+                    <li>Thread-safe operations</li>
+                    <li>Distributed processing</li>
+                </ul>
+                
+                <p><strong>4. Memory Efficiency:</strong></p>
+                <ul>
+                    <li>Minimize allocations/deallocations</li>
+                    <li>Use memory pools</li>
+                    <li>Avoid memory fragmentation</li>
+                </ul>
+                
+                <p><strong>5. Algorithm Optimization:</strong></p>
+                <ul>
+                    <li>Batch operations where possible</li>
+                    <li>Use efficient sorting/searching algorithms</li>
+                    <li>Implement caching strategies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-section">
+            <div class="question-header">Question 2</div>
+            
+            <div class="sub-question">
+                <h3>a) Array vs Linked List (4 marks)</h3>
+                
+                <h4>Array:</h4>
+                <ul>
+                    <li>Contiguous memory allocation</li>
+                    <li>Fixed or pre-allocated size</li>
+                    <li>Direct access: O(1) using index</li>
+                    <li>Memory: Single block allocation</li>
+                </ul>
+                
+                <h4>Linked List:</h4>
+                <ul>
+                    <li>Non-contiguous memory allocation</li>
+                    <li>Dynamic size</li>
+                    <li>Sequential access: O(n) to reach nth element</li>
+                    <li>Memory: Scattered nodes with pointers</li>
+                </ul>
+                
+                <h4>Key Differences:</h4>
+                <ol>
+                    <li><strong>Memory:</strong> Arrays use continuous memory; linked lists use scattered memory with pointer overhead</li>
+                    <li><strong>Access Time:</strong> Arrays O(1) for any element; linked lists O(n) for nth element</li>
+                    <li><strong>Insertion/Deletion:</strong> Arrays O(n) due to shifting; linked lists O(1) if position known</li>
+                    <li><strong>Memory Flexibility:</strong> Arrays fixed; linked lists grow/shrink dynamically</li>
+                </ol>
+            </div>
+            
+            <div class="sub-question">
+                <h3>b) Search Time Complexity Comparison (4 marks)</h3>
+                
+                <h4>Unsorted Array:</h4>
+                <ul>
+                    <li>Must check each element sequentially</li>
+                    <li><strong>Best case:</strong> O(1) - element at first position</li>
+                    <li><strong>Average case:</strong> O(n/2) = O(n)</li>
+                    <li><strong>Worst case:</strong> O(n) - element at end or not found</li>
+                </ul>
+                
+                <h4>Singly Linked List:</h4>
+                <ul>
+                    <li>Must traverse from head node</li>
+                    <li><strong>Best case:</strong> O(1) - element at head</li>
+                    <li><strong>Average case:</strong> O(n/2) = O(n)</li>
+                    <li><strong>Worst case:</strong> O(n) - element at end or not found</li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>Conclusion:</strong> Both have the same time complexity O(n) for unsorted data. However, arrays may have slight performance advantage due to:
+                    <ul>
+                        <li>Better cache locality</li>
+                        <li>No pointer dereferencing overhead</li>
+                        <li>Sequential memory access patterns</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>c) Remove Element from Singly Linked List (4 marks)</h3>
+                
+                <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Function to remove element at given position
+void removeAtPosition(Node** head, int position) {
+    // Check if list is empty
+    if (*head == NULL) {
+        cout &lt;&lt; "List is empty" &lt;&lt; endl;
+        return;
+    }
+    
+    Node* temp = *head;
+    
+    // If removing first node
+    if (position == 0) {
+        *head = temp-&gt;next;
+        delete temp;
+        return;
+    }
+    
+    // Traverse to node before position
+    for (int i = 0; temp != NULL && i &lt; position - 1; i++) {
+        temp = temp-&gt;next;
+    }
+    
+    // If position is out of range
+    if (temp == NULL || temp-&gt;next == NULL) {
+        cout &lt;&lt; "Position out of range" &lt;&lt; endl;
+        return;
+    }
+    
+    // Remove node at position
+    Node* nodeToDelete = temp-&gt;next;
+    temp-&gt;next = nodeToDelete-&gt;next;
+    delete nodeToDelete;
+}</code></pre>
+            </div>
+            
+            <div class="sub-question">
+                <h3>d) Doubly Linked List vs Singly Linked List (4 marks)</h3>
+                
+                <h4>Advantages of Doubly Linked List:</h4>
+                <ol>
+                    <li><strong>Bidirectional Traversal:</strong> Can traverse forward and backward</li>
+                    <li><strong>Faster Deletion:</strong> Can delete node in O(1) if node pointer is known (no need to find previous)</li>
+                    <li><strong>Easier Implementation:</strong> Some operations like reverse traversal are straightforward</li>
+                    <li><strong>Better for Certain Applications:</strong> Ideal for browser history, undo/redo operations</li>
+                </ol>
+                
+                <h4>Disadvantages of Doubly Linked List:</h4>
+                <ol>
+                    <li><strong>Extra Memory:</strong> Requires additional pointer per node (prev pointer)</li>
+                    <li><strong>More Complex Operations:</strong> More pointer updates during insertion/deletion</li>
+                    <li><strong>Increased Overhead:</strong> More memory allocation and management</li>
+                    <li><strong>Slower Performance:</strong> Extra pointer manipulation may slow operations</li>
+                </ol>
+                
+                <div class="note">
+                    <strong>For Frequent Add/Remove:</strong>
+                    <ul>
+                        <li>Use doubly linked list when: Need bidirectional access, deletion of known nodes</li>
+                        <li>Use singly linked list when: Memory is critical, only forward traversal needed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>e) Making End Insertion More Efficient (4 marks)</h3>
+                
+                <h4>Solution: Maintain a Tail Pointer</h4>
+                
+                <p><strong>Traditional Linked List:</strong> Insertion at end: O(n) - must traverse entire list</p>
+                
+                <p><strong>Modified Linked List with Tail Pointer:</strong></p>
+                <pre><code>struct LinkedList {
+    Node* head;
+    Node* tail;  // Pointer to last node
+    int size;
+};
+
+void insertAtEnd(LinkedList* list, int data) {
+    Node* newNode = new Node();
+    newNode-&gt;data = data;
+    newNode-&gt;next = NULL;
+    
+    if (list-&gt;head == NULL) {
+        list-&gt;head = list-&gt;tail = newNode;
+    } else {
+        list-&gt;tail-&gt;next = newNode;
+        list-&gt;tail = newNode;
+    }
+    list-&gt;size++;
+}</code></pre>
+                
+                <div class="highlight">
+                    <strong>Benefits:</strong>
+                    <ul>
+                        <li>Insertion at end: O(1) instead of O(n)</li>
+                        <li>Only need to update tail pointer</li>
+                        <li>Small overhead: one extra pointer in list structure</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-section">
+            <div class="question-header">Question 3</div>
+            
+            <div class="sub-question">
+                <h3>a) Stack and Queue Data Structures (4 marks)</h3>
+                
+                <h4>Stack:</h4>
+                <p>LIFO (Last In First Out) structure - Elements added and removed from same end (top)</p>
+                
+                <p><strong>Fundamental Operations:</strong></p>
+                <ol>
+                    <li><strong>Push:</strong> Add element to top - O(1)</li>
+                    <li><strong>Pop:</strong> Remove element from top - O(1)</li>
+                    <li><strong>Peek/Top:</strong> View top element without removing - O(1)</li>
+                    <li><strong>isEmpty:</strong> Check if stack is empty - O(1)</li>
+                </ol>
+                
+                <h4>Queue:</h4>
+                <p>FIFO (First In First Out) structure - Elements added at rear, removed from front</p>
+                
+                <p><strong>Fundamental Operations:</strong></p>
+                <ol>
+                    <li><strong>Enqueue:</strong> Add element to rear - O(1)</li>
+                    <li><strong>Dequeue:</strong> Remove element from front - O(1)</li>
+                    <li><strong>Front:</strong> View front element - O(1)</li>
+                    <li><strong>isEmpty:</strong> Check if queue is empty - O(1)</li>
+                </ol>
+            </div>
+            
+            <div class="sub-question">
+                <h3>b) Queue in Operating System Process Scheduling (4 marks)</h3>
+                
+                <h4>Real-World Example: CPU Process Scheduling</h4>
+                
+                <p><strong>Scenario:</strong> An operating system manages multiple processes requesting CPU time using a ready queue.</p>
+                
+                <h4>How It Works:</h4>
+                <ol>
+                    <li><strong>Process Arrival:</strong> New processes enter the ready queue (enqueue)</li>
+                    <li><strong>CPU Allocation:</strong> Process at front gets CPU time (dequeue)</li>
+                    <li><strong>FIFO Fairness:</strong> First arrived process executes first</li>
+                    <li><strong>Round-Robin:</strong> After time slice, process goes to back of queue</li>
+                </ol>
+                
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    <code>
+                    Initial Queue: [Process A, Process B, Process C]<br>
+                    CPU takes Process A (dequeue)<br>
+                    New Process D arrives (enqueue)<br>
+                    Queue becomes: [Process B, Process C, Process D]<br>
+                    After A's time slice, A returns to queue<br>
+                    Queue: [Process B, Process C, Process D, Process A]
+                    </code>
+                </div>
+                
+                <p><strong>Benefits:</strong> Fair scheduling, prevents starvation, predictable order, easy to implement</p>
+            </div>
+            
+            <div class="sub-question">
+                <h3>c) Stack Implementation Using Linked List (4 marks)</h3>
+                
+                <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+class Stack {
+private:
+    Node* top;
+    
+public:
+    Stack() {
+        top = NULL;
+    }
+    
+    // Push operation - add element to top
+    void push(int value) {
+        Node* newNode = new Node();
+        newNode-&gt;data = value;
+        newNode-&gt;next = top;
+        top = newNode;
+        cout &lt;&lt; value &lt;&lt; " pushed to stack" &lt;&lt; endl;
+    }
+    
+    // Pop operation - remove element from top
+    int pop() {
+        if (top == NULL) {
+            cout &lt;&lt; "Stack Underflow" &lt;&lt; endl;
+            return -1;
+        }
+        
+        Node* temp = top;
+        int poppedValue = temp-&gt;data;
+        top = top-&gt;next;
+        delete temp;
+        
+        return poppedValue;
+    }
+    
+    // Check if stack is empty
+    bool isEmpty() {
+        return top == NULL;
+    }
+    
+    // Peek top element
+    int peek() {
+        if (top == NULL) {
+            cout &lt;&lt; "Stack is empty" &lt;&lt; endl;
+            return -1;
+        }
+        return top-&gt;data;
+    }
+};</code></pre>
+            </div>
+            
+            <div class="sub-question">
+                <h3>d) Priority Queue vs Standard Queue Efficiency (4 marks)</h3>
+                
+                <h4>Standard Queue:</h4>
+                <ul>
+                    <li>FIFO order</li>
+                    <li>Enqueue: O(1)</li>
+                    <li>Dequeue: O(1)</li>
+                    <li>All tasks treated equally</li>
+                    <li>Simple implementation</li>
+                </ul>
+                
+                <h4>Priority Queue:</h4>
+                <ul>
+                    <li>Elements have priority levels</li>
+                    <li>Highest priority dequeued first</li>
+                    <li>Enqueue: O(log n) with heap</li>
+                    <li>Dequeue: O(log n) with heap</li>
+                    <li>Efficient for priority-based systems</li>
+                </ul>
+                
+                <h4>Efficiency Comparison for High-Priority Tasks:</h4>
+                
+                <p><strong>Advantages of Priority Queue:</strong></p>
+                <ol>
+                    <li><strong>Immediate Handling:</strong> Critical tasks processed immediately, not waiting in line</li>
+                    <li><strong>Better Response Time:</strong> High-priority items don't wait behind low-priority ones</li>
+                    <li><strong>Resource Optimization:</strong> Important tasks get CPU/resources faster</li>
+                    <li><strong>Real-world Suitability:</strong> Emergency systems, network packets, task scheduling</li>
+                </ol>
+                
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    Standard Queue: [Low, Low, High, Low] - High waits for 2 Low tasks<br>
+                    Priority Queue: [High, Low, Low, Low] - High processed immediately
+                </div>
+                
+                <p><strong>Tradeoff:</strong> Priority queue has O(log n) operations vs O(1) for standard queue, but provides better service for critical tasks.</p>
+            </div>
+            
+            <div class="sub-question">
+                <h3>e) Efficient Array-Based Queue Design (4 marks)</h3>
+                
+                <h4>Circular Array Queue:</h4>
+                
+                <pre><code>class CircularQueue {
+private:
+    int* arr;
+    int front, rear, capacity, count;
+    
+public:
+    CircularQueue(int size) {
+        capacity = size;
+        arr = new int[capacity];
+        front = 0;
+        rear = -1;
+        count = 0;
+    }
+    
+    // Enqueue - O(1)
+    void enqueue(int value) {
+        if (count == capacity) {
+            cout &lt;&lt; "Queue is full" &lt;&lt; endl;
+            return;
+        }
+        rear = (rear + 1) % capacity;  // Circular increment
+        arr[rear] = value;
+        count++;
+    }
+    
+    // Dequeue - O(1)
+    int dequeue() {
+        if (count == 0) {
+            cout &lt;&lt; "Queue is empty" &lt;&lt; endl;
+            return -1;
+        }
+        int value = arr[front];
+        front = (front + 1) % capacity;  // Circular increment
+        count--;
+        return value;
+    }
+    
+    bool isEmpty() { return count == 0; }
+    bool isFull() { return count == capacity; }
+};</code></pre>
+                
+                <div class="highlight">
+                    <strong>Benefits:</strong>
+                    <ul>
+                        <li>Constant-time O(1) enqueue and dequeue</li>
+                        <li>Reuses array space efficiently</li>
+                        <li>No memory waste from traditional array queue</li>
+                        <li>Fixed memory allocation prevents fragmentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-section">
+            <div class="question-header">Question 4</div>
+            
+            <div class="sub-question">
+                <h3>a) Stable vs Unstable Sorting Algorithms (4 marks)</h3>
+                
+                <h4>Stable Sorting:</h4>
+                <p>Maintains the relative order of equal elements as they appeared in the input.</p>
+                
+                <p><strong>Examples of Stable Algorithms:</strong></p>
+                <ol>
+                    <li><strong>Merge Sort:</strong> Preserves order during merging</li>
+                    <li><strong>Bubble Sort:</strong> Adjacent swaps maintain order</li>
+                    <li><strong>Insertion Sort:</strong> Inserts without changing equal element positions</li>
+                </ol>
+                
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    Input: [(4,A), (3,B), (4,C), (3,D)]<br>
+                    Stable Sort: [(3,B), (3,D), (4,A), (4,C)] // B before D, A before C
+                </div>
+                
+                <h4>Unstable Sorting:</h4>
+                <p>Does not guarantee preservation of relative order of equal elements.</p>
+                
+                <p><strong>Examples of Unstable Algorithms:</strong></p>
+                <ol>
+                    <li><strong>Quick Sort:</strong> Partitioning may change order</li>
+                    <li><strong>Heap Sort:</strong> Heap operations don't preserve order</li>
+                    <li><strong>Selection Sort:</strong> Swapping can move equal elements</li>
+                </ol>
+                
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    Input: [(4,A), (3,B), (4,C), (3,D)]<br>
+                    Unstable Sort: [(3,D), (3,B), (4,C), (4,A)] // Order changed
+                </div>
+                
+                <div class="note">
+                    <strong>Importance:</strong> Stability matters when sorting by multiple keys (e.g., sort by name, then by grade).
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>b) Recursive vs Iterative Binary Search (4 marks)</h3>
+                
+                <h4>Recursive Implementation:</h4>
+                <pre><code>int binarySearchRecursive(int arr[], int left, int right, int target) {
+    if (left > right)
+        return -1;  // Base case: not found
+    
+    int mid = left + (right - left) / 2;
+    
+    if (arr[mid] == target)
+        return mid;  // Found
+    else if (arr[mid] > target)
+        return binarySearchRecursive(arr, left, mid - 1, target);
+    else
+        return binarySearchRecursive(arr, mid + 1, right, target);
+}</code></pre>
+                
+                <h4>Iterative Implementation:</h4>
+                <pre><code>int binarySearchIterative(int arr[], int n, int target) {
+    int left = 0, right = n - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] > target)
+            right = mid - 1;
+        else
+            left = mid + 1;
+    }
+    return -1;  // Not found
+}</code></pre>
+                
+                <h4>Differences:</h4>
+                <ol>
+                    <li><strong>Space Complexity:</strong> Recursive O(log n) stack space; Iterative O(1)</li>
+                    <li><strong>Performance:</strong> Iterative slightly faster (no function call overhead)</li>
+                    <li><strong>Readability:</strong> Recursive more intuitive; Iterative more explicit</li>
+                    <li><strong>Stack Overflow:</strong> Recursive risk with deep recursion; Iterative safe</li>
+                </ol>
+            </div>
+            
+            <div class="sub-question">
+                <h3>c) Merge Sort Implementation (4 marks)</h3>
+                
+                <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+// Merge function is assumed to be available
+void merge(int arr[], int left, int mid, int right);
+
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        // Find middle point
+        int mid = left + (right - left) / 2;
+        
+        // Sort first half
+        mergeSort(arr, left, mid);
+        
+        // Sort second half
+        mergeSort(arr, mid + 1, right);
+        
+        // Merge sorted halves
+        merge(arr, left, mid, right);
+    }
+}
+
+// Wrapper function
+void mergeSortArray(int arr[], int n) {
+    mergeSort(arr, 0, n - 1);
+}
+
+// Example usage:
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    mergeSortArray(arr, n);
+    
+    cout &lt;&lt; "Sorted array: ";
+    for (int i = 0; i < n; i++)
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    
+    return 0;
+}</code></pre>
+                
+                <div class="highlight">
+                    <strong>Time Complexity:</strong> O(n log n)<br>
+                    <strong>Space Complexity:</strong> O(n)
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>d) Why Quick Sort Preferred Over Bubble Sort (3 marks)</h3>
+                
+                <h4>Despite Both Having O(n²) Worst Case:</h4>
+                
+                <ol>
+                    <li><strong>Average Case Performance:</strong>
+                        <ul>
+                            <li>Quick Sort: O(n log n) average case</li>
+                            <li>Bubble Sort: O(n²) always</li>
+                            <li>Quick Sort worst case is rare with good pivot selection</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Constant Factors:</strong>
+                        <ul>
+                            <li>Quick Sort has lower constant factors</li>
+                            <li>Fewer comparisons and swaps on average</li>
+                            <li>Better cache performance</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Practical Efficiency:</strong>
+                        <ul>
+                            <li>Quick Sort: ~1.39 n log n comparisons average</li>
+                            <li>Bubble Sort: ~n²/2 comparisons always</li>
+                            <li>For n=1000: Quick Sort ~13,900 vs Bubble Sort ~500,000</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>In-Place Sorting:</strong>
+                        <ul>
+                            <li>Quick Sort uses O(log n) space</li>
+                            <li>Efficient memory usage</li>
+                            <li>Good for large datasets</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Adaptability:</strong>
+                        <ul>
+                            <li>Quick Sort can be optimized (randomized pivot, median-of-three)</li>
+                            <li>Worst case easily avoided in practice</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="sub-question">
+                <h3>e) Heap Sort Demonstration (5 marks)</h3>
+                
+                <p><strong>Dataset: [5, 7, 3, 1, 9, 8, 4, 12, 2]</strong></p>
+                
+                <h4>Step 1: Build Max Heap</h4>
+                
+                <p>Initial array as complete binary tree:</p>
+                <div class="tree-diagram">        5
+      /   \
+     7     3
+    / \   / \
+   1   9 8   4
+  / \
+ 12  2</div>
+                
+                <p>Build max heap (heapify from bottom-up):</p>
+                <div class="tree-diagram">After heapifying:
+        12
+      /    \
+     9      8
+    / \    / \
+   7   5  3   4
+  / \
+ 1   2
+
+Array: [12, 9, 8, 7, 5, 3, 4, 1, 2]</div>
+                
+                <h4>Step 2: Sort (Extract Max and Heapify)</h4>
+                
+                <p><strong>Iteration 1:</strong> Swap 12 with 2, heapify</p>
+                <div class="tree-diagram">[9, 7, 8, 2, 5, 3, 4, 1 | 12]</div>
+                
+                <p><strong>Iteration 2:</strong> Swap 9 with 1, heapify</p>
+                <div class="tree-diagram">[8, 7, 4, 2, 5, 3, 1 | 9, 12]</div>
+                
+                <p><strong>Iteration 3:</strong> Swap 8 with 1, heapify</p>
+                <div class="tree-diagram">[7, 5, 4, 2, 1, 3 | 8, 9, 12]</div>
+                
+                <p><strong>Iteration 4:</strong> Swap 7 with 3, heapify</p>
+                <div class="tree-diagram">[5, 3, 4, 2, 1 | 7, 8, 9, 12]</div>
+                
+                <p><strong>Iteration 5:</strong> Swap 5 with 1, heapify</p>
+                <div class="tree-diagram">[4, 3, 1, 2 | 5, 7, 8, 9, 12]</div>
+                
+                <p><strong>Iteration 6:</strong> Swap 4 with 2, heapify</p>
+                <div class="tree-diagram">[3, 2, 1 | 4, 5, 7, 8, 9, 12]</div>
+                
+                <p><strong>Iteration 7:</strong> Swap 3 with 1, heapify</p>
+                <div class="tree-diagram">[2, 1 | 3, 4, 5, 7, 8, 9, 12]</div>
+                
+                <p><strong>Iteration 8:</strong> Swap 2 with 1</p>
+                <div class="tree-diagram">[1 | 2, 3, 4, 5, 7, 8, 9, 12]</div>
+                
+                <div class="highlight">
+                    <strong>Final Sorted Array: [1, 2, 3, 4, 5, 7, 8, 9, 12]</strong><br>
+                    <strong>Time Complexity:</strong> O(n log n)
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-section">
+            <div class="question-header">Question 5</div>
+            
+            <div class="sub-question">
+                <h3>a) Binary Search Tree (BST) Definition and Operations (4 marks)</h3>
+                
+                <h4>Definition:</h4>
+                <p>A Binary Search Tree is a binary tree where:</p>
+                <ul>
+                    <li>Left subtree contains nodes with values less than parent</li>
+                    <li>Right subtree contains nodes with values greater than parent</li>
+                    <li>Both subtrees are also BSTs</li>
+                    <li>No duplicate values</li>
+                </ul>
+                
+                <h4>Insertion Operation:</h4>
+                <ol>
+                    <li>Start at root</li>
+                    <li>Compare value with current node</li>
+                    <li>If less, go left; if greater, go right</li>
+                    <li>Repeat until finding empty spot</li>
+                    <li>Insert new node there</li>
+                </ol>
+                <p><strong>Time Complexity:</strong> O(h) where h is height; O(log n) average, O(n) worst</p>
+                
+                <h4>Deletion Operation:</h4>
+                <p>Three cases:</p>
+                <ol>
+                    <li><strong>Leaf Node:</strong> Simply remove</li>
+                    <li><strong>One Child:</strong> Replace node with its child</li>
+                    <li><strong>Two Children:</strong> Find inorder successor (smallest in right subtree), replace node's value, delete successor</li>
+                </ol>
+                
+                <pre><code>Node* deleteNode(Node* root, int key) {
+    if (root == NULL) return root;
+    
+    if (key < root-&gt;data)
+        root-&gt;left = deleteNode(root-&gt;left, key);
+    else if (key > root-&gt;data)
+        root-&gt;right = deleteNode(root-&gt;right, key);
+    else {
+        // Node found
+        if (root-&gt;left == NULL) {
+            Node* temp = root-&gt;right;
+            delete root;
+            return temp;
+        } else if (root-&gt;right == NULL) {
+            Node* temp = root-&gt;left;
+            delete root;
+            return temp;
+        }
+        // Two children: get inorder successor
+        Node* temp = findMin(root-&gt;right);
+        root-&gt;data = temp-&gt;data;
+        root-&gt;right = deleteNode(root-&gt;right, temp-&gt;data);
+    }
+    return root;
+}</code></pre>
+            </div>
+            
+            <div class="sub-question">
+                <h3>b) BST vs Doubly Linked List Comparison (4 marks)</h3>
+                
+                <h4>Similarities:</h4>
+                <ul>
+                    <li>Both are dynamic data structures</li>
+                    <li>Both use pointers/references</li>
+                    <li>Both allow insertion and deletion</li>
+                </ul>
+                
+                <h4>Differences:</h4>
+                
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>BST</th>
+                        <th>Doubly Linked List</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Structure</strong></td>
+                        <td>Hierarchical tree</td>
+                        <td>Linear sequence</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Search</strong></td>
+                        <td>O(log n) average, O(n) worst</td>
+                        <td>O(n) always</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Insertion</strong></td>
+                        <td>O(log n) average</td>
+                        <td>O(1) if position known</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sorted Order</strong></td>
+                        <td>Maintains sorted via structure</td>
+                        <td>Requires manual sorting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Traversal</strong></td>
+                        <td>Multiple orders (in/pre/post)</td>
+                        <td>Forward/backward only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory</strong></td>
+                        <td>Two pointers per node</td>
+                        <td>Two pointers per node</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Use Case</strong></td>
+                        <td>Fast searching in sorted data</td>
+                        <td>Sequential access, frequent insert/delete</td>
+                    </tr>
+                </table>
+                
+                <div class="note">
+                    <strong>When to Use BST:</strong>
+                    <ul>
+                        <li>Need fast searching</li>
+                        <li>Data should remain sorted</li>
+                        <li>Range queries required</li>
+                    </ul>
+                    <strong>When to Use Doubly Linked List:</strong>
+                    <ul>
+                        <li>Sequential access pattern</li>
+                        <li>Frequent insertions at known positions</li>
+                        <li>Need bidirectional traversal</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>c) Lowest Common Ancestor (LCA) Implementation (4 marks)</h3>
+                
+                <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+
+// Function to find LCA of two nodes p and q in BST
+Node* findLCA(Node* root, int p, int q) {
+    // Base case: empty tree
+    if (root == NULL)
+        return NULL;
+    
+    // If both p and q are smaller than root, LCA is in left subtree
+    if (p < root-&gt;data && q < root-&gt;data)
+        return findLCA(root-&gt;left, p, q);
+    
+    // If both p and q are larger than root, LCA is in right subtree
+    if (p > root-&gt;data && q > root-&gt;data)
+        return findLCA(root-&gt;right, p, q);
+    
+    // Otherwise, root is the LCA
+    // (one value on left side, other on right side, or one equals root)
+    return root;
+}
+
+// Example usage
+int main() {
+    // Create BST
+    Node* root = new Node(20);
+    root-&gt;left = new Node(10);
+    root-&gt;right = new Node(30);
+    root-&gt;left-&gt;left = new Node(5);
+    root-&gt;left-&gt;right = new Node(15);
+    root-&gt;right-&gt;left = new Node(25);
+    root-&gt;right-&gt;right = new Node(35);
+    
+    // Find LCA of 5 and 15
+    Node* lca = findLCA(root, 5, 15);
+    cout &lt;&lt; "LCA of 5 and 15: " &lt;&lt; lca-&gt;data &lt;&lt; endl;  // Output: 10
+    
+    // Find LCA of 5 and 25
+    lca = findLCA(root, 5, 25);
+    cout &lt;&lt; "LCA of 5 and 25: " &lt;&lt; lca-&gt;data &lt;&lt; endl;  // Output: 20
+    
+    return 0;
+}</code></pre>
+                
+                <div class="highlight">
+                    <strong>Time Complexity:</strong> O(h) where h is height<br>
+                    <strong>Space Complexity:</strong> O(h) for recursion stack
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>d) BST Construction and Traversals (4 marks)</h3>
+                
+                <p><strong>Dataset: [5, 7, 3, 1, 9, 8, 4, 12, 2]</strong></p>
+                
+                <h4>Step-by-Step Construction:</h4>
+                
+                <p><strong>1. Insert 5 (root)</strong></p>
+                <div class="tree-diagram">    5</div>
+                
+                <p><strong>2. Insert 7 (7 > 5, go right)</strong></p>
+                <div class="tree-diagram">    5
+     \
+      7</div>
+                
+                <p><strong>3. Insert 3 (3 < 5, go left)</strong></p>
+                <div class="tree-diagram">    5
+   / \
+  3   7</div>
+                
+                <p><strong>4. Insert 1 (1 < 5, go left; 1 < 3, go left)</strong></p>
+                <div class="tree-diagram">    5
+   / \
+  3   7
+ /
+1</div>
+                
+                <p><strong>5. Insert 9 (9 > 5, go right; 9 > 7, go right)</strong></p>
+                <div class="tree-diagram">    5
+   / \
+  3   7
+ /     \
+1       9</div>
+                
+                <p><strong>6. Insert 8 (8 > 5, right; 8 > 7, right; 8 < 9, left)</strong></p>
+                <div class="tree-diagram">    5
+   / \
+  3   7
+ /     \
+1       9
+       /
+      8</div>
+                
+                <p><strong>7. Insert 4 (4 < 5, left; 4 > 3, right)</strong></p>
+                <div class="tree-diagram">    5
+   / \
+  3   7
+ / \   \
+1   4   9
+       /
+      8</div>
+                
+                <p><strong>8. Insert 12 (12 > 5, right; 12 > 7, right; 12 > 9, right)</strong></p>
+                <div class="tree-diagram">    5
+   / \
+  3   7
+ / \   \
+1   4   9
+       / \
+      8   12</div>
+                
+                <p><strong>9. Insert 2 (2 < 5, left; 2 < 3, left; 2 > 1, right)</strong></p>
+                <div class="tree-diagram">    5
+   / \
+  3   7
+ / \   \
+1   4   9
+ \     / \
+  2   8   12</div>
+                
+                <h4>Final BST:</h4>
+                <div class="tree-diagram">        5
+      /   \
+     3     7
+    / \     \
+   1   4     9
+    \       / \
+     2     8   12</div>
+                
+                <div class="highlight">
+                    <strong>In-Order Traversal (Left-Root-Right):</strong><br>
+                    Result: <strong>[1, 2, 3, 4, 5, 7, 8, 9, 12]</strong><br>
+                    (Always produces sorted order for BST)
+                    <br><br>
+                    <strong>Pre-Order Traversal (Root-Left-Right):</strong><br>
+                    Result: <strong>[5, 3, 1, 2, 4, 7, 9, 8, 12]</strong>
+                </div>
+            </div>
+            
+            <div class="sub-question">
+                <h3>e) Adjacency Matrix vs Adjacency List for Graphs (4 marks)</h3>
+                
+                <h4>Adjacency Matrix:</h4>
+                <p>2D array where matrix[i][j] = 1 if edge exists between vertex i and j</p>
+                
+                <p><strong>Advantages:</strong></p>
+                <ol>
+                    <li><strong>Fast Edge Lookup:</strong> O(1) to check if edge exists</li>
+                    <li><strong>Simple Implementation:</strong> Easy to understand and code</li>
+                    <li><strong>Good for Dense Graphs:</strong> When many edges exist</li>
+                    <li><strong>Easy Edge Addition/Removal:</strong> O(1) operations</li>
+                </ol>
+                
+                <p><strong>Disadvantages:</strong></p>
+                <ol>
+                    <li><strong>Space Inefficient:</strong> O(V²) space regardless of edges</li>
+                    <li><strong>Slow Iteration:</strong> O(V²) to iterate all edges</li>
+                    <li><strong>Wasteful for Sparse Graphs:</strong> Many zeros stored</li>
+                    <li><strong>Not Scalable:</strong> Large memory for many vertices</li>
+                </ol>
+                
+                <h4>Adjacency List:</h4>
+                <p>Array of lists where list[i] contains all neighbors of vertex i</p>
+                
+                <p><strong>Advantages:</strong></p>
+                <ol>
+                    <li><strong>Space Efficient:</strong> O(V + E) space</li>
+                    <li><strong>Fast Iteration:</strong> O(V + E) to iterate all edges</li>
+                    <li><strong>Good for Sparse Graphs:</strong> Only stores existing edges</li>
+                    <li><strong>Scalable:</strong> Handles large graphs well</li>
+                </ol>
+                
+                <p><strong>Disadvantages:</strong></p>
+                <ol>
+                    <li><strong>Slower Edge Lookup:</strong> O(degree) to check if edge exists</li>
+                    <li><strong>More Complex:</strong> Requires linked list or dynamic array management</li>
+                    <li><strong>Cache Performance:</strong> Pointer chasing can be slower</li>
+                    <li><strong>More Memory per Edge:</strong> Pointers add overhead</li>
+                </ol>
+                
+                <div class="note">
+                    <strong>Recommendation:</strong>
+                    <ul>
+                        <li><strong>Use Matrix:</strong> Dense graphs (E ≈ V²), frequent edge queries, small graphs</li>
+                        <li><strong>Use List:</strong> Sparse graphs (E << V²), frequent neighbor iteration, large graphs</li>
+                    </ul>
+                </div>
+                
+                <h4>Example:</h4>
+                <p>Graph with 4 vertices, edges: (0,1), (0,2), (1,2), (2,3)</p>
+                
+                <p><strong>Adjacency Matrix:</strong></p>
+                <div class="tree-diagram">  0 1 2 3
+0 0 1 1 0
+1 0 0 1 0
+2 0 0 0 1
+3 0 0 0 0</div>
+                
+                <p><strong>Adjacency List:</strong></p>
+                <div class="tree-diagram">0 -> [1, 2]
+1 -> [2]
+2 -> [3]
+3 -> []</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>— END OF ANSWERS —</h3>
+            <p>Rajarata University of Sri Lanka | Faculty of Applied Sciences</p>
+            <p>COM 2307 - Data Structures and Algorithms</p>
+        </div>
+    </div>
+    
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
