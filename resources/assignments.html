@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments - COM2307</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            color: #bbb;
+            margin-top: 10px;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .assignment-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .assignment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .assignment-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .assignment-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .assignment-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .meta-label {
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .difficulty.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .assignment-description {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .section-box {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .section-box h4 {
+            margin-bottom: 10px;
+        }
+
+        .section-box ul {
+            margin-left: 20px;
+        }
+
+        .section-box li {
+            margin-bottom: 8px;
+        }
+
+        .objectives-box {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+        }
+
+        .objectives-box h4 {
+            color: #2196F3;
+        }
+
+        .requirements-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+
+        .requirements-box h4 {
+            color: #856404;
+        }
+
+        .deliverables-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+
+        .deliverables-box h4 {
+            color: #155724;
+        }
+
+        .tips-box {
+            background: #f0f8ff;
+            border: 2px dashed #667eea;
+        }
+
+        .tips-box h4 {
+            color: #667eea;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .rubric-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .rubric-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .rubric-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .rubric-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .guidelines-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .guidelines-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .guidelines-section h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .assignment-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Course Assignments</h1>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> > Assignments
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Assignment 1 -->
+            <div class="assignment-card">
+                <div class="assignment-header">
+                    <h2 class="assignment-title">Array Operations & Complexity Analysis</h2>
+                    <span class="assignment-number">Assignment 1</span>
+                </div>
+
+                <div class="assignment-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value">Week 3</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Difficulty</div>
+                        <div class="meta-value"><span class="difficulty easy">Easy</span></div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Points</div>
+                        <div class="meta-value">100</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Topics</div>
+                        <div class="meta-value">Arrays, Big O</div>
+                    </div>
+                </div>
+
+                <div class="assignment-description">
+                    <p>Implement various array operations and analyze their time complexity. This assignment will help you understand array data structures and practice Big O notation analysis.</p>
+                </div>
+
+                <div class="section-box objectives-box">
+                    <h4>Learning Objectives</h4>
+                    <ul>
+                        <li>Understand array implementation and memory layout</li>
+                        <li>Implement basic array operations (insert, delete, search)</li>
+                        <li>Analyze time complexity of operations</li>
+                        <li>Compare different implementation approaches</li>
+                    </ul>
+                </div>
+
+                <div class="section-box requirements-box">
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li>Implement an array-based list in C/C++</li>
+                        <li>Support operations: insert, delete, search, display</li>
+                        <li>Handle edge cases (full array, empty array, invalid index)</li>
+                        <li>Write complexity analysis for each operation</li>
+                        <li>Include test cases demonstrating all operations</li>
+                    </ul>
+                </div>
+
+                <div class="section-box deliverables-box">
+                    <h4>Deliverables</h4>
+                    <ul>
+                        <li>Source code (.c or .cpp file)</li>
+                        <li>Report with complexity analysis (PDF)</li>
+                        <li>Test results and screenshots</li>
+                        <li>README with compilation instructions</li>
+                    </ul>
+                </div>
+
+                <div class="section-box tips-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>Start with simple insert and display operations</li>
+                        <li>Test boundary conditions thoroughly</li>
+                        <li>Remember: array deletion requires shifting elements</li>
+                        <li>Document your code clearly</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-primary">Download Template</a>
+                    <a href="#" class="btn btn-secondary">View Rubric</a>
+                </div>
+            </div>
+
+            <!-- Assignment 2 -->
+            <div class="assignment-card">
+                <div class="assignment-header">
+                    <h2 class="assignment-title">Linked List Implementation</h2>
+                    <span class="assignment-number">Assignment 2</span>
+                </div>
+
+                <div class="assignment-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value">Week 5</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Difficulty</div>
+                        <div class="meta-value"><span class="difficulty medium">Medium</span></div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Points</div>
+                        <div class="meta-value">150</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Topics</div>
+                        <div class="meta-value">Linked Lists</div>
+                    </div>
+                </div>
+
+                <div class="assignment-description">
+                    <p>Implement a singly linked list with all standard operations. Compare the performance with array-based lists and understand the trade-offs between different data structures.</p>
+                </div>
+
+                <div class="section-box objectives-box">
+                    <h4>Learning Objectives</h4>
+                    <ul>
+                        <li>Master pointer manipulation in C/C++</li>
+                        <li>Implement dynamic memory allocation</li>
+                        <li>Understand linked list advantages and disadvantages</li>
+                        <li>Handle memory management properly</li>
+                    </ul>
+                </div>
+
+                <div class="section-box requirements-box">
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li>Implement singly linked list with node structure</li>
+                        <li>Operations: insertAtBeginning, insertAtEnd, insertAtPosition, delete, search, display</li>
+                        <li>Implement a sorted linked list variant</li>
+                        <li>Compare with array-based list (provide analysis)</li>
+                        <li>Proper memory management (no memory leaks)</li>
+                        <li>Test with at least 100 elements</li>
+                    </ul>
+                </div>
+
+                <div class="section-box deliverables-box">
+                    <h4>Deliverables</h4>
+                    <ul>
+                        <li>Source code for singly linked list</li>
+                        <li>Source code for sorted linked list</li>
+                        <li>Comparative analysis report (PDF)</li>
+                        <li>Memory leak test results</li>
+                        <li>Performance comparison charts</li>
+                    </ul>
+                </div>
+
+                <div class="section-box tips-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>Draw diagrams before coding insertion/deletion</li>
+                        <li>Always check for NULL pointers</li>
+                        <li>Handle edge cases: empty list, single node, last node</li>
+                        <li>Free memory when deleting nodes</li>
+                        <li>Use helper functions for cleaner code</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-primary">Download Template</a>
+                    <a href="#" class="btn btn-secondary">View Rubric</a>
+                </div>
+            </div>
+
+            <!-- Assignment 3 -->
+            <div class="assignment-card">
+                <div class="assignment-header">
+                    <h2 class="assignment-title">Stack Applications</h2>
+                    <span class="assignment-number">Assignment 3</span>
+                </div>
+
+                <div class="assignment-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value">Week 7</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Difficulty</div>
+                        <div class="meta-value"><span class="difficulty medium">Medium</span></div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Points</div>
+                        <div class="meta-value">150</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Topics</div>
+                        <div class="meta-value">Stacks</div>
+                    </div>
+                </div>
+
+                <div class="assignment-description">
+                    <p>Implement a stack ADT and develop three practical applications: balanced parentheses checker, postfix expression evaluator, and infix to postfix converter.</p>
+                </div>
+
+                <div class="section-box objectives-box">
+                    <h4>Learning Objectives</h4>
+                    <ul>
+                        <li>Understand LIFO (Last-In-First-Out) principle</li>
+                        <li>Implement stack using both array and linked list</li>
+                        <li>Apply stacks to solve real-world problems</li>
+                        <li>Understand expression evaluation algorithms</li>
+                    </ul>
+                </div>
+
+                <div class="section-box requirements-box">
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li>Implement stack using array (fixed size)</li>
+                        <li>Implement stack using linked list (dynamic)</li>
+                        <li>Application 1: Balanced parentheses checker</li>
+                        <li>Application 2: Postfix expression evaluator</li>
+                        <li>Application 3: Infix to postfix converter</li>
+                        <li>Handle operator precedence correctly</li>
+                        <li>Include comprehensive test cases</li>
+                    </ul>
+                </div>
+
+                <div class="section-box deliverables-box">
+                    <h4>Deliverables</h4>
+                    <ul>
+                        <li>Stack implementation (array and linked list)</li>
+                        <li>Three application programs with source code</li>
+                        <li>Test cases for each application</li>
+                        <li>Algorithm explanation document</li>
+                    </ul>
+                </div>
+
+                <div class="section-box tips-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>Test basic stack operations first</li>
+                        <li>For balanced parentheses: push opening, match closing</li>
+                        <li>For postfix: push operands, pop for operators</li>
+                        <li>Remember operator precedence rules</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-primary">Download Template</a>
+                    <a href="#" class="btn btn-secondary">View Rubric</a>
+                </div>
+            </div>
+
+            <!-- Assignment 4 -->
+            <div class="assignment-card">
+                <div class="assignment-header">
+                    <h2 class="assignment-title">Queue Simulation System</h2>
+                    <span class="assignment-number">Assignment 4</span>
+                </div>
+
+                <div class="assignment-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value">Week 9</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Difficulty</div>
+                        <div class="meta-value"><span class="difficulty medium">Medium</span></div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Points</div>
+                        <div class="meta-value">150</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Topics</div>
+                        <div class="meta-value">Queues</div>
+                    </div>
+                </div>
+
+                <div class="assignment-description">
+                    <p>Develop a queue-based simulation system that models a real-world scenario such as a bank teller system, print job manager, or customer service center.</p>
+                </div>
+
+                <div class="section-box objectives-box">
+                    <h4>Learning Objectives</h4>
+                    <ul>
+                        <li>Understand FIFO (First-In-First-Out) principle</li>
+                        <li>Implement circular queue for efficiency</li>
+                        <li>Apply queues to simulate real-world systems</li>
+                        <li>Collect and analyze simulation statistics</li>
+                    </ul>
+                </div>
+
+                <div class="section-box requirements-box">
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li>Implement circular queue using array</li>
+                        <li>Implement queue using linked list</li>
+                        <li>Choose simulation scenario (bank, printer, etc.)</li>
+                        <li>Simulate at least 100 events/customers</li>
+                        <li>Track statistics: average wait time, max queue length</li>
+                        <li>Generate report with graphs</li>
+                    </ul>
+                </div>
+
+                <div class="section-box deliverables-box">
+                    <h4>Deliverables</h4>
+                    <ul>
+                        <li>Queue implementation (circular and linked list)</li>
+                        <li>Simulation program with output</li>
+                        <li>Statistical analysis report</li>
+                        <li>User manual</li>
+                        <li>Demo video</li>
+                    </ul>
+                </div>
+
+                <div class="section-box tips-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>Use random numbers for arrival times</li>
+                        <li>Track time throughout simulation</li>
+                        <li>Display queue status regularly</li>
+                        <li>Test circular queue wrap-around</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-primary">Download Template</a>
+                    <a href="#" class="btn btn-secondary">View Rubric</a>
+                </div>
+            </div>
+
+            <!-- Assignment 5 -->
+            <div class="assignment-card">
+                <div class="assignment-header">
+                    <h2 class="assignment-title">Binary Search Tree Operations</h2>
+                    <span class="assignment-number">Assignment 5</span>
+                </div>
+
+                <div class="assignment-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value">Week 11</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Difficulty</div>
+                        <div class="meta-value"><span class="difficulty hard">Hard</span></div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Points</div>
+                        <div class="meta-value">200</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Topics</div>
+                        <div class="meta-value">BST, Trees</div>
+                    </div>
+                </div>
+
+                <div class="assignment-description">
+                    <p>Implement a complete Binary Search Tree (BST) with all standard operations including insertion, deletion, searching, and various traversal methods.</p>
+                </div>
+
+                <div class="section-box objectives-box">
+                    <h4>Learning Objectives</h4>
+                    <ul>
+                        <li>Master recursive tree algorithms</li>
+                        <li>Understand BST properties and operations</li>
+                        <li>Implement complex deletion algorithms</li>
+                        <li>Compare different tree traversal methods</li>
+                    </ul>
+                </div>
+
+                <div class="section-box requirements-box">
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li>Implement BST node structure</li>
+                        <li>Operations: insert, delete, search, findMin, findMax</li>
+                        <li>Traversals: inorder, preorder, postorder</li>
+                        <li>Additional: height, countNodes, isBST</li>
+                        <li>Handle all deletion cases</li>
+                        <li>Visualize tree structure</li>
+                        <li>Compare with linear search</li>
+                    </ul>
+                </div>
+
+                <div class="section-box deliverables-box">
+                    <h4>Deliverables</h4>
+                    <ul>
+                        <li>Complete BST implementation</li>
+                        <li>Tree visualization output</li>
+                        <li>Performance comparison report</li>
+                        <li>Algorithm explanations</li>
+                        <li>Comprehensive test cases</li>
+                    </ul>
+                </div>
+
+                <div class="section-box tips-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>Start with insert and traversal</li>
+                        <li>Draw trees on paper first</li>
+                        <li>For deletion: find inorder successor</li>
+                        <li>Use recursion for cleaner code</li>
+                        <li>Test with balanced and skewed trees</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-primary">Download Template</a>
+                    <a href="#" class="btn btn-secondary">View Rubric</a>
+                </div>
+            </div>
+
+            <!-- Assignment 6 -->
+            <div class="assignment-card">
+                <div class="assignment-header">
+                    <h2 class="assignment-title">Sorting Algorithm Comparison</h2>
+                    <span class="assignment-number">Assignment 6</span>
+                </div>
+
+                <div class="assignment-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value">Week 13</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Difficulty</div>
+                        <div class="meta-value"><span class="difficulty medium">Medium</span></div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Points</div>
+                        <div class="meta-value">150</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Topics</div>
+                        <div class="meta-value">Sorting</div>
+                    </div>
+                </div>
+
+                <div class="assignment-description">
+                    <p>Implement multiple sorting algorithms and conduct a comprehensive performance comparison analyzing theoretical vs actual performance.</p>
+                </div>
+
+                <div class="section-box objectives-box">
+                    <h4>Learning Objectives</h4>
+                    <ul>
+                        <li>Implement various sorting algorithms</li>
+                        <li>Understand complexity trade-offs</li>
+                        <li>Conduct empirical performance analysis</li>
+                        <li>Compare theoretical vs actual results</li>
+                    </ul>
+                </div>
+
+                <div class="section-box requirements-box">
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li>Implement: Bubble, Selection, Insertion Sort</li>
+                        <li>Implement: Merge Sort, Quick Sort</li>
+                        <li>Implement: Binary Search</li>
+                        <li>Test with varying sizes (100, 1000, 10000)</li>
+                        <li>Test different data types: random, sorted, reverse</li>
+                        <li>Measure execution time and count operations</li>
+                    </ul>
+                </div>
+
+                <div class="section-box deliverables-box">
+                    <h4>Deliverables</h4>
+                    <ul>
+                        <li>All sorting algorithm implementations</li>
+                        <li>Binary search implementation</li>
+                        <li>Performance testing program</li>
+                        <li>Comparison report with charts</li>
+                        <li>Analysis of results</li>
+                    </ul>
+                </div>
+
+                <div class="section-box tips-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>Use same test data for fair comparison</li>
+                        <li>Run multiple trials and average results</li>
+                        <li>Create visual charts for comparison</li>
+                        <li>Explain why algorithms performed differently</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-primary">Download Template</a>
+                    <a href="#" class="btn btn-secondary">View Rubric</a>
+                </div>
+            </div>
+
+            <!-- General Guidelines -->
+            <div class="guidelines-section">
+                <h2>📋 General Assignment Guidelines</h2>
+                
+                <h3>Submission Requirements</h3>
+                <ul>
+                    <li>Submit through course LMS</li>
+                    <li>Source code as ZIP file</li>
+                    <li>Reports in PDF format</li>
+                    <li>File naming: Assignment#_YourName_StudentID.zip</li>
+                    <li>Late submissions: -10% per day (max 3 days)</li>
+                </ul>
+
+                <h3>Code Standards</h3>
+                <ul>
+                    <li>Meaningful variable and function names</li>
+                    <li>Comments explaining complex logic</li>
+                    <li>Proper indentation and formatting</li>
+                    <li>No hardcoded values</li>
+                    <li>Header comments with name, date, description</li>
+                </ul>
+
+                <h3>Academic Integrity</h3>
+                <ul>
+                    <li>All work must be your own</li>
+                    <li>Collaboration for concepts only, not code</li>
+                    <li>Cite external resources used</li>
+                    <li>Plagiarism results in zero points</li>
+                    <li>AI tool usage must be disclosed</li>
+                </ul>
+
+                <h3>Getting Help</h3>
+                <ul>
+                    <li>Office Hours: Tuesday & Thursday, 2:00 PM - 4:00 PM</li>
+                    <li>Email: instructor@university.edu (24hr response)</li>
+                    <li>Discussion Forum: Post on course LMS</li>
+                    <li>Study Groups: Form groups with classmates</li>
+                    <li>Tutoring: Free at Learning Center</li>
+                </ul>
+
+                <div class="section-box objectives-box" style="margin-top: 20px;">
+                    <h4>💪 Success Tips</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>Read requirements carefully before starting</li>
+                        <li>Start early - don't wait for deadline</li>
+                        <li>Test with various inputs including edge cases</li>
+                        <li>Keep backups (use version control)</li>
+                        <li>Ask questions if unclear</li>
+                        <li>Review rubrics before submission</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Assignment Schedule -->
+            <div style="margin-top: 40px;">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">📅 Assignment Schedule</h2>
+                <table class="rubric-table">
+                    <tr>
+                        <th>Assignment</th>
+                        <th>Released</th>
+                        <th>Due Date</th>
+                        <th>Points</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Assignment 1: Arrays</td>
+                        <td>Week 1</td>
+                        <td>Week 3</td>
+                        <td>100</td>
+                        <td><span style="background: #28a745; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.85em;">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Assignment 2: Linked Lists</td>
+                        <td>Week 3</td>
+                        <td>Week 5</td>
+                        <td>150</td>
+                        <td><span style="background: #ffc107; color: #333; padding: 5px 10px; border-radius: 15px; font-size: 0.85em;">Upcoming</span></td>
+                    </tr>
+                    <tr>
+                        <td>Assignment 3: Stacks</td>
+                        <td>Week 5</td>
+                        <td>Week 7</td>
+                        <td>150</td>
+                        <td><span style="background: #6c757d; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.85em;">Locked</span></td>
+                    </tr>
+                    <tr>
+                        <td>Assignment 4: Queues</td>
+                        <td>Week 7</td>
+                        <td>Week 9</td>
+                        <td>150</td>
+                        <td><span style="background: #6c757d; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.85em;">Locked</span></td>
+                    </tr>
+                    <tr>
+                        <td>Assignment 5: BST</td>
+                        <td>Week 9</td>
+                        <td>Week 11</td>
+                        <td>200</td>
+                        <td><span style="background: #6c757d; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.85em;">Locked</span></td>
+                    </tr>
+                    <tr>
+                        <td>Assignment 6: Sorting</td>
+                        <td>Week 11</td>
+                        <td>Week 13</td>
+                        <td>150</td>
+                        <td><span style="background: #6c757d; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.85em;">Locked</span></td>
+                    </tr>
+                    <tr style="font-weight: bold; background: #f8f9fa;">
+                        <td colspan="3">Total Points</td>
+                        <td>900</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="../index.html" class="nav-btn">← Back to Home</a>
+                <a href="practice.html" class="nav-btn">Practice Problems →</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>COM2307 - Data Structures & Algorithms</p>
+            <p style="margin-top: 10px; opacity: 0.8;">© 2025 Course Materials</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Questions? Contact: instructor@university.edu</p>
+        </footer>
+    </div>
+</body>
+</html>
