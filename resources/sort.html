@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min Heap & Max Heap Visualizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab {
+            padding: 15px 40px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+        }
+
+        .heap-section {
+            display: none;
+        }
+
+        .heap-section.active {
+            display: block;
+        }
+        
+        .controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+        }
+
+        button.danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+        
+        .visualization {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            min-height: 500px;
+            border: 2px solid #e0e0e0;
+            position: relative;
+        }
+        
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .info-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .info-card.min-heap {
+            border-left-color: #51cf66;
+        }
+
+        .info-card.max-heap {
+            border-left-color: #ff6b6b;
+        }
+        
+        .info-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .info-card.min-heap h3 {
+            color: #37b24d;
+        }
+
+        .info-card.max-heap h3 {
+            color: #ee5a6f;
+        }
+        
+        .info-card p {
+            color: #555;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .formula {
+            background: #e8eaf6;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            font-size: 1em;
+            border-left: 3px solid #667eea;
+        }
+        
+        .stats {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-label {
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            color: #667eea;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .array-display {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .array-display h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+
+        .array-display .array-content {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid #333;
+        }
+
+        .operations-log {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .operations-log h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .log-entry {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+            font-size: 0.9em;
+        }
+
+        .log-entry.success {
+            border-left-color: #51cf66;
+        }
+
+        .log-entry.error {
+            border-left-color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌳 Heap Visualizer</h1>
+        <p class="subtitle">Interactive Min Heap (Priority Queue) & Max Heap (Heap Sort) Visualization</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('minheap')">Min Heap - Priority Queue</button>
+            <button class="tab" onclick="switchTab('maxheap')">Max Heap - Heap Sort</button>
+        </div>
+
+        <!-- MIN HEAP SECTION -->
+        <div id="minheap" class="heap-section active">
+            <div class="info-panel">
+                <div class="info-card min-heap">
+                    <h3>📌 What is Min Heap?</h3>
+                    <p>A <strong>Min Heap</strong> is a complete binary tree where each parent node is smaller than or equal to its children. The smallest element is always at the root.</p>
+                    <div class="formula">Parent ≤ Children</div>
+                    <p><strong>Use Case:</strong> Priority Queue - elements with smallest values have highest priority</p>
+                </div>
+                
+                <div class="info-card min-heap">
+                    <h3>🔑 Key Operations</h3>
+                    <p><strong>Insert:</strong> Add element at end, then bubble up - O(log n)</p>
+                    <p><strong>Extract Min:</strong> Remove root, replace with last element, bubble down - O(log n)</p>
+                    <p><strong>Peek Min:</strong> View root element - O(1)</p>
+                    <p><strong>Array Index Formula:</strong></p>
+                    <div class="formula">
+                        Left Child: 2i + 1<br>
+                        Right Child: 2i + 2<br>
+                        Parent: ⌊(i-1)/2⌋
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-row">
+                    <div class="control-group">
+                        <label for="minInsertValue">Insert Value (1-99):</label>
+                        <input type="number" id="minInsertValue" min="1" max="99" value="25" placeholder="Enter number">
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button onclick="insertMinHeap()">Insert into Min Heap</button>
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="danger" onclick="extractMinHeap()">Extract Minimum</button>
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="secondary" onclick="peekMinHeap()">Peek Minimum</button>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-group">
+                        <label for="minBuildArray">Build from Array (comma-separated):</label>
+                        <input type="text" id="minBuildArray" placeholder="e.g., 50,30,20,15,10,8,16" value="50,30,20,15,10,8,16">
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button onclick="buildMinHeap()">Build Min Heap</button>
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="danger" onclick="clearMinHeap()">Clear Heap</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="array-display">
+                <h4>Array Representation:</h4>
+                <div class="array-content" id="minArrayDisplay">[]</div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Heap Size</div>
+                    <div class="stat-value" id="minHeapSize">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Minimum Value</div>
+                    <div class="stat-value" id="minHeapMin">-</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Operations</div>
+                    <div class="stat-value" id="minOperations">0</div>
+                </div>
+            </div>
+
+            <div class="operations-log" id="minLog">
+                <h4>Operations Log:</h4>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #51cf66;"></div>
+                    <span>Min Heap Nodes</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #ffd700;"></div>
+                    <span>Highlighted</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #ff6b6b;"></div>
+                    <span>Root (Minimum)</span>
+                </div>
+            </div>
+
+            <div class="visualization">
+                <canvas id="minHeapCanvas" width="1200" height="500"></canvas>
+            </div>
+        </div>
+
+        <!-- MAX HEAP SECTION -->
+        <div id="maxheap" class="heap-section">
+            <div class="info-panel">
+                <div class="info-card max-heap">
+                    <h3>🔺 What is Max Heap?</h3>
+                    <p>A <strong>Max Heap</strong> is a complete binary tree where each parent node is greater than or equal to its children. The largest element is always at the root.</p>
+                    <div class="formula">Parent ≥ Children</div>
+                    <p><strong>Use Case:</strong> Heap Sort - efficiently sort elements in ascending order</p>
+                </div>
+                
+                <div class="info-card max-heap">
+                    <h3>📊 Heap Sort Algorithm</h3>
+                    <p><strong>Step 1:</strong> Build Max Heap from unsorted array</p>
+                    <p><strong>Step 2:</strong> Swap root (max) with last element</p>
+                    <p><strong>Step 3:</strong> Reduce heap size and heapify</p>
+                    <p><strong>Step 4:</strong> Repeat until heap size = 1</p>
+                    <div class="formula">
+                        Time Complexity: O(n log n)<br>
+                        Space Complexity: O(1)
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-row">
+                    <div class="control-group">
+                        <label for="maxInsertValue">Insert Value (1-99):</label>
+                        <input type="number" id="maxInsertValue" min="1" max="99" value="45" placeholder="Enter number">
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button onclick="insertMaxHeap()">Insert into Max Heap</button>
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="danger" onclick="extractMaxHeap()">Extract Maximum</button>
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="secondary" onclick="peekMaxHeap()">Peek Maximum</button>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-group">
+                        <label for="maxBuildArray">Build from Array (comma-separated):</label>
+                        <input type="text" id="maxBuildArray" placeholder="e.g., 10,20,15,30,40" value="10,20,15,30,40,25,35,5,50,45">
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button onclick="buildMaxHeap()">Build Max Heap</button>
+                    </div>
+                    <div class="control-group">
+                        <label for="maxSpeed">Speed: <span id="maxSpeedValue">500</span>ms</label>
+                        <input type="range" id="maxSpeed" min="200" max="2000" value="500" step="100" oninput="document.getElementById('maxSpeedValue').textContent = this.value">
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="secondary" onclick="startHeapSort()" id="sortBtn">Start Heap Sort</button>
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="danger" onclick="clearMaxHeap()">Clear Heap</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="array-display">
+                <h4>Array Representation:</h4>
+                <div class="array-content" id="maxArrayDisplay">[]</div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Heap Size</div>
+                    <div class="stat-value" id="maxHeapSize">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Maximum Value</div>
+                    <div class="stat-value" id="maxHeapMax">-</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Operations</div>
+                    <div class="stat-value" id="maxOperations">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Sorted Elements</div>
+                    <div class="stat-value" id="sortedCount">0</div>
+                </div>
+            </div>
+
+            <div class="operations-log" id="maxLog">
+                <h4>Operations Log:</h4>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #667eea;"></div>
+                    <span>Max Heap Nodes</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #ffd700;"></div>
+                    <span>Highlighted</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #ff6b6b;"></div>
+                    <span>Root (Maximum)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #51cf66;"></div>
+                    <span>Sorted</span>
+                </div>
+            </div>
+
+            <div class="visualization">
+                <canvas id="maxHeapCanvas" width="1200" height="500"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let minHeap = [];
+        let maxHeap = [];
+        let minOperations = 0;
+        let maxOperations = 0;
+        let sorting = false;
+        let sortedIndices = [];
+
+        const minCanvas = document.getElementById('minHeapCanvas');
+        const minCtx = minCanvas.getContext('2d');
+        const maxCanvas = document.getElementById('maxHeapCanvas');
+        const maxCtx = maxCanvas.getContext('2d');
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.heap-section').forEach(s => s.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
+        }
+
+        function drawNode(ctx, x, y, value, color = '#667eea', isRoot = false) {
+            ctx.beginPath();
+            ctx.arc(x, y, 28, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = isRoot ? 4 : 3;
+            ctx.stroke();
+            
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(value, x, y);
+        }
+
+        function drawLine(ctx, x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function drawHeap(ctx, heap, highlightIndices = [], isMinHeap = true, sorted = []) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            
+            if (heap.length === 0) {
+                ctx.fillStyle = '#999';
+                ctx.font = '20px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Heap is empty', ctx.canvas.width / 2, ctx.canvas.height / 2);
+                return;
+            }
+
+            const levels = Math.ceil(Math.log2(heap.length + 1));
+            const startY = 60;
+            const levelGap = 90;
+
+            function drawNode2(index, x, y, levelWidth) {
+                if (index >= heap.length) return;
+
+                const leftChild = 2 * index + 1;
+                const rightChild = 2 * index + 2;
+
+                if (leftChild < heap.length) {
+                    const childX = x - levelWidth / 2;
+                    const childY = y + levelGap;
+                    drawLine(ctx, x, y + 28, childX, childY - 28);
+                    drawNode2(leftChild, childX, childY, levelWidth / 2);
+                }
+
+                if (rightChild < heap.length) {
+                    const childX = x + levelWidth / 2;
+                    const childY = y + levelGap;
+                    drawLine(ctx, x, y + 28, childX, childY - 28);
+                    drawNode2(rightChild, childX, childY, levelWidth / 2);
+                }
+
+                let color = isMinHeap ? '#51cf66' : '#667eea';
+                let isRoot = index === 0;
+                
+                if (sorted.includes(index)) {
+                    color = '#51cf66';
+                } else if (highlightIndices.includes(index)) {
+                    color = '#ffd700';
+                } else if (isRoot) {
+                    color = '#ff6b6b';
+                }
+
+                drawNode(ctx, x, y, heap[index], color, isRoot);
+
+                ctx.fillStyle = '#666';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(`i=${index}`, x, y + 45);
+            }
+
+            const startX = ctx.canvas.width / 2;
+            const initialWidth = Math.min(500, ctx.canvas.width / 2);
+            drawNode2(0, startX, startY, initialWidth);
+        }
+
+        function addLog(logId, message, type = 'info') {
+            const log = document.getElementById(logId);
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // MIN HEAP FUNCTIONS
+        function minHeapifyUp(index) {
+            if (index === 0) return;
+            
+            const parentIndex = Math.floor((index - 1) / 2);
+            
+            if (minHeap[index] < minHeap[parentIndex]) {
+                [minHeap[index], minHeap[parentIndex]] = [minHeap[parentIndex], minHeap[index]];
+                minHeapifyUp(parentIndex);
+            }
+        }
+
+        function minHeapifyDown(index) {
+            const leftChild = 2 * index + 1;
+            const rightChild = 2 * index + 2;
+            let smallest = index;
+
+            if (leftChild < minHeap.length && minHeap[leftChild] < minHeap[smallest]) {
+                smallest = leftChild;
+            }
+
+            if (rightChild < minHeap.length && minHeap[rightChild] < minHeap[smallest]) {
+                smallest = rightChild;
+            }
+
+            if (smallest !== index) {
+                [minHeap[index], minHeap[smallest]] = [minHeap[smallest], minHeap[index]];
+                minHeapifyDown(smallest);
+            }
+        }
+
+        function insertMinHeap() {
+            const value = parseInt(document.getElementById('minInsertValue').value);
+            
+            if (isNaN(value) || value < 1 || value > 99) {
+                addLog('minLog', 'Please enter a valid number (1-99)', 'error');
+                return;
+            }
+
+            minHeap.push(value);
+            minHeapifyUp(minHeap.length - 1);
+            minOperations++;
+            
+            updateMinHeapDisplay();
+            addLog('minLog', `Inserted ${value} into min heap`, 'success');
+        }
+
+        function extractMinHeap() {
+            if (minHeap.length === 0) {
+                addLog('minLog', 'Heap is empty!', 'error');
+                return;
+            }
+
+            const min = minHeap[0];
+            minHeap[0] = minHeap[minHeap.length - 1];
+            minHeap.pop();
+            
+            if (minHeap.length > 0) {
+                minHeapifyDown(0);
+            }
+            
+            minOperations++;
+            updateMinHeapDisplay();
+            addLog('minLog', `Extracted minimum: ${min}`, 'success');
+        }
+
+        function peekMinHeap() {
+            if (minHeap.length === 0) {
+                addLog('minLog', 'Heap is empty!', 'error');
+                return;
+            }
+
+            addLog('minLog', `Minimum value: ${minHeap[0]}`, 'info');
+        }
+
+        function buildMinHeap() {
+            const input = document.getElementById('minBuildArray').value;
+            const values = input.split(',').map(v => parseInt(v.trim())).filter(v => !isNaN(v) && v >= 1 && v <= 99);
+            
+            if (values.length === 0) {
+                addLog('minLog', 'Please enter valid numbers', 'error');
+                return;
+            }
+
+            minHeap = values;
+            
+            for (let i = Math.floor(minHeap.length / 2) - 1; i >= 0; i--) {
+                minHeapifyDown(i);
+            }
+            
+            minOperations++;
+            updateMinHeapDisplay();
+            addLog('minLog', `Built min heap from array`, 'success');
+        }
+
+        function clearMinHeap() {
+            minHeap = [];
+            minOperations = 0;
+            updateMinHeapDisplay();
+            document.getElementById('minLog').innerHTML = '<h4>Operations Log:</h4>';
+            addLog('minLog', 'Heap cleared', 'info');
+        }
+
+        function updateMinHeapDisplay() {
+            drawHeap(minCtx, minHeap, [], true);
+            document.getElementById('minArrayDisplay').textContent = '[' + minHeap.join(', ') + ']';
+            document.getElementById('minHeapSize').textContent = minHeap.length;
+            document.getElementById('minHeapMin').textContent = minHeap.length > 0 ? minHeap[0] : '-';
+            document.getElementById('minOperations').textContent = minOperations;
+        }
+
+        // MAX HEAP FUNCTIONS
+        function maxHeapifyUp(index) {
+            if (index === 0) return;
+            
+            const parentIndex = Math.floor((index - 1) / 2);
+            
+            if (maxHeap[index] > maxHeap[parentIndex]) {
+                [maxHeap[index], maxHeap[parentIndex]] = [maxHeap[parentIndex], maxHeap[index]];
+                maxHeapifyUp(parentIndex);
+            }
+        }
+
+        function maxHeapifyDown(index, heapSize = maxHeap.length) {
+            const leftChild = 2 * index + 1;
+            const rightChild = 2 * index + 2;
+            let largest = index;
+
+            if (leftChild < heapSize && maxHeap[leftChild] > maxHeap[largest]) {
+                largest = leftChild;
+            }
+
+            if (rightChild < heapSize && maxHeap[rightChild] > maxHeap[largest]) {
+                largest = rightChild;
+            }
+
+            if (largest !== index) {
+                [maxHeap[index], maxHeap[largest]] = [maxHeap[largest], maxHeap[index]];
+                maxHeapifyDown(largest, heapSize);
+            }
+        }
+
+        function insertMaxHeap() {
+            const value = parseInt(document.getElementById('maxInsertValue').value);
+            
+            if (isNaN(value) || value < 1 || value > 99) {
+                addLog('maxLog', 'Please enter a valid number (1-99)', 'error');
+                return;
+            }
+
+            maxHeap.push(value);
+            maxHeapifyUp(maxHeap.length - 1);
+            maxOperations++;
+            sortedIndices = [];
+            
+            updateMaxHeapDisplay();
+            addLog('maxLog', `Inserted ${value} into max heap`, 'success');
+        }
+
+        function extractMaxHeap() {
+            if (maxHeap.length === 0) {
+                addLog('maxLog', 'Heap is empty!', 'error');
+                return;
+            }
+
+            const max = maxHeap[0];
+            maxHeap[0] = maxHeap[maxHeap.length - 1];
+            maxHeap.pop();
+            
+            if (maxHeap.length > 0) {
+                maxHeapifyDown(0);
+            }
+            
+            maxOperations++;
+            sortedIndices = [];
+            updateMaxHeapDisplay();
+            addLog('maxLog', `Extracted maximum: ${max}`, 'success');
+        }
+
+        function peekMaxHeap() {
+            if (maxHeap.length === 0) {
+                addLog('maxLog', 'Heap is empty!', 'error');
+                return;
+            }
+
+            addLog('maxLog', `Maximum value: ${maxHeap[0]}`, 'info');
+        }
+
+        function buildMaxHeap() {
+            const input = document.getElementById('maxBuildArray').value;
+            const values = input.split(',').map(v => parseInt(v.trim())).filter(v => !isNaN(v) && v >= 1 && v <= 99);
+            
+            if (values.length === 0) {
+                addLog('maxLog', 'Please enter valid numbers', 'error');
+                return;
+            }
+
+            maxHeap = values;
+            sortedIndices = [];
+            
+            for (let i = Math.floor(maxHeap.length / 2) - 1; i >= 0; i--) {
+                maxHeapifyDown(i);
+            }
+            
+            maxOperations++;
+            updateMaxHeapDisplay();
+            addLog('maxLog', `Built max heap from array`, 'success');
+        }
+
+        function clearMaxHeap() {
+            maxHeap = [];
+            maxOperations = 0;
+            sortedIndices = [];
+            sorting = false;
+            updateMaxHeapDisplay();
+            document.getElementById('maxLog').innerHTML = '<h4>Operations Log:</h4>';
+            addLog('maxLog', 'Heap cleared', 'info');
+            document.getElementById('sortBtn').disabled = false;
+        }
+
+        function updateMaxHeapDisplay() {
+            drawHeap(maxCtx, maxHeap, [], false, sortedIndices);
+            document.getElementById('maxArrayDisplay').textContent = '[' + maxHeap.join(', ') + ']';
+            document.getElementById('maxHeapSize').textContent = maxHeap.length - sortedIndices.length;
+            document.getElementById('maxHeapMax').textContent = maxHeap.length > 0 && sortedIndices.length === 0 ? maxHeap[0] : '-';
+            document.getElementById('maxOperations').textContent = maxOperations;
+            document.getElementById('sortedCount').textContent = sortedIndices.length;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function startHeapSort() {
+            if (maxHeap.length === 0) {
+                addLog('maxLog', 'Heap is empty! Build a heap first.', 'error');
+                return;
+            }
+
+            if (sorting) return;
+
+            sorting = true;
+            sortedIndices = [];
+            document.getElementById('sortBtn').disabled = true;
+            
+            addLog('maxLog', 'Starting Heap Sort...', 'info');
+            
+            const n = maxHeap.length;
+            const speed = parseInt(document.getElementById('maxSpeed').value);
+
+            for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+                maxHeapifyDown(i, n);
+            }
+            updateMaxHeapDisplay();
+            addLog('maxLog', 'Max heap built', 'success');
+            await sleep(speed);
+
+            for (let i = n - 1; i > 0; i--) {
+                addLog('maxLog', `Swapping root (${maxHeap[0]}) with position ${i} (${maxHeap[i]})`, 'info');
+                
+                drawHeap(maxCtx, maxHeap, [0, i], false, sortedIndices);
+                await sleep(speed);
+
+                [maxHeap[0], maxHeap[i]] = [maxHeap[i], maxHeap[0]];
+                
+                sortedIndices.push(i);
+                updateMaxHeapDisplay();
+                await sleep(speed);
+
+                addLog('maxLog', `Heapifying with heap size ${i}`, 'info');
+                maxHeapifyDown(0, i);
+                updateMaxHeapDisplay();
+                await sleep(speed);
+
+                maxOperations++;
+                updateMaxHeapDisplay();
+            }
+
+            sortedIndices.push(0);
+            updateMaxHeapDisplay();
+            addLog('maxLog', '✓ Heap Sort Complete! Array is sorted in ascending order.', 'success');
+            
+            sorting = false;
+            document.getElementById('sortBtn').disabled = false;
+        }
+
+        updateMinHeapDisplay();
+        updateMaxHeapDisplay();
+    </script>
+</body>
+</html>
